@@ -15,9 +15,7 @@ class FirestoreDatabase {
         documentId: String,
         callback: (Boolean, String?) -> Unit
     ) {
-        val data = co2Data.map { it.copy() } // Kopie der Liste erstellen, um unerwartete Änderungen zu vermeiden
-
-        val firestoreData = data.map { barData ->
+        val firestoreData = co2Data.map { barData ->
             mapOf(
                 "dayOfWeek" to barData.dayOfWeek,
                 "value" to barData.value
@@ -39,14 +37,14 @@ class FirestoreDatabase {
     fun readCO2Data(
         collectionName: String,
         documentId: String,
-        callback: (List<BarData>?, Any?) -> Unit
+        callback: (List<BarData>?, Exception?) -> Unit
     ) {
         db.collection(collectionName)
             .document(documentId)
             .get()
             .addOnSuccessListener { documentSnapshot ->
-                val firestoreData = documentSnapshot.get("co2Data") as? List<Map<String, Any>>
-                val co2DataList = firestoreData?.map { data ->
+                val firestoreData = documentSnapshot.get("co2Data") as? List<*>
+                val co2DataList = firestoreData?.filterIsInstance<Map<String, Any>>()?.map { data ->
                     BarData(
                         dayOfWeek = data["dayOfWeek"] as? String ?: "",
                         value = (data["value"] as? Double)?.toFloat() ?: 0f
@@ -65,9 +63,7 @@ class FirestoreDatabase {
         documentId: String,
         callback: (Boolean, Any?) -> Unit
     ) {
-        val data = co2Data.map { it.copy() } // Kopie der Liste erstellen, um unerwartete Änderungen zu vermeiden
-
-        val firestoreData = data.map { barData ->
+        val firestoreData = co2Data.map { barData ->
             mapOf(
                 "dayOfWeek" to barData.dayOfWeek,
                 "value" to barData.value
