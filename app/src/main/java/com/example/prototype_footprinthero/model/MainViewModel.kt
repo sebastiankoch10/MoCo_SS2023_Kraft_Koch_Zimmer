@@ -1,14 +1,15 @@
 package com.example.prototype_footprinthero.model
 
-import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
     val vehicles = listOf("Auto", "Fahrrad", "Flugzeug")
+    val co2CalculationViewModel = CO2CalculationViewModel()
+
     val selectedVehicle = mutableStateOf("Auto")
     val duration = mutableStateOf(0)
     val co2 = mutableStateOf(0f)
-    val co2CalculationViewModel = CO2CalculationViewModel()
 
     fun onVehicleSelected(vehicle: String) {
         selectedVehicle.value = vehicle
@@ -25,4 +26,5 @@ class MainViewModel : ViewModel() {
         co2.value = co2CalculationViewModel.model.co2
     }
 }
+
 
