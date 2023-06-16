@@ -34,6 +34,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 elevation = 0.dp
             )
         },
+        /* TODO was soll der machen?
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { /* TODO */ },
@@ -43,6 +44,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
+         */
     ) { innerPadding ->
         Column(
             modifier = Modifier
