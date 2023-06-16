@@ -9,7 +9,7 @@ class MainViewModel : ViewModel() {
     val co2CalculationViewModel = CO2CalculationViewModel()
 
     val selectedVehicle = mutableStateOf("Auto")
-    var duration = Float
+    var duration = mutableStateOf(0f)
     val co2 = mutableStateOf(0f)
 
     fun onVehicleSelected(vehicle: String) {
@@ -18,8 +18,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun onDurationChanged(duration: Float) {
-        this.duration = duration
-        co2CalculationViewModel.duration = duration
+        co2CalculationViewModel.onDurationChanged(duration)
+        Log.d("MainViewModel", "Selected duration: $duration")
     }
 
     fun calculateCO2() {

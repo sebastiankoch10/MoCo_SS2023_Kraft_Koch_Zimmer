@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun TransportationListView(
+fun TransportationButtonsView(
     vehicles: List<String>,
     selectedVehicle: String,
     onVehicleSelected: (String) -> Unit

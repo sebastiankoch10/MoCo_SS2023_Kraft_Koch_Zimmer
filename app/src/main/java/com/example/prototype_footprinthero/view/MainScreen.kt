@@ -46,17 +46,18 @@ fun MainScreen(viewModel: MainViewModel) {
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
         ) {
-            TransportationListView(
+            TransportationButtonsView(
                 vehicles = viewModel.vehicles,
                 selectedVehicle = viewModel.selectedVehicle.value,
                 onVehicleSelected = viewModel::onVehicleSelected
             )
 
-            Row(Modifier.padding(16.dp)) {
-                TransportationDuration(
-                    duration = viewModel.duration
-                ) { duration ->
-                    viewModel.onDurationChanged(duration)
+            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                Box(modifier = Modifier.weight(1f)) {
+                    TransportationDurationView(
+                        duration = viewModel.duration.value.toFloat(),
+                        onDurationChanged = viewModel::onDurationChanged
+                    )
                 }
                 Button(
                     onClick = { viewModel.calculateCO2() },
