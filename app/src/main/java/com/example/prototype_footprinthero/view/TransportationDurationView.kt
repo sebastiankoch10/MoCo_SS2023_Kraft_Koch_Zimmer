@@ -17,31 +17,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TransportationDuration(
+fun TransportationDurationView(
     duration: Int,
-    onDurationChanged: (Int) -> Unit) {
-    var duration by remember { mutableStateOf(0) }
+    onDurationChanged: (Int) -> Unit
+) {
+    var currentDuration by remember { mutableStateOf(duration.toInt()) }
 
     Column(Modifier.padding(16.dp)) {
         Text(text = "Fortbewegungsdauer (in Minuten)", style = MaterialTheme.typography.h6)
 
         Box(Modifier.padding(top = 8.dp)) {
             Slider(
-                value = duration.toFloat(),
+                value = currentDuration.toFloat(),
                 onValueChange = { newValue ->
-                    duration = newValue.toInt()
-                    onDurationChanged(duration)
+                    currentDuration = newValue.toInt()
+                    onDurationChanged(currentDuration)
                 },
                 valueRange = 0f..120f,
-                steps = 1,
                 modifier = Modifier.fillMaxWidth()
             )
 
             Text(
-                text = duration.toString(),
+                text = currentDuration.toString(),
                 style = MaterialTheme.typography.body1.merge(),
                 modifier = Modifier.align(Alignment.BottomEnd).padding(end = 8.dp)
             )
         }
     }
 }
+
+
+
+
+
+
+
+

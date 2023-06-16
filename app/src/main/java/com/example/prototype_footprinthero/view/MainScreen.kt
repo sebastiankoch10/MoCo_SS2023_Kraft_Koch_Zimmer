@@ -4,18 +4,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.prototype_footprinthero.model.MainViewModel
-import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
@@ -52,24 +46,41 @@ fun MainScreen(viewModel: MainViewModel) {
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
         ) {
-            TransportationList(
+            TransportationButtonsView(
                 vehicles = viewModel.vehicles,
                 selectedVehicle = viewModel.selectedVehicle.value,
                 onVehicleSelected = viewModel::onVehicleSelected
             )
-            TransportationDuration(
-                duration = viewModel.duration.value,
-                onDurationChanged = viewModel::onDurationChanged
-            )
-            CO2Calculation(
-                co2 = viewModel.co2.value,
-                onCalculateCO2 = viewModel::calculateCO2
-            )
+
+            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                Box(modifier = Modifier.weight(1f)) {
+                    TransportationDurationView(
+                        duration = viewModel.duration,
+                        onDurationChanged = { duration ->
+                            viewModel.onDurationChanged(duration)
+                        }
+                    )
+
+                }
+                Button(
+                    onClick = { viewModel.calculateCO2() },
+                    modifier = Modifier.padding(start = 8.dp)
+                ) {
+                    Text(text = "Berechnen")
+                }
+            }
+
             WeekdayOverview()
             WeeklyOverview()
         }
     }
 }
+
+
+
+
+
+
 
 
 
