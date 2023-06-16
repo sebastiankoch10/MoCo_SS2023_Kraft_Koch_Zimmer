@@ -52,12 +52,11 @@ fun MainScreen(viewModel: MainViewModel) {
                 onVehicleSelected = viewModel::onVehicleSelected
             )
 
-            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                Box(modifier = Modifier.weight(1f)) {
-                    TransportationDuration(
-                        duration = viewModel.duration.value,
-                        onDurationChanged = viewModel::onDurationChanged
-                    )
+            Row(Modifier.padding(16.dp)) {
+                TransportationDuration(
+                    duration = viewModel.duration
+                ) { duration ->
+                    viewModel.onDurationChanged(duration)
                 }
                 Button(
                     onClick = { viewModel.calculateCO2() },

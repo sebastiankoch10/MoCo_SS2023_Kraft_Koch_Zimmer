@@ -10,8 +10,9 @@ data class CO2CalculationModel(
         "Flugzeug" to 2.0f
     ),
     var selectedTransportation: String = "Auto",
-    var duration: Int = 0
+    var duration: Float = 0f
 )
+
 
 class CO2CalculationViewModel {
     val model = CO2CalculationModel()
@@ -22,11 +23,18 @@ class CO2CalculationViewModel {
         if (!calculatedCo2.isNaN()) {
             model.co2 = calculatedCo2
         }
+        Log.d("CO2CalculationModel", "Calculated CO2: $calculatedCo2")
     }
 
     fun onVehicleSelected(vehicle: String) {
         model.selectedTransportation = vehicle
         Log.d("CO2CalculationViewModel", "Selected vehicle: $vehicle")
     }
+
+    fun onDurationChanged(duration: Float) {
+        model.duration = duration
+        Log.d("CO2CalculationViewModel", "Selected duration: $duration")
+    }
 }
+
 
