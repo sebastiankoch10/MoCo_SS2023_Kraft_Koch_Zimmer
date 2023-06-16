@@ -61,10 +61,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 duration = viewModel.duration.value,
                 onDurationChanged = viewModel::onDurationChanged
             )
-            CO2Calculation(
-                co2 = viewModel.co2.value,
-                onCalculateCO2 = viewModel::calculateCO2
-            )
+            viewModel.calculateCO2()
             WeekdayOverview()
             WeeklyOverview()
         }
