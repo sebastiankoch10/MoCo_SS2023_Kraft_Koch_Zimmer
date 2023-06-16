@@ -18,62 +18,56 @@ import com.example.prototype_footprinthero.model.MainViewModel
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 
 @Composable
-fun MainScreen(viewModel: MainViewModel = viewModel()) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Footprint Hero",
-            style = MaterialTheme.typography.h4,
-            modifier = Modifier.padding(16.dp)
-        )
-
-        DropdownMenu(
-            expanded = false,
-            onDismissRequest = { /* Empty */ }
-        ) {
-            viewModel.vehicles.forEach { vehicle ->
-                DropdownMenuItem(onClick = {
-                    viewModel.onVehicleSelected(vehicle)
-                }) {
-                    Text(text = vehicle)
-                }
+fun MainScreen(viewModel: MainViewModel) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "Footprint Hero", style = MaterialTheme.typography.h5)
+                    }
+                },
+                backgroundColor = Color(0xFF214001),
+                elevation = 0.dp
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /* TODO */ },
+                backgroundColor = Color(0xFF214001),
+                modifier = Modifier.padding(end = 16.dp, bottom = 16.dp)
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
-
-        OutlinedTextField(
-            value = viewModel.duration.value.toString(),
-            onValueChange = { newValue ->
-                viewModel.onDurationChanged(newValue.toIntOrNull() ?: 0)
-            },
-            label = { Text(text = "Duration") }
-        )
-
-        Button(
-            onClick = { viewModel.calculateCO2() },
-            modifier = Modifier.padding(16.dp)
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize()
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Calculate CO2")
-            Text(text = "Calculate CO2")
+            TransportationList(
+                vehicles = viewModel.vehicles,
+                selectedVehicle = viewModel.selectedVehicle.value,
+                onVehicleSelected = viewModel::onVehicleSelected
+            )
+            TransportationDuration(
+                duration = viewModel.duration.value,
+                onDurationChanged = viewModel::onDurationChanged
+            )
+            CO2Calculation(
+                co2 = viewModel.co2.value,
+                onCalculateCO2 = viewModel::calculateCO2
+            )
+            WeekdayOverview()
+            WeeklyOverview()
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = "CO2: ${viewModel.co2.value} kg",
-            style = MaterialTheme.typography.h6
-        )
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Prototype_FootPrintHeroTheme {
-        MainScreen()
-    }
-}
+
+
