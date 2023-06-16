@@ -1,4 +1,4 @@
-package com.example.prototype_footprinthero
+package com.example.prototype_footprinthero.view
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -10,7 +10,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import com.example.prototype_footprinthero.model.MainViewModel
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
-import com.example.prototype_footprinthero.view.MainScreen
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
