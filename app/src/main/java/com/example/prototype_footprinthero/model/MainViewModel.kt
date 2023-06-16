@@ -1,5 +1,6 @@
 package com.example.prototype_footprinthero.model
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
@@ -24,6 +25,7 @@ class MainViewModel : ViewModel() {
     fun calculateCO2() {
         co2CalculationViewModel.calculateCO2()
         co2.value = co2CalculationViewModel.model.co2
+        Log.d("MainViewModel", "calculate CO2: ${co2.value}")
     }
 }
 

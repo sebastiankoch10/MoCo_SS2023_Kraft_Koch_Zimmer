@@ -52,16 +52,32 @@ fun MainScreen(viewModel: MainViewModel) {
                 onVehicleSelected = viewModel::onVehicleSelected
             )
 
-            TransportationDuration(
-                duration = viewModel.duration.value,
-                onDurationChanged = viewModel::onDurationChanged
-            )
-            viewModel.calculateCO2()
+            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                Box(modifier = Modifier.weight(1f)) {
+                    TransportationDuration(
+                        duration = viewModel.duration.value,
+                        onDurationChanged = viewModel::onDurationChanged
+                    )
+                }
+                Button(
+                    onClick = { viewModel.calculateCO2() },
+                    modifier = Modifier.padding(start = 8.dp)
+                ) {
+                    Text(text = "Berechnen")
+                }
+            }
+
             WeekdayOverview()
             WeeklyOverview()
         }
     }
 }
+
+
+
+
+
+
 
 
 
