@@ -10,7 +10,7 @@ data class CO2CalculationModel(
         "Flugzeug" to 2.0f
     ),
     var selectedTransportation: String = "Auto",
-    var duration: Float = 0f
+    var duration: Int = 0
 )
 
 
@@ -31,7 +31,7 @@ class CO2CalculationViewModel {
         Log.d("CO2CalculationViewModel", "Selected vehicle: $vehicle")
     }
 
-    fun onDurationChanged(duration: Float) {
+    fun onDurationChanged(duration: Int) {
         model.duration = duration
         Log.d("CO2CalculationViewModel", "Selected duration: $duration")
     }
