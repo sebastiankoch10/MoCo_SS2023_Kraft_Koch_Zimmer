@@ -1,5 +1,7 @@
 package com.example.prototype_footprinthero.model
 
+import android.util.Log
+
 data class CO2CalculationModel(
     var co2: Float = 0f,
     val transportationCO2: Map<String, Float> = mapOf(
@@ -24,6 +26,7 @@ class CO2CalculationViewModel {
 
     fun onVehicleSelected(vehicle: String) {
         model.selectedTransportation = vehicle
+        Log.d("CO2CalculationViewModel", "Selected vehicle: $vehicle")
     }
 }
 
