@@ -17,15 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.model.CO2CalculationViewModel
 
 @Composable
 fun CO2Calculation(
-    co2: Float,
-    onCalculateCO2: () -> Unit) {
-    var co2 by remember { mutableStateOf(0f) }
-    val transportationCO2 = mapOf("Auto" to 0.3f, "Fahrrad" to 0.0f, "Flugzeug" to 2.0f)
-    val selectedTransportation by remember { mutableStateOf("Auto") }
-    val duration by remember { mutableStateOf(0) }
+    viewModel: CO2CalculationViewModel
+) {
+    val co2 = viewModel.model.co2
+    val selectedTransportation = viewModel.model.selectedTransportation
+    val duration = viewModel.model.duration
 
     Column(Modifier.padding(16.dp)) {
         Text(text = "CO2-Berechnung", style = MaterialTheme.typography.h6)
@@ -39,13 +39,7 @@ fun CO2Calculation(
         }
 
         Button(
-            onClick = {
-                val co2Emission = transportationCO2[selectedTransportation] ?: 0f
-                val calculatedCo2 = co2Emission * duration
-                if (!calculatedCo2.isNaN()) {
-                    co2 = calculatedCo2
-                }
-            },
+            onClick = { viewModel.calculateCO2() },
             modifier = Modifier
                 .padding(top = 8.dp)
                 .align(Alignment.CenterHorizontally)
