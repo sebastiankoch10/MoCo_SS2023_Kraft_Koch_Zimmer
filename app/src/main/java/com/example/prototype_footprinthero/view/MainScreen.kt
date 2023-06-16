@@ -51,6 +51,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 selectedVehicle = viewModel.selectedVehicle.value,
                 onVehicleSelected = viewModel::onVehicleSelected
             )
+
             TransportationDuration(
                 duration = viewModel.duration.value,
                 onDurationChanged = viewModel::onDurationChanged

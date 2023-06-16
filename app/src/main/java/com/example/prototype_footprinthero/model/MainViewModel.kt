@@ -13,7 +13,7 @@ class MainViewModel : ViewModel() {
 
     fun onVehicleSelected(vehicle: String) {
         selectedVehicle.value = vehicle
-        //co2CalculationViewModel.selectedTransportation = vehicle
+        co2CalculationViewModel.onVehicleSelected(vehicle)
     }
 
     fun onDurationChanged(duration: Int) {

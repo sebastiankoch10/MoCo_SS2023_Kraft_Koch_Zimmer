@@ -21,4 +21,9 @@ class CO2CalculationViewModel {
             model.co2 = calculatedCo2
         }
     }
+
+    fun onVehicleSelected(vehicle: String) {
+        model.selectedTransportation = vehicle
+    }
 }
+
