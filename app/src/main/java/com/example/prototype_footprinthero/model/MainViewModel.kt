@@ -3,6 +3,7 @@ package com.example.prototype_footprinthero.model
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.prototype_footprinthero.model.FirestoreDatabase
 
 class MainViewModel : ViewModel() {
     val vehicles = listOf("Auto", "Fahrrad", "Flugzeug")
@@ -27,6 +28,26 @@ class MainViewModel : ViewModel() {
         co2.value = co2CalculationViewModel.model.co2
         Log.d("MainViewModel", "calculate CO2: ${co2.value}")
     }
+
+    fun writeCO2Data(barData: BarData) {
+        val collectionName = "co2Data"
+        val documentId = "your_document_id"
+
+        val firestoreDatabase = FirestoreDatabase() // Instanz von FirestoreDatabase erstellen
+
+        firestoreDatabase.writeCO2Data(
+            listOf(barData),
+            collectionName,
+            documentId
+        ) { success, error ->
+            if (success) {
+                Log.d("MainViewModel", "CO2 data written successfully")
+            } else {
+                Log.e("MainViewModel", "Failed to write CO2 data: $error")
+            }
+        }
+    }
 }
+
 
 

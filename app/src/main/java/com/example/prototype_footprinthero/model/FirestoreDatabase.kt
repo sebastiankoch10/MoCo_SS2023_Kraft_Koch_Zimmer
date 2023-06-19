@@ -1,16 +1,14 @@
+package com.example.prototype_footprinthero.model
+
 import com.google.firebase.firestore.FirebaseFirestore
 
-data class BarData(
-    val dayOfWeek: String,
-    val value: Float
-)
 
 class FirestoreDatabase {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun writeCO2Data(
-        co2Data: List<BarData>,
+        co2Data: List<com.example.prototype_footprinthero.model.BarData>,
         collectionName: String,
         documentId: String,
         callback: (Boolean, String?) -> Unit
