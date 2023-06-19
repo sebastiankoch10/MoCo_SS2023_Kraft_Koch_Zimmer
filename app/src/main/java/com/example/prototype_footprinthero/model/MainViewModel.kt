@@ -4,8 +4,13 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.prototype_footprinthero.model.FirestoreDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class MainViewModel : ViewModel() {
+
+    val firestoreDatabase: FirebaseFirestore = FirebaseFirestore.getInstance()
+
     val vehicles = listOf("Auto", "Fahrrad", "Flugzeug")
     val co2CalculationViewModel = CO2CalculationViewModel()
 

@@ -27,7 +27,7 @@ import com.example.prototype_footprinthero.model.MainViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun MainScreen(viewModel: MainViewModel, firestoreDatabase: FirebaseFirestore) {
+fun MainScreen(viewModel: MainViewModel) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -43,17 +43,6 @@ fun MainScreen(viewModel: MainViewModel, firestoreDatabase: FirebaseFirestore) {
                 elevation = 0.dp
             )
         },
-        /* TODO was soll der machen?
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* TODO */ },
-                backgroundColor = Color(0xFF214001),
-                modifier = Modifier.padding(end = 16.dp, bottom = 16.dp)
-            ) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
-        }
-         */
     ) { innerPadding ->
         Column(
             modifier = Modifier

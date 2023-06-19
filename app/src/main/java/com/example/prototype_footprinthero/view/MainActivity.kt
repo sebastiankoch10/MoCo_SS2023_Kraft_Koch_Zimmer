@@ -14,19 +14,16 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
-    private lateinit var firestoreDatabase: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        firestoreDatabase = FirebaseFirestore.getInstance()
 
         setContent {
             Prototype_FootPrintHeroTheme {
                 Surface(color = Color.White) {
                     MainScreen(
-                        viewModel = viewModel,
-                        firestoreDatabase = firestoreDatabase
+                        viewModel = viewModel
                     )
                 }
             }
