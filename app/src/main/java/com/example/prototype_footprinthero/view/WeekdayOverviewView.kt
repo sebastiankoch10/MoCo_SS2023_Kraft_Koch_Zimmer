@@ -49,7 +49,7 @@ fun WeekdayOverview() {
                         .padding(4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = data.label)
+                    Text(text = data.dayOfWeek)
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()

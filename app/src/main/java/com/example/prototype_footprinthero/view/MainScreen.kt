@@ -16,9 +16,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.model.BarData
 import com.example.prototype_footprinthero.model.MainViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun MainScreen(viewModel: MainViewModel) {
+fun MainScreen(viewModel: MainViewModel, firestoreDatabase: FirebaseFirestore) {
     val co2DataInput = remember { mutableStateOf(TextFieldValue()) }
 
     Column(
