@@ -40,7 +40,9 @@ fun TransportationDurationView(
             Text(
                 text = currentDuration.toString(),
                 style = MaterialTheme.typography.body1.merge(),
-                modifier = Modifier.align(Alignment.BottomEnd).padding(end = 8.dp)
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(end = 8.dp)
             )
         }
     }

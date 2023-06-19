@@ -17,15 +17,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TransportationButtonsView(
-    vehicles: List<String>,
-    selectedVehicle: String,
-    onVehicleSelected: (String) -> Unit
+    vehicles: List<String>, selectedVehicle: String, onVehicleSelected: (String) -> Unit
 ) {
     Column(Modifier.padding(16.dp)) {
         Text(text = "Fortbewegungsmittel", style = MaterialTheme.typography.h6)
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             vehicles.forEach { vehicle ->
                 Button(
