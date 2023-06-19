@@ -8,38 +8,30 @@ class FirestoreDatabase {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun writeCO2Data(
-        co2Data: List<com.example.prototype_footprinthero.model.BarData>,
+        co2Data: List<BarData>,
         collectionName: String,
         documentId: String,
         callback: (Boolean, String?) -> Unit
     ) {
         val firestoreData = co2Data.map { barData ->
             mapOf(
-                "dayOfWeek" to barData.dayOfWeek,
-                "value" to barData.value
+                "dayOfWeek" to barData.dayOfWeek, "value" to barData.value
             )
         }
 
-        db.collection(collectionName)
-            .document(documentId)
-            .set(mapOf("co2Data" to firestoreData))
+        db.collection(collectionName).document(documentId).set(mapOf("co2Data" to firestoreData))
             .addOnSuccessListener {
                 callback(true, null) // Erfolgreich geschrieben, kein Fehler
-            }
-            .addOnFailureListener { e ->
+            }.addOnFailureListener { e ->
                 val errorMessage = e.message ?: "Unbekannter Fehler"
                 callback(false, errorMessage) // Fehler beim Schreiben mit Fehlermeldung
             }
     }
 
     fun readCO2Data(
-        collectionName: String,
-        documentId: String,
-        callback: (List<BarData>?, Exception?) -> Unit
+        collectionName: String, documentId: String, callback: (List<BarData>?, Exception?) -> Unit
     ) {
-        db.collection(collectionName)
-            .document(documentId)
-            .get()
+        db.collection(collectionName).document(documentId).get()
             .addOnSuccessListener { documentSnapshot ->
                 val firestoreData = documentSnapshot.get("co2Data") as? List<*>
                 val co2DataList = firestoreData?.filterIsInstance<Map<String, Any>>()?.map { data ->
@@ -49,8 +41,7 @@ class FirestoreDatabase {
                     )
                 }
                 callback(co2DataList, null)
-            }
-            .addOnFailureListener { e ->
+            }.addOnFailureListener { e ->
                 callback(null, e) // Fehler beim Lesen
             }
     }
@@ -63,35 +54,25 @@ class FirestoreDatabase {
     ) {
         val firestoreData = co2Data.map { barData ->
             mapOf(
-                "dayOfWeek" to barData.dayOfWeek,
-                "value" to barData.value
+                "dayOfWeek" to barData.dayOfWeek, "value" to barData.value
             )
         }
 
-        db.collection(collectionName)
-            .document(documentId)
-            .update(mapOf("co2Data" to firestoreData))
+        db.collection(collectionName).document(documentId).update(mapOf("co2Data" to firestoreData))
             .addOnSuccessListener {
                 callback(true, null) // Erfolgreich aktualisiert
-            }
-            .addOnFailureListener { e ->
+            }.addOnFailureListener { e ->
                 callback(false, e) // Fehler beim Aktualisieren
             }
     }
 
     fun deleteCO2Data(
-        collectionName: String,
-        documentId: String,
-        callback: (Boolean, Any?) -> Unit
+        collectionName: String, documentId: String, callback: (Boolean, Any?) -> Unit
     ) {
-        db.collection(collectionName)
-            .document(documentId)
-            .delete()
-            .addOnSuccessListener {
-                callback(true, null) // Erfolgreich gelöscht
-            }
-            .addOnFailureListener { e ->
-                callback(false, e) // Fehler beim Löschen
-            }
+        db.collection(collectionName).document(documentId).delete().addOnSuccessListener {
+            callback(true, null) // Erfolgreich gelöscht
+        }.addOnFailureListener { e ->
+            callback(false, e) // Fehler beim Löschen
+        }
     }
 }

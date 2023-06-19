@@ -6,11 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModelProvider
-import com.example.prototype_footprinthero.model.FirestoreDatabase
 import com.example.prototype_footprinthero.model.MainViewModel
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
-import com.example.prototype_footprinthero.view.MainScreen
-import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel

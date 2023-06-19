@@ -5,12 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import java.time.LocalDate
-import java.time.format.TextStyle
-import java.util.Locale
 import kotlinx.datetime.Clock
-import kotlinx.datetime.DayOfWeek
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
@@ -29,7 +24,7 @@ class MainViewModel : ViewModel() {
         readData("co2Data", "your_document_id")
     }
 
-    @Composable
+   /* @Composable
     fun safeData(barData: List<BarData>) {
         val collectionName = "co2Data"
         val documentId = "your_document_id"
@@ -45,6 +40,8 @@ class MainViewModel : ViewModel() {
 
         }
     }
+
+    */
 
     fun readData(collectionName:String, documentId:String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataList, error ->
