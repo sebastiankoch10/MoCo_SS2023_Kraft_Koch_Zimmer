@@ -8,7 +8,7 @@ class FirestoreDatabase {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun writeCO2Data(
-        co2Data: List<BarData>,
+        co2Data: List<ConsumptionData>,
         collectionName: String,
         documentId: String,
         callback: (Boolean, String?) -> Unit
@@ -29,13 +29,13 @@ class FirestoreDatabase {
     }
 
     fun readCO2Data(
-        collectionName: String, documentId: String, callback: (List<BarData>?, Exception?) -> Unit
+        collectionName: String, documentId: String, callback: (List<ConsumptionData>?, Exception?) -> Unit
     ) {
         db.collection(collectionName).document(documentId).get()
             .addOnSuccessListener { documentSnapshot ->
                 val firestoreData = documentSnapshot.get("co2Data") as? List<*>
                 val co2DataList = firestoreData?.filterIsInstance<Map<String, Any>>()?.map { data ->
-                    BarData(
+                    ConsumptionData(
                         dayOfWeek = data["dayOfWeek"] as? String ?: "",
                         value = (data["value"] as? Double)?.toFloat() ?: 0f
                     )
@@ -47,7 +47,7 @@ class FirestoreDatabase {
     }
 
     fun updateCO2Data(
-        co2Data: List<BarData>,
+        co2Data: List<ConsumptionData>,
         collectionName: String,
         documentId: String,
         callback: (Boolean, Any?) -> Unit

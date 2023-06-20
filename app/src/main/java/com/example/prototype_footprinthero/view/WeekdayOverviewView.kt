@@ -16,7 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.prototype_footprinthero.model.BarData
+import com.example.prototype_footprinthero.model.ConsumptionData
+
+
 
 @Composable
 fun WeekdayOverview() {
@@ -24,15 +26,17 @@ fun WeekdayOverview() {
 
     val co2Data = remember {
         mutableStateListOf(
-            BarData("Mo", 0f),
-            BarData("Di", 0f),
-            BarData("Mi", 0f),
-            BarData("Do", 0f),
-            BarData("Fr", 0f),
-            BarData("Sa", 0f),
-            BarData("So", 0f)
+            ConsumptionData("Mo", 5.0F),
+            ConsumptionData("Di", 25.0F),
+            ConsumptionData("Mi", 50.2F),
+            ConsumptionData("Do", 6.5F),
+            ConsumptionData("Fr", 1.1F),
+            ConsumptionData("Sa", 9.0F),
+            ConsumptionData("So", 69.6F)
         )
     }
+
+    val maxValue = co2Data.maxByOrNull { it.value }?.value ?: 0f
 
     Column(Modifier.padding(16.dp)) {
         Text(
@@ -56,7 +60,7 @@ fun WeekdayOverview() {
                             .height(200.dp)
                             .background(Color(0xFF467302))
                     ) {
-                        val height = data.value / 10f
+                        val height = (maxValue - data.value) / maxValue * 200
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()

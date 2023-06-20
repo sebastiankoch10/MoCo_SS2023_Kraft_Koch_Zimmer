@@ -16,7 +16,7 @@ class MainViewModel : ViewModel() {
     val selectedVehicle = mutableStateOf("Auto")
     var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
-    val co2Data = mutableStateOf(listOf<BarData>())
+    val co2DataDB = mutableStateOf(listOf<ConsumptionData>())
 
     init {
         readData("co2Data", "your_document_id")
@@ -26,7 +26,7 @@ class MainViewModel : ViewModel() {
     fun readData(collectionName: String, documentId: String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataList, error ->
             if (co2DataList != null) {
-                co2Data.value = co2DataList
+                co2DataDB.value = co2DataList
                 Log.d("MainViewModel", "CO2 data read successfully ${co2DataList.joinToString()}")
             } else {
                 Log.e("MainViewModel", "Failed to read CO2 data: $error")
@@ -61,28 +61,28 @@ class MainViewModel : ViewModel() {
         // Verwenden Sie abbreviatedDayOfWeek in Ihrer Logik oder tun Sie, was auch immer Sie damit machen möchten
         println("Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
-        val barData = BarData(
+        val consumptionData = ConsumptionData(
             abbreviatedDayOfWeek,
             value
         )
-        writeCO2Data(barData)
+        writeCO2Data(consumptionData)
     }
 
-    fun writeCO2Data(barData: BarData) {
+    fun writeCO2Data(consumptionData: ConsumptionData) {
         val collectionName = "co2Data"
         val documentId = "your_document_id"
 
         val firestoreDatabase = FirestoreDatabase() // Instanz von FirestoreDatabase erstellen
 
         firestoreDatabase.writeCO2Data(
-            listOf(barData),
+            listOf(consumptionData),
             collectionName,
             documentId
         ) { success, error ->
             if (success) {
                 Log.d(
                     "MainViewModel",
-                    "CO2 data written successfully ${barData.dayOfWeek} ${barData.value}"
+                    "CO2 data written successfully ${consumptionData.dayOfWeek} ${consumptionData.value}"
                 )
             } else {
                 Log.e("MainViewModel", "Failed to write CO2 data: $error")
