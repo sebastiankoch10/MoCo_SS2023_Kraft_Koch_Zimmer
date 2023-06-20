@@ -1,9 +1,17 @@
 package com.example.prototype_footprinthero.view
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,17 +36,6 @@ fun MainScreen(viewModel: MainViewModel) {
                 elevation = 0.dp
             )
         },
-        /* TODO was soll der machen?
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* TODO */ },
-                backgroundColor = Color(0xFF214001),
-                modifier = Modifier.padding(end = 16.dp, bottom = 16.dp)
-            ) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
-        }
-         */
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -75,12 +72,3 @@ fun MainScreen(viewModel: MainViewModel) {
         }
     }
 }
-
-
-
-
-
-
-
-
-
