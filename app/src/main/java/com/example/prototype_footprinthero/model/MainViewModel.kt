@@ -16,7 +16,7 @@ class MainViewModel : ViewModel() {
     val selectedVehicle = mutableStateOf("Auto")
     var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
-    val co2DataDB = mutableStateOf(listOf<ConsumptionData>())
+    val co2DataList = ConsumptionDataList(mutableListOf())
 
     init {
         readData("co2Data", "your_document_id")
@@ -24,9 +24,10 @@ class MainViewModel : ViewModel() {
 
 
     fun readData(collectionName: String, documentId: String) {
+        val DBData = mutableStateOf(listOf<ConsumptionData>())
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataList, error ->
             if (co2DataList != null) {
-                co2DataDB.value = co2DataList
+                DBData.value = co2DataList
                 Log.d("MainViewModel", "CO2 data read successfully ${co2DataList.joinToString()}")
             } else {
                 Log.e("MainViewModel", "Failed to read CO2 data: $error")
@@ -65,25 +66,32 @@ class MainViewModel : ViewModel() {
             abbreviatedDayOfWeek,
             value
         )
-        writeCO2Data(consumptionData)
+        co2DataList.addConsumption(consumptionData)
+        writeCO2Data(co2DataList)
     }
 
-    fun writeCO2Data(consumptionData: ConsumptionData) {
+    fun writeCO2Data(co2DataList: ConsumptionDataList) {
         val collectionName = "co2Data"
         val documentId = "your_document_id"
 
         val firestoreDatabase = FirestoreDatabase() // Instanz von FirestoreDatabase erstellen
 
         firestoreDatabase.writeCO2Data(
-            listOf(consumptionData),
+            co2DataList,
             collectionName,
             documentId
         ) { success, error ->
             if (success) {
-                Log.d(
-                    "MainViewModel",
-                    "CO2 data written successfully ${consumptionData.dayOfWeek} ${consumptionData.value}"
-                )
+                co2DataList.co2Data.forEach { data ->
+                    val dayOfWeek = data.dayOfWeek
+                    val co2 = data.value
+
+                    Log.d(
+                        "MainViewModel",
+                        "CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                    )
+                }
+
             } else {
                 Log.e("MainViewModel", "Failed to write CO2 data: $error")
             }

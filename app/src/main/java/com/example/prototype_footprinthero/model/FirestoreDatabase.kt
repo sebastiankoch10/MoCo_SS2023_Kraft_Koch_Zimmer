@@ -8,7 +8,7 @@ class FirestoreDatabase {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun writeCO2Data(
-        co2Data: List<ConsumptionData>,
+        co2Data: ConsumptionDataList,
         collectionName: String,
         documentId: String,
         callback: (Boolean, String?) -> Unit
