@@ -24,24 +24,7 @@ class MainViewModel : ViewModel() {
         readData("co2Data", "your_document_id")
     }
 
-   /* @Composable
-    fun safeData(barData: List<BarData>) {
-        val collectionName = "co2Data"
-        val documentId = "your_document_id"
 
-        LaunchedEffect(Unit) {
-            firestoreDatabase.writeCO2Data(barData, collectionName, documentId) { success, error ->
-                if (success) {
-                    Log.d("MainViewModel", "CO2 data written successfully ${barData.joinToString()}")
-                } else {
-                    Log.e("MainViewModel", "Failed to write CO2 data: $error")
-                }
-            }
-
-        }
-    }
-
-    */
 
     fun readData(collectionName:String, documentId:String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataList, error ->
