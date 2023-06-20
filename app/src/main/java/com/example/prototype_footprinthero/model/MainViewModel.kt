@@ -1,8 +1,6 @@
 package com.example.prototype_footprinthero.model
 
 import android.util.Log
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import kotlinx.datetime.Clock
@@ -16,7 +14,7 @@ class MainViewModel : ViewModel() {
     val co2CalculationViewModel = CO2CalculationViewModel()
 
     val selectedVehicle = mutableStateOf("Auto")
-    var duration = Integer.valueOf(0)
+    var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
     val co2Data = mutableStateOf(listOf<BarData>())
 
@@ -25,8 +23,7 @@ class MainViewModel : ViewModel() {
     }
 
 
-
-    fun readData(collectionName:String, documentId:String) {
+    fun readData(collectionName: String, documentId: String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataList, error ->
             if (co2DataList != null) {
                 co2Data.value = co2DataList
@@ -36,6 +33,7 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
     fun onVehicleSelected(vehicle: String) {
         selectedVehicle.value = vehicle
         co2CalculationViewModel.onVehicleSelected(vehicle)
@@ -63,7 +61,7 @@ class MainViewModel : ViewModel() {
         // Verwenden Sie abbreviatedDayOfWeek in Ihrer Logik oder tun Sie, was auch immer Sie damit machen möchten
         println("Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
-        val barData: BarData = BarData(
+        val barData = BarData(
             abbreviatedDayOfWeek,
             value
         )
@@ -82,7 +80,10 @@ class MainViewModel : ViewModel() {
             documentId
         ) { success, error ->
             if (success) {
-                Log.d("MainViewModel", "CO2 data written successfully ${barData.dayOfWeek} ${barData.value}")
+                Log.d(
+                    "MainViewModel",
+                    "CO2 data written successfully ${barData.dayOfWeek} ${barData.value}"
+                )
             } else {
                 Log.e("MainViewModel", "Failed to write CO2 data: $error")
             }
