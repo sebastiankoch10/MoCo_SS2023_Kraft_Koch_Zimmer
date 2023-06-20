@@ -22,9 +22,7 @@ import com.example.prototype_footprinthero.model.ConsumptionData
 
 @Composable
 fun WeekdayOverview() {
-    val days = listOf("Mo", "Di", "Mi", "Do", "Fr", "Sa", "So")
-
-    val co2Data = remember {
+        val co2Data = remember {
         mutableStateListOf(
             ConsumptionData("Mo", 5.0F),
             ConsumptionData("Di", 25.0F),
@@ -40,7 +38,7 @@ fun WeekdayOverview() {
 
     Column(Modifier.padding(16.dp)) {
         Text(
-            text = "Wochentagsübersicht",
+            text = "Wochentagsübersicht(Tonne/Tag)",
             style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(bottom = 8.dp)
         )
