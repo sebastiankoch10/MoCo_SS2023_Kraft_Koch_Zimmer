@@ -6,10 +6,14 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
         co2Data.add(consumptionData)
     }
 
-    fun map(any: Any): Any {
-
+    fun map(): List<Map<String, Any>> {
+        return co2Data.map { barData ->
+            mapOf(
+                "dayOfWeek" to barData.dayOfWeek,
+                "value" to barData.value
+            )
+        }
     }
 }
-
 
 data class ConsumptionData(val dayOfWeek: String, val value: Float)

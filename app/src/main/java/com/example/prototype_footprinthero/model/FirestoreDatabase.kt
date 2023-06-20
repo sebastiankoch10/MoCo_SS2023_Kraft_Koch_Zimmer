@@ -13,16 +13,22 @@ class FirestoreDatabase {
         documentId: String,
         callback: (Boolean, String?) -> Unit
     ) {
-        val firestoreData = co2Data.map { barData ->
+        val firestoreData = co2Data.co2Data.map { consumptionData ->
             mapOf(
-                "dayOfWeek" to barData.dayOfWeek, "value" to barData.value
+                "dayOfWeek" to consumptionData.dayOfWeek,
+                "value" to consumptionData.value
             )
         }
 
-        db.collection(collectionName).document(documentId).set(mapOf("co2Data" to firestoreData))
+        val dataToWrite = mapOf("co2Data" to firestoreData)
+
+        db.collection(collectionName)
+            .document(documentId)
+            .set(dataToWrite)
             .addOnSuccessListener {
                 callback(true, null) // Erfolgreich geschrieben, kein Fehler
-            }.addOnFailureListener { e ->
+            }
+            .addOnFailureListener { e ->
                 val errorMessage = e.message ?: "Unbekannter Fehler"
                 callback(false, errorMessage) // Fehler beim Schreiben mit Fehlermeldung
             }
