@@ -1,8 +1,6 @@
 package com.example.prototype_footprinthero.model
 
 import android.util.Log
-import androidx.compose.runtime.Composable
-import com.example.prototype_footprinthero.observers.DataObserver
 
 
 data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
@@ -11,7 +9,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     private val observers: MutableList<DataObserver> = mutableListOf()
 
     fun registerObserver(observer: DataObserver) {
-        Log.e("ConsumptionDataList", "new registerObserver")
+        Log.d("ConsumptionDataList", "new registerObserver")
         observers.add(observer)
     }
 
@@ -23,7 +21,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     private fun notifyObservers() {
         observers.forEach { observer ->
             observer.onDataChangedFromObserver()
-            Log.e("ConsumptionDataList", "notifyObservers: onDataChangedFromObserver called")
+            Log.d("ConsumptionDataList", "notifyObservers: onDataChangedFromObserver called")
         }
     }
 
@@ -36,7 +34,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
     fun addConsumption(consumptionData: ConsumptionData) {
         co2Data.add(consumptionData)
-        Log.e("ConsumptionDataList", "addConsumption: ${consumptionData.value}")
+        Log.d("ConsumptionDataList", "addConsumption: ${consumptionData.value}")
         //notifyObservers() TODO Observer Pattern
     }
 

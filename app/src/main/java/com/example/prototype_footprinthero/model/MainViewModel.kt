@@ -43,7 +43,7 @@ class MainViewModel : ViewModel() {
 
     init {
         //co2DataList.registerObserver(co2DataObserver)
-        Log.e("MainViewModel", "init called")
+        Log.i("MainViewModel", "init called")
         readDataInit("co2Data", "your_document_id")
     }
 
@@ -74,7 +74,7 @@ class MainViewModel : ViewModel() {
         val dayOfWeek = localDateTime.dayOfWeek
         val abbreviatedDayOfWeek = dayOfWeek.name.take(2)
 
-        // Verwenden Sie abbreviatedDayOfWeek in Ihrer Logik oder tun Sie, was auch immer Sie damit machen möchten
+        
         println("Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
         val consumptionData = ConsumptionData(
