@@ -1,16 +1,6 @@
 package com.example.prototype_footprinthero.view
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.prototype_footprinthero.model.MainViewModel
-
+/*
 class FragmentManager {
     fun getFragments(viewModel: MainViewModel): List<Fragment> {
         return listOf(
@@ -48,4 +38,6 @@ class DayViewFragment : Fragment() {
         }
     }
 }
+
+ */
 
