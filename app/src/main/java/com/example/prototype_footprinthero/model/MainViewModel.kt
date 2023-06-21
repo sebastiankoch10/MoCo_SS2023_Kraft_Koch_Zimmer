@@ -21,12 +21,14 @@ class MainViewModel : ViewModel() {
     val co2 = mutableStateOf(0f)
 
 
-    val co2DataList = mutableStateOf(ConsumptionDataList(mutableListOf()))
+    var co2DataList = ConsumptionDataList(  mutableListOf())
 
     private val co2DataObserver = object : DataObserver {
+
         override fun onDataChangedFromObserver() {
             // Die geänderte co2DataList an das MutableState-Objekt übergeben
-            co2DataList.value = co2DataList.value
+            co2DataList = ConsumptionDataList(co2DataList.co2Data.toMutableList())
+            Log.e("MainViewModel", "onDataChangedFromObserver: ${co2DataList.co2Data}")
         }
     }
 
@@ -36,7 +38,7 @@ class MainViewModel : ViewModel() {
 
 
     init {
-        co2DataList.value.registerObserver(co2DataObserver)
+        co2DataList.registerObserver(co2DataObserver)
         readDataInit("co2Data", "your_document_id")
     }
 
@@ -73,15 +75,15 @@ class MainViewModel : ViewModel() {
         val consumptionData = ConsumptionData(
             abbreviatedDayOfWeek, value
         )
-        co2DataList.value.addConsumption(consumptionData)
-        writeCO2Data(co2DataList.value)
+        co2DataList.addConsumption(consumptionData)
+        writeCO2Data(co2DataList)
     }
 
     fun readDataInit(collectionName: String, documentId: String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
             if (co2DataListDB != null) {
                 co2DataListDB.forEach { data ->
-                    co2DataList.value.addConsumption(data)
+                    co2DataList.addConsumption(data)
                 }
                 co2DataListDB.forEach { data ->
                     val dayOfWeek = data.dayOfWeek

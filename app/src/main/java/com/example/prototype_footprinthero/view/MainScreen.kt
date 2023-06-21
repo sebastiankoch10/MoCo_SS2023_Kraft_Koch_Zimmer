@@ -68,7 +68,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 }
             }
 
-            WeekdayOverview(viewModel.co2DataList.value)
+            WeekdayOverview(viewModel.co2DataList)
             //WeeklyOverview()
         }
     }

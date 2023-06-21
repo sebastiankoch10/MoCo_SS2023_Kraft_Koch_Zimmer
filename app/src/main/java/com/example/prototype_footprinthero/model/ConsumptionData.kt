@@ -10,6 +10,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     private val observers: MutableList<DataObserver> = mutableListOf()
 
     fun registerObserver(observer: DataObserver) {
+        Log.e("ConsumptionDataList", "new registerObserver")
         observers.add(observer)
     }
 
