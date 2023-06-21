@@ -22,15 +22,13 @@ import com.example.prototype_footprinthero.model.ConsumptionDataList
 
 @Composable
 fun WeekdayOverview(co2DataList: ConsumptionDataList) {
-
-    val maxValue = remember { co2DataList.co2Data.maxByOrNull { it.value }?.value ?: 0f }
-
-    Log.e("WeekdayOverview", "maxValue: $maxValue")
-
     Log.d("WeekdayOverview", "WeekdayOverview start")
 
     Log.d("WeekdayOverview", "co2DataList länge: ${co2DataList.size()}")
 
+    val maxValue = co2DataList.co2Data.maxByOrNull { it.value }?.value ?: 0f
+
+    Log.e("WeekdayOverview", "maxValue: $maxValue")
 
     Column(Modifier.padding(16.dp)) {
         Text(
