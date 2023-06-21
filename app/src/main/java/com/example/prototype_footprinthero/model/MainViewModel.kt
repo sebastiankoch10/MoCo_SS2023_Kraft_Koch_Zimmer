@@ -22,15 +22,16 @@ class MainViewModel : ViewModel() {
 
 
     val co2DataList = mutableStateOf(ConsumptionDataList(mutableListOf()))
-    val updatedCo2DataList = mutableStateOf(ConsumptionDataList(mutableListOf()))
 
     private val co2DataObserver = object : DataObserver {
-
         override fun onDataChangedFromObserver() {
-            // Hier kannst du die Aktualisierungslogik für die UI aufrufen
-            updatedCo2DataList.value = co2DataList.value
-            Log.e("MainViewModel", "updatedCo2DataList: ${updatedCo2DataList.value.co2Data}")
+            // Die geänderte co2DataList an das MutableState-Objekt übergeben
+            co2DataList.value = co2DataList.value
         }
+    }
+
+    fun getCo2DataObserver(): DataObserver {
+        return co2DataObserver
     }
 
 
@@ -109,7 +110,7 @@ class MainViewModel : ViewModel() {
                     val co2 = data.value
 
                     Log.d(
-                        "MainViewModel", "CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                        "MainViewModel", "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2"
                     )
                 }
 

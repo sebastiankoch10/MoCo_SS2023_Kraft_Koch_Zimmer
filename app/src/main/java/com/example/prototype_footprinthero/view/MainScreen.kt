@@ -13,6 +13,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +22,15 @@ import com.example.prototype_footprinthero.model.MainViewModel
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
+
+    val updatedCo2DataList = viewModel.co2DataList.value
+    DisposableEffect(updatedCo2DataList) {
+        onDispose {
+            // Observer beim Verlassen der Composable-Funktion entfernen
+            viewModel.co2DataList.value.unregisterObserver(viewModel.getCo2DataObserver())
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -67,8 +77,8 @@ fun MainScreen(viewModel: MainViewModel) {
                 }
             }
 
-            WeekdayOverview(viewModel.updatedCo2DataList.value)
-            WeeklyOverview()
+            WeekdayOverview(viewModel.co2DataList.value)
+            //WeeklyOverview()
         }
     }
 }
