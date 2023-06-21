@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.model.ConsumptionDataList
 import com.example.prototype_footprinthero.model.MainViewModel
 
 @Composable
@@ -72,5 +73,12 @@ fun MainScreen(viewModel: MainViewModel) {
             //WeeklyOverview()
         }
     }
+}
+
+@Composable
+fun WeekdayOverview(co2DataList: ConsumptionDataList) {
+    // ...
+    // Logik zur Aktualisierung der WeekdayOverview basierend auf co2DataList
+    // ...
 }
 

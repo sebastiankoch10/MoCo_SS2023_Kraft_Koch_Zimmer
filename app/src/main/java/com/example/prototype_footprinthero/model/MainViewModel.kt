@@ -24,12 +24,14 @@ class MainViewModel : ViewModel() {
     var co2DataList = ConsumptionDataList(  mutableListOf())
 
     private val co2DataObserver = object : DataObserver {
-
         override fun onDataChangedFromObserver() {
-            // Die geänderte co2DataList an das MutableState-Objekt übergeben
-            co2DataList = ConsumptionDataList(co2DataList.co2Data.toMutableList())
             Log.e("MainViewModel", "onDataChangedFromObserver: ${co2DataList.co2Data}")
+            updateWeekdayOverview()
         }
+    }
+
+    fun updateWeekdayOverview() {
+        WeekdayOverview(co2DataList)
     }
 
     fun getCo2DataObserver(): DataObserver {
@@ -39,6 +41,7 @@ class MainViewModel : ViewModel() {
 
     init {
         co2DataList.registerObserver(co2DataObserver)
+        Log.e("MainViewModel", "init called")
         readDataInit("co2Data", "your_document_id")
     }
 
@@ -49,7 +52,7 @@ class MainViewModel : ViewModel() {
 
     fun onDurationChanged(duration: Int) {
         co2CalculationViewModel.onDurationChanged(duration)
-        Log.d("MainViewModel", "Selected duration: $duration")
+        //Log.d("MainViewModel", "Selected duration: $duration")
     }
 
 

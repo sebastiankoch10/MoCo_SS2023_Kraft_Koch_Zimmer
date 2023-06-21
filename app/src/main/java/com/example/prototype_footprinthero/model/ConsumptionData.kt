@@ -22,7 +22,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     private fun notifyObservers() {
         observers.forEach { observer ->
             observer.onDataChangedFromObserver()
-            Log.e("ConsumptionDataList", "notifyObservers: ${observer.onDataChangedFromObserver()}")
+            Log.e("ConsumptionDataList", "notifyObservers: onDataChangedFromObserver called")
         }
     }
 
