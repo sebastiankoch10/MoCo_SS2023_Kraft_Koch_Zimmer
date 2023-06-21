@@ -1,6 +1,7 @@
 package com.example.prototype_footprinthero.model
 
 import android.util.Log
+import kotlin.random.Random
 
 
 data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
@@ -26,6 +27,18 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     }
 
      */
+
+    fun createTestData(): ConsumptionDataList {
+        val daysOfWeek = listOf("mo", "di", "mi", "do", "fr", "sa", "so")
+        val testDataList = mutableListOf<ConsumptionData>()
+
+        for (day in daysOfWeek) {
+            val randomValue = Random.nextFloat() * 10f // Random value between 0 and 10
+            testDataList.add(ConsumptionData(day, randomValue))
+        }
+
+        return ConsumptionDataList(testDataList)
+    }
 
     fun size(): Int {
         return co2Data.size

@@ -26,13 +26,18 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
     Log.d("WeekdayOverview", "co2DataList Länge: ${co2DataList.co2Data.size}")
 
 
-    //val tempData = ConsumptionData(dayOfWeek = "TempDay", value = 10f)
+    val co2DataListTest = ConsumptionDataList(
+        listOf(
+            ConsumptionData("mo", 20.5f),
+            ConsumptionData("di", 3.1f),
+            ConsumptionData("mi", 1.8f),
+            ConsumptionData("do", 4.2f),
+            ConsumptionData("fr", 20.9f)
+        ) as MutableList<ConsumptionData>
+    )
 
-    // Liste kopieren und temporäre Instanz hinzufügen
-    //val modifiedDataList = ConsumptionDataList(  mutableListOf())
-    //modifiedDataList.addConsumption(tempData)
-
-    val maxValue = co2DataList.maxByOrNull { it.value }?.value ?: 0f
+    //val maxValue = co2DataList.maxByOrNull { it.value }?.value ?: 0f
+    val maxValue = 30f
 
 
     Log.d("WeekdayOverview", "maxValue: $maxValue")
@@ -45,8 +50,8 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
         )
 
         LazyRow(Modifier.fillMaxWidth()) {
-            items(co2DataList.co2Data.size) { index  ->
-                val data = co2DataList.co2Data[index]
+            items(co2DataListTest.co2Data.size) { index  ->
+                val data = co2DataListTest.co2Data[index]
                 Log.d("WeekdayOverview", "dayofweek: ${data.dayOfWeek} und value: ${data.value}")
                 Column(
                     modifier = Modifier
