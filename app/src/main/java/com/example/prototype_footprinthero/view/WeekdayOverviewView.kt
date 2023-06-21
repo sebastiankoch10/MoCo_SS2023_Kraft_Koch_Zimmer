@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +26,7 @@ fun WeekdayOverview(co2DataList : ConsumptionDataList) {
 
     Log.d("WeekdayOverview", "co2DataList länge: ${co2DataList.size()}")
 
-    val maxValue = co2DataList.co2Data.maxByOrNull { it.value }?.value ?: 0f
+    val maxValue = remember { co2DataList.co2Data.maxByOrNull { it.value }?.value ?: 0f }
 
 
     Column(Modifier.padding(16.dp)) {

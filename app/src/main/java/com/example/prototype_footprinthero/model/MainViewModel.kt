@@ -19,10 +19,16 @@ class MainViewModel : ViewModel() {
     val co2 = mutableStateOf(0f)
     val co2DataList = ConsumptionDataList(mutableListOf())
 
-    init {
-        readDataInit("co2Data", "your_document_id")
+    private val co2DataObserver = object : DataObserver {
+        override fun onDataChanged() {
+            // Hier kannst du die Aktualisierungslogik für die UI aufrufen
+        }
     }
 
+    init {
+        co2DataList.registerObserver(co2DataObserver)
+        readDataInit("co2Data", "your_document_id")
+    }
 
     fun onVehicleSelected(vehicle: String) {
         selectedVehicle.value = vehicle
