@@ -23,8 +23,6 @@ class MainViewModel : ViewModel() {
     }
 
 
-
-
     fun onVehicleSelected(vehicle: String) {
         selectedVehicle.value = vehicle
         co2CalculationViewModel.onVehicleSelected(vehicle)
@@ -53,8 +51,7 @@ class MainViewModel : ViewModel() {
         println("Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
         val consumptionData = ConsumptionData(
-            abbreviatedDayOfWeek,
-            value
+            abbreviatedDayOfWeek, value
         )
         co2DataList.addConsumption(consumptionData)
         writeCO2Data(co2DataList)
@@ -66,13 +63,12 @@ class MainViewModel : ViewModel() {
                 co2DataListDB.forEach { data ->
                     co2DataList.addConsumption(data)
                 }
-                co2DataListDB.forEach{ data ->
+                co2DataListDB.forEach { data ->
                     val dayOfWeek = data.dayOfWeek
                     val co2 = data.value
 
                     Log.d(
-                        "MainViewModel",
-                        "CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                        "MainViewModel", "CO2 data: Tag: $dayOfWeek, CO2: $co2"
                     )
                 }
             } else {
@@ -85,12 +81,8 @@ class MainViewModel : ViewModel() {
         val collectionName = "co2Data"
         val documentId = "your_document_id"
 
-        //val firestoreDatabase = FirestoreDatabase() // Instanz von FirestoreDatabase erstellen
-
         firestoreDatabase.writeCO2Data(
-            co2DataList,
-            collectionName,
-            documentId
+            co2DataList, collectionName, documentId
         ) { success, error ->
             if (success) {
                 co2DataList.co2Data.forEach { data ->
@@ -98,8 +90,7 @@ class MainViewModel : ViewModel() {
                     val co2 = data.value
 
                     Log.d(
-                        "MainViewModel",
-                        "CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                        "MainViewModel", "CO2 data: Tag: $dayOfWeek, CO2: $co2"
                     )
                 }
 

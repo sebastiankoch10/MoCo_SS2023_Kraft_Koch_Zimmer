@@ -1,8 +1,5 @@
 package com.example.prototype_footprinthero.model
 
-import android.util.Log
-import androidx.compose.runtime.Composable
-
 
 data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun size(): Int {
