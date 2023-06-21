@@ -20,9 +20,9 @@ class MainViewModel : ViewModel() {
     var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
 
-
     var co2DataList = ConsumptionDataList(  mutableListOf())
 
+    /* TODO Observer Pattern
     private val co2DataObserver = object : DataObserver {
         override fun onDataChangedFromObserver() {
             Log.e("MainViewModel", "onDataChangedFromObserver: ${co2DataList.co2Data}")
@@ -38,9 +38,11 @@ class MainViewModel : ViewModel() {
         return co2DataObserver
     }
 
+     */
+
 
     init {
-        co2DataList.registerObserver(co2DataObserver)
+        //co2DataList.registerObserver(co2DataObserver)
         Log.e("MainViewModel", "init called")
         readDataInit("co2Data", "your_document_id")
     }

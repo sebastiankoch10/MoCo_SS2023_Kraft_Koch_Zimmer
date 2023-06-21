@@ -75,10 +75,13 @@ fun MainScreen(viewModel: MainViewModel) {
     }
 }
 
+/* TODO Observer für WeekdayOverview
 @Composable
 fun WeekdayOverview(co2DataList: ConsumptionDataList) {
     // ...
     // Logik zur Aktualisierung der WeekdayOverview basierend auf co2DataList
     // ...
 }
+
+ */
 

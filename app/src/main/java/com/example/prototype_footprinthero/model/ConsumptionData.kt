@@ -7,6 +7,7 @@ import com.example.prototype_footprinthero.observers.DataObserver
 
 data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
+    /* TODO Observer Pattern
     private val observers: MutableList<DataObserver> = mutableListOf()
 
     fun registerObserver(observer: DataObserver) {
@@ -26,6 +27,8 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
         }
     }
 
+     */
+
     fun size(): Int {
         return co2Data.size
     }
@@ -34,7 +37,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun addConsumption(consumptionData: ConsumptionData) {
         co2Data.add(consumptionData)
         Log.e("ConsumptionDataList", "addConsumption: ${consumptionData.value}")
-        notifyObservers()
+        //notifyObservers() TODO Observer Pattern
     }
 
     fun map(): List<Map<String, Any>> {
