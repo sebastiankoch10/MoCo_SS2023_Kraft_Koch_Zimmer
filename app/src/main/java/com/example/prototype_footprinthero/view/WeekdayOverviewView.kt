@@ -50,8 +50,8 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
         )
 
         LazyRow(Modifier.fillMaxWidth()) {
-            items(co2DataListTest.co2Data.size) { index  ->
-                val data = co2DataListTest.co2Data[index]
+            items(co2DataList.co2Data.size) { index  ->
+                val data = co2DataList.co2Data[index]
                 Log.d("WeekdayOverview", "dayofweek: ${data.dayOfWeek} und value: ${data.value}")
                 Column(
                     modifier = Modifier
