@@ -1,5 +1,8 @@
 package com.example.prototype_footprinthero.observers
 
+import androidx.compose.runtime.Composable
+
 interface DataObserver {
-    fun onDataChanged()
+    @Composable
+    fun onDataChangedFromObserver()
 }

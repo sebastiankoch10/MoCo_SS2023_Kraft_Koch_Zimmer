@@ -1,10 +1,12 @@
 package com.example.prototype_footprinthero.model
 
 import android.util.Log
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.prototype_footprinthero.observers.DataObserver
+import com.example.prototype_footprinthero.view.WeekdayOverview
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -17,16 +19,21 @@ class MainViewModel : ViewModel() {
     val selectedVehicle = mutableStateOf("Auto")
     var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
-    val co2DataList = ConsumptionDataList(mutableListOf())
+    val co2DataList = mutableStateOf(ConsumptionDataList(mutableListOf()))
 
     private val co2DataObserver = object : DataObserver {
-        override fun onDataChanged() {
+        @Composable
+        override fun onDataChangedFromObserver() {
             // Hier kannst du die Aktualisierungslogik für die UI aufrufen
+            WeekdayOverview(co2DataList.value) // Aufruf der WeekdayOverviewView mit dem aktuellen Wert von co2DataList
         }
     }
 
+
+
+
     init {
-        co2DataList.registerObserver(co2DataObserver)
+        co2DataList.value.registerObserver(co2DataObserver)
         readDataInit("co2Data", "your_document_id")
     }
 
@@ -60,15 +67,15 @@ class MainViewModel : ViewModel() {
         val consumptionData = ConsumptionData(
             abbreviatedDayOfWeek, value
         )
-        co2DataList.addConsumption(consumptionData)
-        writeCO2Data(co2DataList)
+        co2DataList.value.addConsumption(consumptionData)
+        writeCO2Data(co2DataList.value)
     }
 
     fun readDataInit(collectionName: String, documentId: String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
             if (co2DataListDB != null) {
                 co2DataListDB.forEach { data ->
-                    co2DataList.addConsumption(data)
+                    co2DataList.value.addConsumption(data)
                 }
                 co2DataListDB.forEach { data ->
                     val dayOfWeek = data.dayOfWeek
