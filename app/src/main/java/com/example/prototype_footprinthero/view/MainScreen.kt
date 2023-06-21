@@ -22,15 +22,6 @@ import com.example.prototype_footprinthero.model.MainViewModel
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
-
-    val updatedCo2DataList = viewModel.co2DataList.value
-    DisposableEffect(updatedCo2DataList) {
-        onDispose {
-            // Observer beim Verlassen der Composable-Funktion entfernen
-            viewModel.co2DataList.value.unregisterObserver(viewModel.getCo2DataObserver())
-        }
-    }
-
     Scaffold(
         topBar = {
             TopAppBar(
