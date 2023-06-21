@@ -60,14 +60,14 @@ fun MainScreen(viewModel: MainViewModel) {
 
                 }
                 Button(
-                    onClick = { viewModel.calculateCO2() },
+                    onClick = { viewModel.calculateCO2()},
                     modifier = Modifier.padding(start = 8.dp)
                 ) {
                     Text(text = "Berechnen")
                 }
             }
 
-            WeekdayOverview(viewModel.co2DataList.value)
+            WeekdayOverview(viewModel.updatedCo2DataList.value)
             WeeklyOverview()
         }
     }

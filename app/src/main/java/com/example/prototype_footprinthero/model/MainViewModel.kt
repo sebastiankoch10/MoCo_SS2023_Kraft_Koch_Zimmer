@@ -19,17 +19,19 @@ class MainViewModel : ViewModel() {
     val selectedVehicle = mutableStateOf("Auto")
     var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
+
+
     val co2DataList = mutableStateOf(ConsumptionDataList(mutableListOf()))
+    val updatedCo2DataList = mutableStateOf(ConsumptionDataList(mutableListOf()))
 
     private val co2DataObserver = object : DataObserver {
-        @Composable
+
         override fun onDataChangedFromObserver() {
             // Hier kannst du die Aktualisierungslogik für die UI aufrufen
-            WeekdayOverview(co2DataList.value) // Aufruf der WeekdayOverviewView mit dem aktuellen Wert von co2DataList
+            updatedCo2DataList.value = co2DataList.value
+            Log.e("MainViewModel", "updatedCo2DataList: ${updatedCo2DataList.value.co2Data}")
         }
     }
-
-
 
 
     init {
@@ -47,6 +49,7 @@ class MainViewModel : ViewModel() {
         Log.d("MainViewModel", "Selected duration: $duration")
     }
 
+
     fun calculateCO2() {
         co2CalculationViewModel.calculateCO2()
         co2.value = co2CalculationViewModel.model.co2
@@ -54,6 +57,8 @@ class MainViewModel : ViewModel() {
 
         merchList(co2.value)
     }
+
+
 
     fun merchList(value: Float) {
         val currentInstant = Clock.System.now()

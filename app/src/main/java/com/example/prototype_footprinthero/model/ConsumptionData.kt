@@ -1,5 +1,6 @@
 package com.example.prototype_footprinthero.model
 
+import androidx.compose.runtime.Composable
 import com.example.prototype_footprinthero.observers.DataObserver
 
 
@@ -14,6 +15,8 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun unregisterObserver(observer: DataObserver) {
         observers.remove(observer)
     }
+
+
     private fun notifyObservers() {
         observers.forEach { observer ->
             observer.onDataChangedFromObserver()
@@ -23,6 +26,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun size(): Int {
         return co2Data.size
     }
+
 
     fun addConsumption(consumptionData: ConsumptionData) {
         co2Data.add(consumptionData)
