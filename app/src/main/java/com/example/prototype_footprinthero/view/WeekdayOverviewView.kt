@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,8 +37,8 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
         ) as MutableList<ConsumptionData>
     )
 
-    //val maxValue = co2DataList.maxByOrNull { it.value }?.value ?: 0f
-    val maxValue = 30f
+    val maxValue = co2DataList.maxByOrNull { it.value }?.value ?: 0f
+
 
 
     Log.d("WeekdayOverview", "maxValue: $maxValue")
@@ -49,10 +50,8 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        LazyRow(Modifier.fillMaxWidth()) {
-            items(co2DataList.co2Data.size) { index  ->
-                val data = co2DataList.co2Data[index]
-                Log.d("WeekdayOverview", "dayofweek: ${data.dayOfWeek} und value: ${data.value}")
+        Row(Modifier.fillMaxWidth()) {
+            co2DataList.co2Data.forEach { data ->
                 Column(
                     modifier = Modifier
                         .weight(1f)
