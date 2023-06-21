@@ -66,7 +66,7 @@ fun MainScreen(viewModel: MainViewModel) {
                     Text(text = "Berechnen")
                 }
             }
-
+            DayView(viewModel.co2DataList)
             WeekdayOverview(viewModel.co2DataList)
             WeeklyOverview()
         }
