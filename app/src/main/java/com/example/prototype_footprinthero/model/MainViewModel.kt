@@ -74,7 +74,7 @@ class MainViewModel : ViewModel() {
         val dayOfWeek = localDateTime.dayOfWeek
         val abbreviatedDayOfWeek = dayOfWeek.name.take(2)
 
-        
+
         println("Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
         val consumptionData = ConsumptionData(
