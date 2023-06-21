@@ -8,34 +8,40 @@ class FirestoreDatabase {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun writeCO2Data(
-        co2Data: List<BarData>,
+        co2Data: ConsumptionDataList,
         collectionName: String,
         documentId: String,
         callback: (Boolean, String?) -> Unit
     ) {
-        val firestoreData = co2Data.map { barData ->
+        val firestoreData = co2Data.co2Data.map { consumptionData ->
             mapOf(
-                "dayOfWeek" to barData.dayOfWeek, "value" to barData.value
+                "dayOfWeek" to consumptionData.dayOfWeek,
+                "value" to consumptionData.value
             )
         }
 
-        db.collection(collectionName).document(documentId).set(mapOf("co2Data" to firestoreData))
+        val dataToWrite = mapOf("co2Data" to firestoreData)
+
+        db.collection(collectionName)
+            .document(documentId)
+            .set(dataToWrite)
             .addOnSuccessListener {
                 callback(true, null) // Erfolgreich geschrieben, kein Fehler
-            }.addOnFailureListener { e ->
+            }
+            .addOnFailureListener { e ->
                 val errorMessage = e.message ?: "Unbekannter Fehler"
                 callback(false, errorMessage) // Fehler beim Schreiben mit Fehlermeldung
             }
     }
 
     fun readCO2Data(
-        collectionName: String, documentId: String, callback: (List<BarData>?, Exception?) -> Unit
+        collectionName: String, documentId: String, callback: (List<ConsumptionData>?, Exception?) -> Unit
     ) {
         db.collection(collectionName).document(documentId).get()
             .addOnSuccessListener { documentSnapshot ->
                 val firestoreData = documentSnapshot.get("co2Data") as? List<*>
                 val co2DataList = firestoreData?.filterIsInstance<Map<String, Any>>()?.map { data ->
-                    BarData(
+                    ConsumptionData(
                         dayOfWeek = data["dayOfWeek"] as? String ?: "",
                         value = (data["value"] as? Double)?.toFloat() ?: 0f
                     )
@@ -47,7 +53,7 @@ class FirestoreDatabase {
     }
 
     fun updateCO2Data(
-        co2Data: List<BarData>,
+        co2Data: List<ConsumptionData>,
         collectionName: String,
         documentId: String,
         callback: (Boolean, Any?) -> Unit

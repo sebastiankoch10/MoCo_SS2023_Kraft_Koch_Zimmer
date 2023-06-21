@@ -21,7 +21,7 @@ fun TransportationDurationView(
     duration: Int,
     onDurationChanged: (Int) -> Unit
 ) {
-    var currentDuration by remember { mutableStateOf(duration.toInt()) }
+    var currentDuration by remember { mutableStateOf(duration) }
 
     Column(Modifier.padding(16.dp)) {
         Text(text = "Fortbewegungsdauer (in Minuten)", style = MaterialTheme.typography.h6)

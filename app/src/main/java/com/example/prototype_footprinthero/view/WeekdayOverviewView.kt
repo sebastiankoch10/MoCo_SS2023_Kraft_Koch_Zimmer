@@ -1,48 +1,43 @@
 package com.example.prototype_footprinthero.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.prototype_footprinthero.model.BarData
+import com.example.prototype_footprinthero.model.ConsumptionDataList
+
 
 @Composable
-fun WeekdayOverview() {
-    val days = listOf("Mo", "Di", "Mi", "Do", "Fr", "Sa", "So")
+fun WeekdayOverview(co2DataList : ConsumptionDataList) {
+    Log.d("WeekdayOverview", "WeekdayOverview start")
 
-    val co2Data = remember {
-        mutableStateListOf(
-            BarData("Mo", 0f),
-            BarData("Di", 0f),
-            BarData("Mi", 0f),
-            BarData("Do", 0f),
-            BarData("Fr", 0f),
-            BarData("Sa", 0f),
-            BarData("So", 0f)
-        )
-    }
+    Log.d("WeekdayOverview", "co2DataList länge: ${co2DataList.size()}")
+
+    val maxValue = co2DataList.co2Data.maxByOrNull { it.value }?.value ?: 0f
+
 
     Column(Modifier.padding(16.dp)) {
         Text(
-            text = "Wochentagsübersicht",
+            text = "Wochentagsübersicht(Tonne/Tag)",
             style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        Row(Modifier.fillMaxWidth()) {
-            co2Data.forEach { data ->
+        LazyRow(Modifier.fillMaxWidth()) {
+            items(co2DataList.co2Data) { data ->
+                Log.d("WeekdayOverview", "dayofweek: ${data.dayOfWeek} und value: ${data.value}")
                 Column(
                     modifier = Modifier
                         .weight(1f)
@@ -56,7 +51,7 @@ fun WeekdayOverview() {
                             .height(200.dp)
                             .background(Color(0xFF467302))
                     ) {
-                        val height = data.value / 10f
+                        val height = (maxValue - data.value) / maxValue * 200
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
