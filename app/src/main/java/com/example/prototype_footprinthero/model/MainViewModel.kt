@@ -2,7 +2,9 @@ package com.example.prototype_footprinthero.model
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.example.prototype_footprinthero.observers.DataObserver
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -12,7 +14,6 @@ class MainViewModel : ViewModel() {
 
     val vehicles = listOf("Auto", "Fahrrad", "Flugzeug")
     val co2CalculationViewModel = CO2CalculationViewModel()
-
     val selectedVehicle = mutableStateOf("Auto")
     var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
@@ -68,7 +69,7 @@ class MainViewModel : ViewModel() {
                     val co2 = data.value
 
                     Log.d(
-                        "MainViewModel", "CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                        "MainViewModel", "Read From DB, CO2 data: Tag: $dayOfWeek, CO2: $co2"
                     )
                 }
             } else {
