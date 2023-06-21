@@ -19,21 +19,11 @@ class MainViewModel : ViewModel() {
     val co2DataList = ConsumptionDataList(mutableListOf())
 
     init {
-        readData("co2Data", "your_document_id")
+        readDataInit("co2Data", "your_document_id")
     }
 
 
-    fun readData(collectionName: String, documentId: String) {
-        val DBData = mutableStateOf(listOf<ConsumptionData>())
-        firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataList, error ->
-            if (co2DataList != null) {
-                DBData.value = co2DataList
-                Log.d("MainViewModel", "CO2 data read successfully ${co2DataList.joinToString()}")
-            } else {
-                Log.e("MainViewModel", "Failed to read CO2 data: $error")
-            }
-        }
-    }
+
 
     fun onVehicleSelected(vehicle: String) {
         selectedVehicle.value = vehicle
@@ -70,11 +60,32 @@ class MainViewModel : ViewModel() {
         writeCO2Data(co2DataList)
     }
 
+    fun readDataInit(collectionName: String, documentId: String) {
+        firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
+            if (co2DataListDB != null) {
+                co2DataListDB.forEach { data ->
+                    co2DataList.addConsumption(data)
+                }
+                co2DataListDB.forEach{ data ->
+                    val dayOfWeek = data.dayOfWeek
+                    val co2 = data.value
+
+                    Log.d(
+                        "MainViewModel",
+                        "CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                    )
+                }
+            } else {
+                Log.e("MainViewModel", "Failed to read CO2 data: $error")
+            }
+        }
+    }
+
     fun writeCO2Data(co2DataList: ConsumptionDataList) {
         val collectionName = "co2Data"
         val documentId = "your_document_id"
 
-        val firestoreDatabase = FirestoreDatabase() // Instanz von FirestoreDatabase erstellen
+        //val firestoreDatabase = FirestoreDatabase() // Instanz von FirestoreDatabase erstellen
 
         firestoreDatabase.writeCO2Data(
             co2DataList,
