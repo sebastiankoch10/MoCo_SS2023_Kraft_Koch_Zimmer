@@ -1,5 +1,7 @@
 package com.example.prototype_footprinthero.model
 
+import android.util.Log
+
 
 data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun size(): Int {
@@ -10,14 +12,17 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
         co2Data.add(consumptionData)
     }
 
-    fun aggregateByDayOfWeek(): List<ConsumptionData> {
-        val aggregatedList = mutableListOf<ConsumptionData>()
+    fun aggregateByDayOfWeek(): ConsumptionDataList {
+        Log.i("aggregateByDayOfWeek", "aggregateByDayOfWeek called")
+        val aggregatedList = ConsumptionDataList(mutableListOf())
 
         co2Data.groupBy { it.dayOfWeek }.forEach { (_, dataList) ->
+            Log.d("aggregateByDayOfWeek", "Co2DataListenlänge: ${dataList.size}")
             val totalValue = dataList.sumOf { it.value.toDouble() }.toFloat()
             val firstData = dataList.first()
             val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue)
-            aggregatedList.add(aggregatedData)
+            aggregatedList.addConsumption(aggregatedData)
+            Log.d("aggregateByDayOfWeek", "dayOfWeek: ${aggregatedData.dayOfWeek}, value: ${aggregatedData.value}")
         }
 
         return aggregatedList
@@ -39,6 +44,10 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
     fun forEach(action: (ConsumptionData) -> Unit) {
         co2Data.forEach(action)
+    }
+
+    fun find(predicate: (ConsumptionData) -> Boolean): ConsumptionData? {
+        return co2Data.find(predicate)
     }
 }
 
