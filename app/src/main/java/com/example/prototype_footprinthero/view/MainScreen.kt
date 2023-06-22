@@ -60,14 +60,14 @@ fun MainScreen(viewModel: MainViewModel) {
             Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(modifier = Modifier.weight(1f)) {
                     TransportationDurationView(
-                        duration = viewModel.duration,
+                        durationInMinutes = viewModel.duration,
                         onDurationChanged = { duration ->
                             viewModel.onDurationChanged(duration)
                         }
                     )
-
                 }
-                Button(
+
+            Button(
                     onClick = { viewModel.calculateCO2() },
                     modifier = Modifier.padding(start = 8.dp)
                 ) {
