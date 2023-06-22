@@ -74,7 +74,7 @@ class MainViewModel : ViewModel() {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun merchList(value: Float) {
+    private fun merchList(co2: Float) {
 
 
         val abbreviatedDayOfWeek = dayInGerman
@@ -84,7 +84,7 @@ class MainViewModel : ViewModel() {
 
         val consumptionData = abbreviatedDayOfWeek.let {
             ConsumptionData(
-                it, value, getCurrentCalendarWeek()
+                it, co2, getCurrentCalendarWeek()
             )
         }
         co2DataList.addConsumption(consumptionData)
@@ -111,11 +111,11 @@ class MainViewModel : ViewModel() {
                 }
                 co2DataListDB.forEach { data ->
                     val dayOfWeek = data.dayOfWeek
-                    val co2 = data.Co2
-                    val calendarWeek = data.weekOfYear
+                    val co2 = data.co2
+                    val calendarWeek = data.calendarWeek
 
                     Log.d(
-                        "MainViewModel", "Read From DB, CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                        "MainViewModel", "Read From DB, CO2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
                     )
                 }
             } else {
@@ -134,11 +134,11 @@ class MainViewModel : ViewModel() {
             if (success) {
                 co2DataList.co2Data.forEach { data ->
                     val dayOfWeek = data.dayOfWeek
-                    val co2 = data.Co2
-                    val calendarWeek = data.weekOfYear
+                    val co2 = data.co2
+                    val calendarWeek = data.calendarWeek
 
                     Log.d(
-                        "MainViewModel", "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                        "MainViewModel", "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
                     )
                 }
 

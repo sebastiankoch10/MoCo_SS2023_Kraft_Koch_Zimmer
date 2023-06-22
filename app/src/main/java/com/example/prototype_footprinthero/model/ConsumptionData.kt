@@ -48,7 +48,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
     fun addConsumption(consumptionData: ConsumptionData) {
         co2Data.add(consumptionData)
-        Log.d("ConsumptionDataList", "addConsumption: ${consumptionData.Co2}")
+        Log.d("ConsumptionDataList", "addConsumption: ${consumptionData.co2}")
         //notifyObservers() TODO Observer Pattern
     }
 
@@ -58,13 +58,13 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
         co2Data.groupBy { it.dayOfWeek }.forEach { (_, dataList) ->
             Log.d("aggregateByDayOfWeek", "Co2DataListenlänge: ${dataList.size}")
-            val totalValue = dataList.sumOf { it.Co2.toDouble() }.toFloat()
+            val totalValue = dataList.sumOf { it.co2.toDouble() }.toFloat()
             val firstData = dataList.first()
-            val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue, firstData.weekOfYear)
+            val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue, firstData.calendarWeek)
             aggregatedList.addConsumption(aggregatedData)
             Log.d(
                 "aggregateByDayOfWeek",
-                "dayOfWeek: ${aggregatedData.dayOfWeek}, value: ${aggregatedData.Co2}"
+                "dayOfWeek: ${aggregatedData.dayOfWeek}, Co2: ${aggregatedData.co2}"
             )
         }
 
@@ -74,7 +74,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun map(): List<Map<String, Any>> {
         return co2Data.map { barData ->
             mapOf(
-                "dayOfWeek" to barData.dayOfWeek, "value" to barData.Co2
+                "dayOfWeek" to barData.dayOfWeek, "Co2" to barData.co2
             )
         }
     }
@@ -93,4 +93,4 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     }
 }
 
-data class ConsumptionData(val dayOfWeek: String, val Co2: Float, val weekOfYear: Int)
+data class ConsumptionData(val dayOfWeek: String, val co2: Float, val calendarWeek: Int)

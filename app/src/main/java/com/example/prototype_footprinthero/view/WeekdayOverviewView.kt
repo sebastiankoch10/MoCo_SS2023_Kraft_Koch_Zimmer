@@ -26,7 +26,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
 
     val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateByDayOfWeek()
 
-    val maxValue = aggregatedDataList.maxByOrNull { it.Co2 }?.Co2 ?: 0f
+    val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
 
 
 
@@ -54,7 +54,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
                             .height(200.dp)
                             .background(Color(0xFF467302))
                     ) {
-                        val height = (maxValue - data.Co2) / maxValue * 200
+                        val height = (maxValue - data.co2) / maxValue * 200
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -63,7 +63,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
                         )
                     }
                     Text(
-                        text = data.Co2.toString(),
+                        text = data.co2.toString(),
                         style = MaterialTheme.typography.body1.merge(),
                         modifier = Modifier.padding(top = 4.dp)
                     )
