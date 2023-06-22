@@ -26,16 +26,6 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
     Log.d("WeekdayOverview", "co2DataList Länge: ${co2DataList.co2Data.size}")
 
 
-    val co2DataListTest = ConsumptionDataList(
-        listOf(
-            ConsumptionData("mo", 20.5f),
-            ConsumptionData("di", 3.1f),
-            ConsumptionData("mi", 1.8f),
-            ConsumptionData("do", 4.2f),
-            ConsumptionData("fr", 20.9f)
-        ) as MutableList<ConsumptionData>
-    )
-
     val maxValue = co2DataList.maxByOrNull { it.value }?.value ?: 0f
 
 

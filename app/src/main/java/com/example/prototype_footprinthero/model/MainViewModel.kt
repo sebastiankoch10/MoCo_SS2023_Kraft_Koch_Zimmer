@@ -8,13 +8,13 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 class MainViewModel : ViewModel() {
-    val firestoreDatabase = FirestoreDatabase()
+    private val firestoreDatabase = FirestoreDatabase()
 
     val vehicles = listOf("Auto", "Fahrrad", "Flugzeug")
-    val co2CalculationViewModel = CO2CalculationViewModel()
+    private val co2CalculationViewModel = CO2CalculationViewModel()
     val selectedVehicle = mutableStateOf("Auto")
     var duration: Int = Integer.valueOf(1)
-    val co2 = mutableStateOf(0f)
+    private val co2 = mutableStateOf(0f)
 
     var co2DataList = ConsumptionDataList(mutableListOf())
 
@@ -63,7 +63,7 @@ class MainViewModel : ViewModel() {
     }
 
 
-    fun merchList(value: Float) {
+    private fun merchList(value: Float) {
         val currentInstant = Clock.System.now()
         val localDateTime = currentInstant.toLocalDateTime(TimeZone.currentSystemDefault())
         val dayOfWeek = localDateTime.dayOfWeek
@@ -79,7 +79,7 @@ class MainViewModel : ViewModel() {
         writeCO2Data(co2DataList)
     }
 
-    fun readDataInit(collectionName: String, documentId: String) {
+    private fun readDataInit(collectionName: String, documentId: String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
             if (co2DataListDB != null) {
                 co2DataListDB.forEach { data ->
@@ -99,7 +99,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun writeCO2Data(co2DataList: ConsumptionDataList) {
+    private fun writeCO2Data(co2DataList: ConsumptionDataList) {
         val collectionName = "co2Data"
         val documentId = "your_document_id"
 

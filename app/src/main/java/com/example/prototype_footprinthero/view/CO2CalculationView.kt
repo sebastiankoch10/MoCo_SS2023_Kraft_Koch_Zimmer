@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.model.CO2CalculationViewModel
 
+/*
 @Composable
 fun CO2Calculation(
     viewModel: CO2CalculationViewModel
@@ -51,3 +52,5 @@ fun CO2Calculation(
         }
     }
 }
+
+ */

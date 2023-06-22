@@ -21,7 +21,7 @@ fun DayView(co2DataList: ConsumptionDataList) {
 
     val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateByDayOfWeek()
     val thData = aggregatedDataList.find { it.dayOfWeek == "TH" }
-    var fillAmount: Float
+    val fillAmount: Float
 
     if (thData != null) {
         if (thData.value > 6f) {
