@@ -115,11 +115,11 @@ class MainViewModel : ViewModel() {
                     val calendarWeek = data.calendarWeek
 
                     Log.d(
-                        "MainViewModel", "Read From DB, CO2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
+                        "MainViewModel", "Read From DB, co2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
                     )
                 }
             } else {
-                Log.e("MainViewModel", "Failed to read CO2 data: $error")
+                Log.e("MainViewModel", "Failed to read co2 data: $error")
             }
         }
     }

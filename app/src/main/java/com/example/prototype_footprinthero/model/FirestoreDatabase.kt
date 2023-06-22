@@ -15,7 +15,7 @@ class FirestoreDatabase {
     ) {
         val firestoreData = co2Data.co2Data.map { consumptionData ->
             mapOf(
-                "dayOfWeek" to consumptionData.dayOfWeek, "Co2" to consumptionData.co2, "calendarWeek" to consumptionData.calendarWeek
+                "dayOfWeek" to consumptionData.dayOfWeek, "co2" to consumptionData.co2, "calendarWeek" to consumptionData.calendarWeek
             )
         }
 
@@ -40,8 +40,9 @@ class FirestoreDatabase {
                 val co2DataList = firestoreData?.filterIsInstance<Map<String, Any>>()?.map { data ->
                     ConsumptionData(
                         dayOfWeek = data["dayOfWeek"] as? String ?: "",
-                        co2 = (data["Co2"] as? Double)?.toFloat() ?: 0f,
-                        calendarWeek = data["calendarWeek"] as? Int ?: 0
+                        co2 = (data["co2"] as? Number)?.toFloat() ?: 0f,
+                        calendarWeek = (data["calendarWeek"] as? Number)?.toInt() ?: 0
+
                     )
                 }
                 callback(co2DataList, null)
@@ -49,6 +50,7 @@ class FirestoreDatabase {
                 callback(null, e) // Fehler beim Lesen
             }
     }
+
 
     fun updateCO2Data(
         co2Data: List<ConsumptionData>,
@@ -58,7 +60,7 @@ class FirestoreDatabase {
     ) {
         val firestoreData = co2Data.map { barData ->
             mapOf(
-                "dayOfWeek" to barData.dayOfWeek, "Co2" to barData.co2
+                "dayOfWeek" to barData.dayOfWeek, "co2" to barData.co2
             )
         }
 
