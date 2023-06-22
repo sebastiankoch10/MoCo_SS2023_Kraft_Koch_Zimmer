@@ -22,10 +22,16 @@ fun DayView(co2DataList: ConsumptionDataList) {
 
     val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateByDayOfWeek()
     val thData = aggregatedDataList.find { it.dayOfWeek == "TH" }
-    Log.d("DayView", "TagesData: $thData")
+    var fillAmount: Float
 
     if (thData != null) {
-        val fillAmount = thData.value / 6f // Annahme: Wertebereich ist 0-6
+        if (thData.value > 6f) {
+            fillAmount = 6f
+            Log.d("DayView", "TagesData: $thData")
+        } else {
+            fillAmount = thData.value
+            Log.d("DayView", "TagesData: $thData")
+        }
         DrawHorizontalProgressBar(fillAmount)
     }
 }
@@ -33,6 +39,8 @@ fun DayView(co2DataList: ConsumptionDataList) {
 @Composable
 fun DrawHorizontalProgressBar(fillAmount: Float) {
     Log.d("DayView", "DrawHorizontalProgressBar called with fillAmount: $fillAmount")
+    val cappedFillAmount = fillAmount.coerceIn(0f, 6f)
+
     Column {
         Text(
             text = "Tagesanzeige",
@@ -43,10 +51,12 @@ fun DrawHorizontalProgressBar(fillAmount: Float) {
         ) {
             Box(
                 modifier = Modifier
-                    .width((fillAmount / 6f).coerceIn(0f, 1f).dp)
                     .fillMaxHeight()
-                    .background(color = if (fillAmount >= 6f) Color.Red else Color.Green)
+                    .background(color = if (cappedFillAmount >= 6f) Color.Red else Color.Green)
+                    .fillMaxWidth((cappedFillAmount / 6f).coerceIn(0f, 1f))
             )
         }
     }
 }
+
+
