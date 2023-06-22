@@ -1,8 +1,12 @@
 package com.example.prototype_footprinthero.model
 
 import android.util.Log
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.example.prototype_footprinthero.observers.DataObserver
+import com.example.prototype_footprinthero.view.WeekdayOverview
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -12,16 +16,36 @@ class MainViewModel : ViewModel() {
 
     val vehicles = listOf("Auto", "Fahrrad", "Flugzeug")
     val co2CalculationViewModel = CO2CalculationViewModel()
-
     val selectedVehicle = mutableStateOf("Auto")
     var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
-    val co2DataList = ConsumptionDataList(mutableListOf())
 
-    init {
-        readDataInit("co2Data", "your_document_id")
+    var co2DataList = ConsumptionDataList(  mutableListOf())
+
+    /* TODO Observer Pattern
+    private val co2DataObserver = object : DataObserver {
+        override fun onDataChangedFromObserver() {
+            Log.e("MainViewModel", "onDataChangedFromObserver: ${co2DataList.co2Data}")
+            updateWeekdayOverview()
+        }
     }
 
+    fun updateWeekdayOverview() {
+        WeekdayOverview(co2DataList)
+    }
+
+    fun getCo2DataObserver(): DataObserver {
+        return co2DataObserver
+    }
+
+     */
+
+
+    init {
+        //co2DataList.registerObserver(co2DataObserver)
+        Log.i("MainViewModel", "init called")
+        readDataInit("co2Data", "your_document_id")
+    }
 
     fun onVehicleSelected(vehicle: String) {
         selectedVehicle.value = vehicle
@@ -30,8 +54,9 @@ class MainViewModel : ViewModel() {
 
     fun onDurationChanged(duration: Int) {
         co2CalculationViewModel.onDurationChanged(duration)
-        Log.d("MainViewModel", "Selected duration: $duration")
+        //Log.d("MainViewModel", "Selected duration: $duration")
     }
+
 
     fun calculateCO2() {
         co2CalculationViewModel.calculateCO2()
@@ -41,13 +66,15 @@ class MainViewModel : ViewModel() {
         merchList(co2.value)
     }
 
+
+
     fun merchList(value: Float) {
         val currentInstant = Clock.System.now()
         val localDateTime = currentInstant.toLocalDateTime(TimeZone.currentSystemDefault())
         val dayOfWeek = localDateTime.dayOfWeek
         val abbreviatedDayOfWeek = dayOfWeek.name.take(2)
 
-        // Verwenden Sie abbreviatedDayOfWeek in Ihrer Logik oder tun Sie, was auch immer Sie damit machen möchten
+
         println("Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
         val consumptionData = ConsumptionData(
@@ -68,7 +95,7 @@ class MainViewModel : ViewModel() {
                     val co2 = data.value
 
                     Log.d(
-                        "MainViewModel", "CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                        "MainViewModel", "Read From DB, CO2 data: Tag: $dayOfWeek, CO2: $co2"
                     )
                 }
             } else {
@@ -90,7 +117,7 @@ class MainViewModel : ViewModel() {
                     val co2 = data.value
 
                     Log.d(
-                        "MainViewModel", "CO2 data: Tag: $dayOfWeek, CO2: $co2"
+                        "MainViewModel", "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2"
                     )
                 }
 

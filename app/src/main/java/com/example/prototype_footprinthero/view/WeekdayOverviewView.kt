@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,17 +16,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.model.ConsumptionData
 import com.example.prototype_footprinthero.model.ConsumptionDataList
 
 
 @Composable
-fun WeekdayOverview(co2DataList : ConsumptionDataList) {
-    Log.d("WeekdayOverview", "WeekdayOverview start")
+fun WeekdayOverview(co2DataList: ConsumptionDataList) {
+    Log.i("WeekdayOverview", "WeekdayOverview start")
 
-    Log.d("WeekdayOverview", "co2DataList länge: ${co2DataList.size()}")
+    Log.d("WeekdayOverview", "co2DataList Länge: ${co2DataList.co2Data.size}")
 
-    val maxValue = co2DataList.co2Data.maxByOrNull { it.value }?.value ?: 0f
 
+    val co2DataListTest = ConsumptionDataList(
+        listOf(
+            ConsumptionData("mo", 20.5f),
+            ConsumptionData("di", 3.1f),
+            ConsumptionData("mi", 1.8f),
+            ConsumptionData("do", 4.2f),
+            ConsumptionData("fr", 20.9f)
+        ) as MutableList<ConsumptionData>
+    )
+
+    val maxValue = co2DataList.maxByOrNull { it.value }?.value ?: 0f
+
+
+
+    Log.d("WeekdayOverview", "maxValue: $maxValue")
 
     Column(Modifier.padding(16.dp)) {
         Text(
@@ -35,9 +50,8 @@ fun WeekdayOverview(co2DataList : ConsumptionDataList) {
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        LazyRow(Modifier.fillMaxWidth()) {
-            items(co2DataList.co2Data) { data ->
-                Log.d("WeekdayOverview", "dayofweek: ${data.dayOfWeek} und value: ${data.value}")
+        Row(Modifier.fillMaxWidth()) {
+            co2DataList.co2Data.forEach { data ->
                 Column(
                     modifier = Modifier
                         .weight(1f)

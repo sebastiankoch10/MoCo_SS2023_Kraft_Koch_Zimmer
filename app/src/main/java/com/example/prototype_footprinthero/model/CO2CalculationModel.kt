@@ -1,6 +1,7 @@
 package com.example.prototype_footprinthero.model
 
 import android.util.Log
+import androidx.compose.runtime.Composable
 
 data class CO2CalculationModel(
     var co2: Float = 0f,
@@ -16,6 +17,7 @@ data class CO2CalculationModel(
 
 class CO2CalculationViewModel {
     val model = CO2CalculationModel()
+
 
     fun calculateCO2() {
         val co2Emission = model.transportationCO2[model.selectedTransportation] ?: 0f

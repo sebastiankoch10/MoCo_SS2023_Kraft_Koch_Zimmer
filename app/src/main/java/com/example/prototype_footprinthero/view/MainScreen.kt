@@ -17,10 +17,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.model.ConsumptionDataList
 import com.example.prototype_footprinthero.model.MainViewModel
 
 @Composable
@@ -69,7 +71,7 @@ fun MainScreen(viewModel: MainViewModel) {
 
                 }
                 Button(
-                    onClick = { viewModel.calculateCO2() },
+                    onClick = { viewModel.calculateCO2()},
                     modifier = Modifier.padding(start = 8.dp)
                 ) {
                     Text(text = "Berechnen")
@@ -86,6 +88,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 }
 
                  */
+
         }
     }
 }
@@ -94,4 +97,14 @@ enum class Screen {
     WeekdayOverview,
     WeeklyOverview
 }
+
+/* TODO Observer für WeekdayOverview
+@Composable
+fun WeekdayOverview(co2DataList: ConsumptionDataList) {
+    // ...
+    // Logik zur Aktualisierung der WeekdayOverview basierend auf co2DataList
+    // ...
+}
+
+ */
 
