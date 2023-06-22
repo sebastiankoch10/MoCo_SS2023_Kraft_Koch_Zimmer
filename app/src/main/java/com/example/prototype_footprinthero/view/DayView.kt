@@ -1,6 +1,8 @@
 package com.example.prototype_footprinthero.view
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,13 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.model.ConsumptionDataList
+import com.example.prototype_footprinthero.model.MainViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DayView(co2DataList: ConsumptionDataList) {
+fun DayView(viewModel: MainViewModel) {
+    val co2DataList =viewModel.co2DataList
     Log.i("DayView", "DayView called")
 
     val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateByDayOfWeek()
-    val thData = aggregatedDataList.find { it.dayOfWeek == "TH" }
+    val weekdayInGerman = viewModel.dayInGerman
+    val thData = aggregatedDataList.find { it.dayOfWeek == weekdayInGerman}
+    Log.d("DayView", "thData: $thData")
     val fillAmount: Float
 
     if (thData != null) {

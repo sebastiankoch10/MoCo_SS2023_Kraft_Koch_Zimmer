@@ -72,7 +72,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 }
             }
 
-            DayView(viewModel.co2DataList)
+            DayView(viewModel)
             WeekdayOverview(viewModel.co2DataList)
             // Anzeige des aktuellen Bildschirms basierend auf dem aktuellen Zustand
             /*when (currentScreen) {

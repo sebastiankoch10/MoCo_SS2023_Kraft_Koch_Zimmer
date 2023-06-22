@@ -1,12 +1,15 @@
 package com.example.prototype_footprinthero.model
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import java.time.LocalDateTime
+import java.time.format.TextStyle
+import java.util.Locale
 
+@RequiresApi(Build.VERSION_CODES.O)
 class MainViewModel : ViewModel() {
     private val firestoreDatabase = FirestoreDatabase()
 
@@ -17,6 +20,9 @@ class MainViewModel : ViewModel() {
     private val co2 = mutableStateOf(0f)
 
     var co2DataList = ConsumptionDataList(mutableListOf())
+    var dayInGerman = ""
+
+
 
     /* TODO Observer Pattern
     private val co2DataObserver = object : DataObserver {
@@ -41,6 +47,7 @@ class MainViewModel : ViewModel() {
         //co2DataList.registerObserver(co2DataObserver)
         Log.i("MainViewModel", "init called")
         readDataInit("co2Data", "your_document_id")
+        dayInGerman = weekdayInGerman()
     }
 
     fun onVehicleSelected(vehicle: String) {
@@ -54,6 +61,7 @@ class MainViewModel : ViewModel() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun calculateCO2() {
         co2CalculationViewModel.calculateCO2()
         co2.value = co2CalculationViewModel.model.co2
@@ -63,20 +71,29 @@ class MainViewModel : ViewModel() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun merchList(value: Float) {
-        val currentInstant = Clock.System.now()
-        val localDateTime = currentInstant.toLocalDateTime(TimeZone.currentSystemDefault())
-        val dayOfWeek = localDateTime.dayOfWeek
-        val abbreviatedDayOfWeek = dayOfWeek.name.take(2)
 
 
-        println("Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
+        val abbreviatedDayOfWeek = dayInGerman
 
-        val consumptionData = ConsumptionData(
-            abbreviatedDayOfWeek, value
-        )
+
+        Log.i(  "MainViewModel","Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
+
+        val consumptionData = abbreviatedDayOfWeek.let {
+            ConsumptionData(
+                it, value
+            )
+        }
         co2DataList.addConsumption(consumptionData)
         writeCO2Data(co2DataList)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun weekdayInGerman(): String {
+        val currentDateTime = LocalDateTime.now()
+        val dayOfWeek = currentDateTime.dayOfWeek
+        return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.GERMANY)
     }
 
     private fun readDataInit(collectionName: String, documentId: String) {
