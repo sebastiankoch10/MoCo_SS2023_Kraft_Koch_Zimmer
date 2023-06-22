@@ -59,23 +59,24 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
         Log.i("aggregateByDayOfWeek", "aggregateByDayOfWeek called")
         val aggregatedList = ConsumptionDataList(mutableListOf())
 
-        val filteredList = aggregatedList.co2Data.filter { it.calendarWeek != viewModel.calendarWeek }
-        aggregatedList.co2Data.clear()
-        aggregatedList.co2Data.addAll(filteredList)
-        Log.d("aggregateByDayOfWeek", "aggregatedList: ${aggregatedList.co2Data.size}")
+        co2Data.groupBy { it.dayOfWeek }.forEach { (_, dataList) ->
+            val firstData = dataList.firstOrNull { it.calendarWeek == viewModel.calendarWeek }
+            if (firstData != null) {
+                val totalValue = dataList
+                    .filter { it.calendarWeek == viewModel.calendarWeek }
+                    .sumOf { it.co2.toDouble() }
+                    .toFloat()
 
-        co2Data.groupBy { it.dayOfWeek}.forEach { (_, dataList) ->
-            val totalValue = dataList.sumOf { it.co2.toDouble() }.toFloat()
-            val firstData = dataList.first()
-            val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue, firstData.calendarWeek)
-            aggregatedList.addConsumption(aggregatedData)
+                val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue, firstData.calendarWeek)
+                aggregatedList.addConsumption(aggregatedData)
             }
-        Log.d("aggregateByDayOfWeek", "aggregatedList: ${aggregatedList.co2Data.size}")
+        }
 
         return aggregatedList
+
     }
 
-    fun map(): List<Map<String, Any>> {
+        fun map(): List<Map<String, Any>> {
         return co2Data.map { barData ->
             mapOf(
                 "dayOfWeek" to barData.dayOfWeek, "Co2" to barData.co2
