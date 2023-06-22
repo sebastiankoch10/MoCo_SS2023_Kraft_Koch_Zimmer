@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.prototype_footprinthero.model.ConsumptionData
 import com.example.prototype_footprinthero.model.ConsumptionDataList
 
 
@@ -27,7 +26,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
 
     val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateByDayOfWeek()
 
-    val maxValue = aggregatedDataList.maxByOrNull { it.value }?.value ?: 0f
+    val maxValue = aggregatedDataList.maxByOrNull { it.Co2 }?.Co2 ?: 0f
 
 
 
@@ -55,7 +54,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
                             .height(200.dp)
                             .background(Color(0xFF467302))
                     ) {
-                        val height = (maxValue - data.value) / maxValue * 200
+                        val height = (maxValue - data.Co2) / maxValue * 200
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -64,7 +63,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
                         )
                     }
                     Text(
-                        text = data.value.toString(),
+                        text = data.Co2.toString(),
                         style = MaterialTheme.typography.body1.merge(),
                         modifier = Modifier.padding(top = 4.dp)
                     )

@@ -5,8 +5,10 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.TextStyle
+import java.time.temporal.WeekFields
 import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -82,7 +84,7 @@ class MainViewModel : ViewModel() {
 
         val consumptionData = abbreviatedDayOfWeek.let {
             ConsumptionData(
-                it, value
+                it, value, getCurrentCalendarWeek()
             )
         }
         co2DataList.addConsumption(consumptionData)
@@ -95,6 +97,11 @@ class MainViewModel : ViewModel() {
         val dayOfWeek = currentDateTime.dayOfWeek
         return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.GERMANY)
     }
+    fun getCurrentCalendarWeek(): Int {
+        val currentDate = LocalDate.now()
+        val weekFields = WeekFields.of(Locale.getDefault())
+        return currentDate.get(weekFields.weekOfWeekBasedYear())
+    }
 
     private fun readDataInit(collectionName: String, documentId: String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
@@ -104,7 +111,8 @@ class MainViewModel : ViewModel() {
                 }
                 co2DataListDB.forEach { data ->
                     val dayOfWeek = data.dayOfWeek
-                    val co2 = data.value
+                    val co2 = data.Co2
+                    val calendarWeek = data.weekOfYear
 
                     Log.d(
                         "MainViewModel", "Read From DB, CO2 data: Tag: $dayOfWeek, CO2: $co2"
@@ -126,7 +134,8 @@ class MainViewModel : ViewModel() {
             if (success) {
                 co2DataList.co2Data.forEach { data ->
                     val dayOfWeek = data.dayOfWeek
-                    val co2 = data.value
+                    val co2 = data.Co2
+                    val calendarWeek = data.weekOfYear
 
                     Log.d(
                         "MainViewModel", "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2"

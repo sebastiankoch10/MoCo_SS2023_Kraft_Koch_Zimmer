@@ -31,11 +31,11 @@ fun DayView(viewModel: MainViewModel) {
     val fillAmount: Float
 
     if (thData != null) {
-        if (thData.value > 6f) {
+        if (thData.Co2 > 6f) {
             fillAmount = 6f
             Log.d("DayView", "TagesData: $thData")
         } else {
-            fillAmount = thData.value
+            fillAmount = thData.Co2
             Log.d("DayView", "TagesData: $thData")
         }
         DrawHorizontalProgressBar(fillAmount)

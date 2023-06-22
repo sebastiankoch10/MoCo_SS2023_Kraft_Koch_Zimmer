@@ -34,7 +34,8 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
         for (day in daysOfWeek) {
             val randomValue = Random.nextFloat() * 10f // Random value between 0 and 10
-            testDataList.add(ConsumptionData(day, randomValue))
+            val randomWeekOfDay = Random.nextInt(1, 53) // Random value between 1 and 52
+            testDataList.add(ConsumptionData(day, randomValue,randomWeekOfDay))
         }
 
         return ConsumptionDataList(testDataList)
@@ -47,7 +48,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
     fun addConsumption(consumptionData: ConsumptionData) {
         co2Data.add(consumptionData)
-        Log.d("ConsumptionDataList", "addConsumption: ${consumptionData.value}")
+        Log.d("ConsumptionDataList", "addConsumption: ${consumptionData.Co2}")
         //notifyObservers() TODO Observer Pattern
     }
 
@@ -57,13 +58,13 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
         co2Data.groupBy { it.dayOfWeek }.forEach { (_, dataList) ->
             Log.d("aggregateByDayOfWeek", "Co2DataListenlänge: ${dataList.size}")
-            val totalValue = dataList.sumOf { it.value.toDouble() }.toFloat()
+            val totalValue = dataList.sumOf { it.Co2.toDouble() }.toFloat()
             val firstData = dataList.first()
-            val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue)
+            val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue, firstData.weekOfYear)
             aggregatedList.addConsumption(aggregatedData)
             Log.d(
                 "aggregateByDayOfWeek",
-                "dayOfWeek: ${aggregatedData.dayOfWeek}, value: ${aggregatedData.value}"
+                "dayOfWeek: ${aggregatedData.dayOfWeek}, value: ${aggregatedData.Co2}"
             )
         }
 
@@ -73,7 +74,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun map(): List<Map<String, Any>> {
         return co2Data.map { barData ->
             mapOf(
-                "dayOfWeek" to barData.dayOfWeek, "value" to barData.value
+                "dayOfWeek" to barData.dayOfWeek, "value" to barData.Co2
             )
         }
     }
@@ -92,4 +93,4 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     }
 }
 
-data class ConsumptionData(val dayOfWeek: String, val value: Float)
+data class ConsumptionData(val dayOfWeek: String, val Co2: Float, val weekOfYear: Int)
