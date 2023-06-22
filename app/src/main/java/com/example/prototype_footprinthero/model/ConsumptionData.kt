@@ -1,6 +1,8 @@
 package com.example.prototype_footprinthero.model
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import kotlin.random.Random
 
 
@@ -52,21 +54,23 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
         //notifyObservers() TODO Observer Pattern
     }
 
-    fun aggregateByDayOfWeek(): ConsumptionDataList {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun aggregateToDaysOfThisWeek(viewModel : MainViewModel): ConsumptionDataList {
         Log.i("aggregateByDayOfWeek", "aggregateByDayOfWeek called")
         val aggregatedList = ConsumptionDataList(mutableListOf())
 
-        co2Data.groupBy { it.dayOfWeek }.forEach { (_, dataList) ->
-            Log.d("aggregateByDayOfWeek", "Co2DataListenlänge: ${dataList.size}")
+        val filteredList = aggregatedList.co2Data.filter { it.calendarWeek != viewModel.calendarWeek }
+        aggregatedList.co2Data.clear()
+        aggregatedList.co2Data.addAll(filteredList)
+        Log.d("aggregateByDayOfWeek", "aggregatedList: ${aggregatedList.co2Data.size}")
+
+        co2Data.groupBy { it.dayOfWeek}.forEach { (_, dataList) ->
             val totalValue = dataList.sumOf { it.co2.toDouble() }.toFloat()
             val firstData = dataList.first()
             val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue, firstData.calendarWeek)
             aggregatedList.addConsumption(aggregatedData)
-            Log.d(
-                "aggregateByDayOfWeek",
-                "dayOfWeek: ${aggregatedData.dayOfWeek}, Co2: ${aggregatedData.co2}"
-            )
-        }
+            }
+        Log.d("aggregateByDayOfWeek", "aggregatedList: ${aggregatedList.co2Data.size}")
 
         return aggregatedList
     }

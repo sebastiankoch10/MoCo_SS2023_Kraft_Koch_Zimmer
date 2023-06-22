@@ -23,6 +23,7 @@ class MainViewModel : ViewModel() {
 
     var co2DataList = ConsumptionDataList(mutableListOf())
     var dayInGerman = ""
+    var calendarWeek = 0
 
 
 
@@ -50,6 +51,7 @@ class MainViewModel : ViewModel() {
         Log.i("MainViewModel", "init called")
         readDataInit("co2Data", "your_document_id")
         dayInGerman = weekdayInGerman()
+        calendarWeek = getCurrentCalendarWeek()
     }
 
     fun onVehicleSelected(vehicle: String) {
@@ -100,6 +102,7 @@ class MainViewModel : ViewModel() {
     fun getCurrentCalendarWeek(): Int {
         val currentDate = LocalDate.now()
         val weekFields = WeekFields.of(Locale.getDefault())
+        Log.d("MainViewModel_getCurrentCalendarWeek", "Current Calendar Week: ${currentDate.get(weekFields.weekOfWeekBasedYear())}")
         return currentDate.get(weekFields.weekOfWeekBasedYear())
     }
 
