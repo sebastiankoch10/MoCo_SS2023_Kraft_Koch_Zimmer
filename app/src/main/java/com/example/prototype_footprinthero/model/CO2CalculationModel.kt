@@ -1,7 +1,6 @@
 package com.example.prototype_footprinthero.model
 
 import android.util.Log
-import androidx.compose.runtime.Composable
 
 data class CO2CalculationModel(
     var co2: Float = 0f,

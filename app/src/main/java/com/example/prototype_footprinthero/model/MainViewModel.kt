@@ -1,12 +1,8 @@
 package com.example.prototype_footprinthero.model
 
 import android.util.Log
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.example.prototype_footprinthero.observers.DataObserver
-import com.example.prototype_footprinthero.view.WeekdayOverview
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -20,7 +16,7 @@ class MainViewModel : ViewModel() {
     var duration: Int = Integer.valueOf(1)
     val co2 = mutableStateOf(0f)
 
-    var co2DataList = ConsumptionDataList(  mutableListOf())
+    var co2DataList = ConsumptionDataList(mutableListOf())
 
     /* TODO Observer Pattern
     private val co2DataObserver = object : DataObserver {
@@ -65,7 +61,6 @@ class MainViewModel : ViewModel() {
 
         merchList(co2.value)
     }
-
 
 
     fun merchList(value: Float) {

@@ -22,11 +22,11 @@ class FirestoreDatabase {
         val dataToWrite = mapOf("co2Data" to firestoreData)
 
         db.collection(collectionName).document(documentId).set(dataToWrite).addOnSuccessListener {
-                callback(true, null) // Erfolgreich geschrieben, kein Fehler
-            }.addOnFailureListener { e ->
-                val errorMessage = e.message ?: "Unbekannter Fehler"
-                callback(false, errorMessage) // Fehler beim Schreiben mit Fehlermeldung
-            }
+            callback(true, null) // Erfolgreich geschrieben, kein Fehler
+        }.addOnFailureListener { e ->
+            val errorMessage = e.message ?: "Unbekannter Fehler"
+            callback(false, errorMessage) // Fehler beim Schreiben mit Fehlermeldung
+        }
     }
 
     fun readCO2Data(

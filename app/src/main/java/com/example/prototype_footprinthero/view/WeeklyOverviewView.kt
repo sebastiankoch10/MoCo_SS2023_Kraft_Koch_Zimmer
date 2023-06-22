@@ -33,16 +33,12 @@ fun WeeklyOverview() {
                 .background(Color(0xFFD4D93D))
         ) {
             DropdownMenu(
-                expanded = false,
-                onDismissRequest = {},
-                modifier = Modifier.fillMaxWidth()
+                expanded = false, onDismissRequest = {}, modifier = Modifier.fillMaxWidth()
             ) {
                 weeks.forEach { week ->
-                    DropdownMenuItem(
-                        onClick = {
-                            selectedWeek = week
-                        }
-                    ) {
+                    DropdownMenuItem(onClick = {
+                        selectedWeek = week
+                    }) {
                         Text(text = "KW $week")
                     }
                 }

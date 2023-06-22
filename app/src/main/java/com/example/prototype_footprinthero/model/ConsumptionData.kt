@@ -4,7 +4,6 @@ import android.util.Log
 import kotlin.random.Random
 
 
-
 data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
     /* TODO Observer Pattern
@@ -62,7 +61,10 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
             val firstData = dataList.first()
             val aggregatedData = ConsumptionData(firstData.dayOfWeek, totalValue)
             aggregatedList.addConsumption(aggregatedData)
-            Log.d("aggregateByDayOfWeek", "dayOfWeek: ${aggregatedData.dayOfWeek}, value: ${aggregatedData.value}")
+            Log.d(
+                "aggregateByDayOfWeek",
+                "dayOfWeek: ${aggregatedData.dayOfWeek}, value: ${aggregatedData.value}"
+            )
         }
 
         return aggregatedList
@@ -71,8 +73,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun map(): List<Map<String, Any>> {
         return co2Data.map { barData ->
             mapOf(
-                "dayOfWeek" to barData.dayOfWeek,
-                "value" to barData.value
+                "dayOfWeek" to barData.dayOfWeek, "value" to barData.value
             )
         }
     }

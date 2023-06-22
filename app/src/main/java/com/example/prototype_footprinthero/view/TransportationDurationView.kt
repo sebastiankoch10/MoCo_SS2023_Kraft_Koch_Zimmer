@@ -18,8 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TransportationDurationView(
-    duration: Int,
-    onDurationChanged: (Int) -> Unit
+    duration: Int, onDurationChanged: (Int) -> Unit
 ) {
     var currentDuration by remember { mutableStateOf(duration) }
 
@@ -28,13 +27,10 @@ fun TransportationDurationView(
 
         Box(Modifier.padding(top = 8.dp)) {
             Slider(
-                value = currentDuration.toFloat(),
-                onValueChange = { newValue ->
+                value = currentDuration.toFloat(), onValueChange = { newValue ->
                     currentDuration = newValue.toInt()
                     onDurationChanged(currentDuration)
-                },
-                valueRange = 0f..120f,
-                modifier = Modifier.fillMaxWidth()
+                }, valueRange = 0f..120f, modifier = Modifier.fillMaxWidth()
             )
 
             Text(
