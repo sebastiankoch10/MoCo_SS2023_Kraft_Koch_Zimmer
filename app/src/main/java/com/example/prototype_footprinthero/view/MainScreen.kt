@@ -1,5 +1,7 @@
 package com.example.prototype_footprinthero.view
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.model.MainViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
 
@@ -72,8 +75,8 @@ fun MainScreen(viewModel: MainViewModel) {
                 }
             }
 
-            DayView(viewModel.co2DataList)
-            WeekdayOverview(viewModel.co2DataList)
+            DayView(viewModel)
+            WeekdayOverview(viewModel.co2DataList, viewModel)
             // Anzeige des aktuellen Bildschirms basierend auf dem aktuellen Zustand
             /*when (currentScreen) {
                 Screen.Day -> DayView(viewModel.co2DataList)
