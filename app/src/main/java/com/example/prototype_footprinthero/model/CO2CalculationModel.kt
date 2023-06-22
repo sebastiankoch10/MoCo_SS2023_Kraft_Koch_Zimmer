@@ -21,7 +21,7 @@ class CO2CalculationViewModel {
 
     fun calculateCO2() {
         val co2Emission = model.transportationCO2[model.selectedTransportation] ?: 0f
-        val calculatedCo2 = co2Emission * model.duration
+        val calculatedCo2 = (co2Emission * model.duration) / 60f
         if (!calculatedCo2.isNaN()) {
             model.co2 = calculatedCo2
         }

@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             Prototype_FootPrintHeroTheme {
                 Surface(color = Color.White) {
                     MainScreen(
-                        viewModel = viewModel
+                        viewModel = viewModel,
                     )
                 }
             }

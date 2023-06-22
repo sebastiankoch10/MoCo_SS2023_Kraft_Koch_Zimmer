@@ -13,6 +13,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +27,11 @@ import com.example.prototype_footprinthero.model.MainViewModel
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
+
+    // Zustand, um den aktuellen Bildschirm zu verfolgen
+    var currentScreen by remember { mutableStateOf(Screen.Day) }
+
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -69,10 +78,24 @@ fun MainScreen(viewModel: MainViewModel) {
                 }
             }
 
-            WeekdayOverview(viewModel.co2DataList)
-            //WeeklyOverview()
+                DayView(viewModel.co2DataList)
+                WeekdayOverview(viewModel.co2DataList)
+                // Anzeige des aktuellen Bildschirms basierend auf dem aktuellen Zustand
+                /*when (currentScreen) {
+                    Screen.Day -> DayView(viewModel.co2DataList)
+                    Screen.WeekdayOverview -> WeekdayOverview(viewModel.co2DataList)
+                    Screen.WeeklyOverview -> WeeklyOverview()
+                }
+
+                 */
+
         }
     }
+}
+enum class Screen {
+    Day,
+    WeekdayOverview,
+    WeeklyOverview
 }
 
 /* TODO Observer für WeekdayOverview
