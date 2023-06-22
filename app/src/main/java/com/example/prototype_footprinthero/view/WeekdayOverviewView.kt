@@ -25,8 +25,9 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
 
     Log.d("WeekdayOverview", "co2DataList Länge: ${co2DataList.co2Data.size}")
 
+    val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateByDayOfWeek()
 
-    val maxValue = co2DataList.maxByOrNull { it.value }?.value ?: 0f
+    val maxValue = aggregatedDataList.maxByOrNull { it.value }?.value ?: 0f
 
 
 
@@ -40,7 +41,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList) {
         )
 
         Row(Modifier.fillMaxWidth()) {
-            co2DataList.co2Data.forEach { data ->
+            aggregatedDataList.co2Data.forEach { data ->
                 Column(
                     modifier = Modifier
                         .weight(1f)
