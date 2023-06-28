@@ -2,19 +2,18 @@ package com.example.prototype_footprinthero.view
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import com.example.prototype_footprinthero.model.MainViewModel
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         setContent {
             Prototype_FootPrintHeroTheme {
@@ -27,3 +26,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
