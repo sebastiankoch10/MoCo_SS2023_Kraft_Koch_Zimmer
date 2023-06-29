@@ -31,6 +31,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
         Log.d("ConsumptionDataList", "addConsumption: ${consumptionData.co2}")
     }
 
+
     fun aggregateToDaysOfThisWeek(viewModel: MainViewModel): ConsumptionDataList {
         Log.i("aggregateByDayOfWeek", "aggregateByDayOfWeek called")
         val aggregatedList = ConsumptionDataList(mutableListOf())

@@ -96,30 +96,43 @@ class MainViewModel : ViewModel() {
         return currentDate.get(weekFields.weekOfWeekBasedYear())
     }
 
-    private fun readDataInit(collectionName: String, documentId: String) {
+    fun readDataInit(collectionName: String, documentId: String) {
+        Log.i("MainViewModel", "readDataInit called")
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
             if (co2DataListDB != null) {
-                co2DataListDB.forEach { data ->
-                    val updatedList = _co2DataList.value?.apply {
-                        addConsumption(data)
-                    } ?: ConsumptionDataList(mutableListOf(data))
-                    _co2DataList.postValue(updatedList)
-                }
-                co2DataListDB.forEach { data ->
-                    val dayOfWeek = data.dayOfWeek
-                    val co2 = data.co2
-                    val calendarWeek = data.calendarWeek
+                _co2DataList.value?.let { co2DataList ->
+                    co2DataListDB.forEach { data ->
+                        co2DataList.addConsumption(data)
+                        _co2DataList.postValue(co2DataList)
 
-                    Log.d(
-                        "MainViewModel",
-                        "Read From DB, co2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
-                    )
+                        val dayOfWeek = data.dayOfWeek
+                        val co2 = data.co2
+                        val calendarWeek = data.calendarWeek
+
+                        Log.d(
+                            "MainViewModel",
+                            "Read From DB, co2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
+                        )
+                    }
+
+                    val finalCo2DataList = co2DataList // Separate Referenz
+                    Log.d("MainViewModel", "co2DataList size after adding: ${finalCo2DataList.co2Data.size}")
                 }
             } else {
                 Log.e("MainViewModel", "Failed to read co2 data: $error")
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
 
 
     private fun writeCO2Data(co2DataList: ConsumptionDataList) {
@@ -147,6 +160,3 @@ class MainViewModel : ViewModel() {
         }
     }
 }
-
-
-

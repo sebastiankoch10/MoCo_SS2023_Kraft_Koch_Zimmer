@@ -32,6 +32,8 @@ fun WeekdayOverview(viewModel: MainViewModel) {
         ?: ConsumptionDataList(mutableListOf())
 
 
+    Log.d("WeekdayOverview", "co2DataList Länge: ${viewModel.co2DataList.value?.co2Data?.size}")
+
     val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
 
 
