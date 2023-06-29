@@ -2,6 +2,8 @@ package com.example.prototype_footprinthero.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.prototype_footprinthero.model.ConsumptionData
 import com.example.prototype_footprinthero.model.ConsumptionDataList
@@ -17,16 +19,18 @@ class MainViewModel : ViewModel() {
     val vehicles = listOf("Auto", "Fahrrad", "Flugzeug")
     private val co2CalculationViewModel = CO2CalculationViewModel()
     val selectedVehicle = mutableStateOf("Auto")
-    var duration: Int = Integer.valueOf(1)
+    //var duration: Int = Integer.valueOf(1) TODO benötigt?
     private val co2 = mutableStateOf(0f)
 
-    var co2DataList = ConsumptionDataList(mutableListOf())
+    private val _co2DataList = MutableLiveData<ConsumptionDataList>()
+    val co2DataList: LiveData<ConsumptionDataList> get() = _co2DataList
+
+
     var dayInGerman = ""
     var calendarWeek = 0
 
 
     init {
-        //co2DataList.registerObserver(co2DataObserver)
         Log.i("MainViewModel", "init called")
         readDataInit("co2Data", "your_document_id")
         dayInGerman = weekdayInGerman()
@@ -40,7 +44,6 @@ class MainViewModel : ViewModel() {
 
     fun onDurationChanged(duration: Int) {
         co2CalculationViewModel.onDurationChanged(duration)
-        //Log.d("MainViewModel", "Selected duration: $duration")
     }
 
 
@@ -66,8 +69,12 @@ class MainViewModel : ViewModel() {
                 it, co2, getCurrentCalendarWeek()
             )
         }
-        co2DataList.addConsumption(consumptionData)
-        writeCO2Data(co2DataList)
+        val updatedList = _co2DataList.value?.apply {
+            addConsumption(consumptionData)
+        } ?: ConsumptionDataList(mutableListOf(consumptionData))
+
+        _co2DataList.value = updatedList
+        writeCO2Data(updatedList)
     }
 
     private fun weekdayInGerman(): String {
