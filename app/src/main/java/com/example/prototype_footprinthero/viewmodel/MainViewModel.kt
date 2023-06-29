@@ -97,42 +97,32 @@ class MainViewModel : ViewModel() {
     }
 
     fun readDataInit(collectionName: String, documentId: String) {
-        Log.i("MainViewModel", "readDataInit called")
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
             if (co2DataListDB != null) {
                 _co2DataList.value?.let { co2DataList ->
                     co2DataListDB.forEach { data ->
                         co2DataList.addConsumption(data)
-                        _co2DataList.postValue(co2DataList)
-
-                        val dayOfWeek = data.dayOfWeek
-                        val co2 = data.co2
-                        val calendarWeek = data.calendarWeek
-
-                        Log.d(
-                            "MainViewModel",
-                            "Read From DB, co2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
-                        )
                     }
+                }
+                val finalCo2DataList = _co2DataList.value // Separate Referenz
+                Log.d("MainViewModel", "co2DataList size after adding: ${finalCo2DataList?.co2Data?.size}")
 
-                    val finalCo2DataList = co2DataList // Separate Referenz
-                    Log.d("MainViewModel", "co2DataList size after adding: ${finalCo2DataList.co2Data.size}")
+                // Ausgabe der gelesenen Elemente
+                co2DataListDB.forEachIndexed { index, data ->
+                    Log.i("MainViewModel", "Gelesenes Element $index: $data")
                 }
             } else {
                 Log.e("MainViewModel", "Failed to read co2 data: $error")
             }
+
+            // Hinzufügen der Logik für den Erfolgs- oder Fehlerfall hier
+            if (error != null) {
+                Log.e("MainViewModel", "Firestore query failed: $error")
+            } else {
+                Log.i("MainViewModel", "Firestore query successful")
+            }
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
     private fun writeCO2Data(co2DataList: ConsumptionDataList) {
