@@ -29,7 +29,6 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     fun addConsumption(consumptionData: ConsumptionData) {
         co2Data.add(consumptionData)
         Log.d("ConsumptionDataList", "addConsumption: ${consumptionData.co2}")
-        //notifyObservers() TODO Observer Pattern
     }
 
     fun aggregateToDaysOfThisWeek(viewModel: MainViewModel): ConsumptionDataList {

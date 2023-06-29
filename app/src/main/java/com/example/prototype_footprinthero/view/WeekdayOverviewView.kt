@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -73,6 +74,18 @@ fun WeekdayOverview(viewModel: MainViewModel) {
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
+            }
+        }
+
+        LaunchedEffect(viewModel.co2DataList.value) {
+            // Aktionen ausführen, wenn sich der Wert von viewModel.co2DataList ändert
+            Log.d(
+                "WeekdayOverview",
+                "viewModel.co2DataList changed: ${viewModel.co2DataList.value}"
+            )
+            // Hier können Sie Ihre Logik zur Aktualisierung der View einfügen
+            viewModel.co2DataList.value?.let { co2DataList ->
+                // Aktualisieren Sie Ihre View mit den neuen Daten
             }
         }
     }

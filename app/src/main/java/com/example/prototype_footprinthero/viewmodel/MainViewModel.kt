@@ -75,7 +75,10 @@ class MainViewModel : ViewModel() {
 
         _co2DataList.value = updatedList
         writeCO2Data(updatedList)
-    }
+
+        // Benachrichtigen Sie die Beobachter (Observer) über die Änderung der co2DataList
+        _co2DataList.postValue(updatedList) //TODO nur wenn erfolgreich geaddet wurde
+        }
 
     private fun weekdayInGerman(): String {
         val currentDateTime = LocalDateTime.now()
