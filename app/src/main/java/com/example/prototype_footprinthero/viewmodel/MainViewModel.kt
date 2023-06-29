@@ -25,6 +25,8 @@ class MainViewModel : ViewModel() {
     private val _co2DataList = MutableLiveData<ConsumptionDataList>()
     val co2DataList: LiveData<ConsumptionDataList> get() = _co2DataList
 
+    //TODO val mit Tagen der aktuellen KW
+
 
 
     var dayInGerman = ""
@@ -154,23 +156,4 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-/*
-    fun refreshWeekdayOverview() {
-        Log.i("MainViewModel", "refreshWeekdayOverview called")
-        val currentValue = _co2DataList.value
-        if (currentValue != null) {
-            // Führen Sie Ihre Logik zur Aktualisierung durch
-            // Hier können Sie die vorhandenen Werte im ViewModel verwenden
-            val updatedValue = currentValue // Hier können Sie currentValue oder andere Werte aus dem ViewModel verwenden
-            // ...
-
-            // Benachrichtigen Sie die Beobachter nur bei tatsächlichen Änderungen
-            if (updatedValue != _co2DataList.value) {
-                _co2DataList.value = updatedValue
-            }
-        }
-    }
-
- */
-
 }

@@ -44,6 +44,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
                 val aggregatedData =
                     ConsumptionData(firstData.dayOfWeek, totalValue, firstData.calendarWeek)
+                Log.i("aggregateByDayOfWeek", "aggregateByDayOfWeek called addConsumption")
                 aggregatedList.addConsumption(aggregatedData)
             }
         }

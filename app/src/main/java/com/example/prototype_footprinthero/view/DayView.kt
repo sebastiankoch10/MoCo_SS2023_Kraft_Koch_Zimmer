@@ -27,7 +27,7 @@ fun DayView(viewModel: MainViewModel) {
 
     val co2DataList by viewModel.co2DataList.observeAsState(ConsumptionDataList(mutableListOf()))
 
-    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
+    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel) //TODO an viemodel hängen
 
     val weekdayInGerman = viewModel.dayInGerman
     val thData = aggregatedDataList.find { it.dayOfWeek == weekdayInGerman }

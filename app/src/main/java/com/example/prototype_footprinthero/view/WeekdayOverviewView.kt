@@ -30,7 +30,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
     Log.i("WeekdayOverview", "WeekdayOverview start")
 
     val co2DataList by viewModel.co2DataList.observeAsState(ConsumptionDataList(mutableListOf()))
-    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
+    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel) //TODO an viemodel hängen
     val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
 
     Column(Modifier.padding(16.dp)) {
