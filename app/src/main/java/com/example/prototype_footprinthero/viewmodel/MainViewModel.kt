@@ -159,10 +159,13 @@ class MainViewModel : ViewModel() {
         val currentValue = _co2DataList.value
         if (currentValue != null) {
             // Führen Sie Ihre Logik zur Aktualisierung durch
+            // Hier können Sie die vorhandenen Werte im ViewModel verwenden
+            val updatedValue = currentValue // Hier können Sie currentValue oder andere Werte aus dem ViewModel verwenden
             // ...
+
             // Benachrichtigen Sie die Beobachter nur bei tatsächlichen Änderungen
-            if (currentValue != _co2DataList.value) {
-                _co2DataList.value = currentValue
+            if (updatedValue != _co2DataList.value) {
+                _co2DataList.value = updatedValue
             }
         }
     }
