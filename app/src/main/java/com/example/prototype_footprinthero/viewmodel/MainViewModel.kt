@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
     val vehicles = listOf("Auto", "Fahrrad", "Flugzeug")
     private val co2CalculationViewModel = CO2CalculationViewModel()
     val selectedVehicle = mutableStateOf("Auto")
-    //var duration: Int = Integer.valueOf(1) TODO benötigt?
+    var duration: Int = Integer.valueOf(1)
     private val co2 = mutableStateOf(0f)
 
     private val _co2DataList = MutableLiveData<ConsumptionDataList>()

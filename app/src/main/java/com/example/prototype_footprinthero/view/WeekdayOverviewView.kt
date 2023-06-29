@@ -21,14 +21,15 @@ import com.example.prototype_footprinthero.model.ConsumptionDataList
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun WeekdayOverview(co2DataList: ConsumptionDataList, viewModel: MainViewModel) {
+fun WeekdayOverview(viewModel: MainViewModel) {
     Log.i("WeekdayOverview", "WeekdayOverview start")
 
-    Log.d("WeekdayOverview", "co2DataList Länge: ${co2DataList.co2Data.size}")
+    Log.d("WeekdayOverview", "co2DataList Länge: ${viewModel.co2DataList.value?.co2Data?.size}")
 
-    val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
+    val aggregatedDataList: ConsumptionDataList = viewModel.co2DataList.value?.aggregateToDaysOfThisWeek(viewModel)
+        ?: ConsumptionDataList(mutableListOf())
+
 
     val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
 
