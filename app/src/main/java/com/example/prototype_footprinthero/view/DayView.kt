@@ -18,13 +18,15 @@ import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.model.ConsumptionDataList
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun DayView(viewModel: MainViewModel) {
     val co2DataList = viewModel.co2DataList
     Log.i("DayView", "DayView called")
 
-    val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
+    val aggregatedDataList: ConsumptionDataList = viewModel.co2DataList.value?.aggregateToDaysOfThisWeek(viewModel)
+        ?: ConsumptionDataList(mutableListOf())
+
     val weekdayInGerman = viewModel.dayInGerman
     val thData = aggregatedDataList.find { it.dayOfWeek == weekdayInGerman }
     Log.d("DayView", "thData: $thData")
