@@ -21,7 +21,6 @@ import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 @Composable
 fun DayView(viewModel: MainViewModel) {
-    val co2DataList = viewModel.co2DataList
     Log.i("DayView", "DayView called")
 
     val aggregatedDataList: ConsumptionDataList = viewModel.co2DataList.value?.aggregateToDaysOfThisWeek(viewModel)
