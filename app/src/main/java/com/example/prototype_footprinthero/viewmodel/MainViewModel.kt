@@ -103,7 +103,7 @@ class MainViewModel : ViewModel() {
                     val updatedList = _co2DataList.value?.apply {
                         addConsumption(data)
                     } ?: ConsumptionDataList(mutableListOf(data))
-                    _co2DataList.value = updatedList
+                    _co2DataList.postValue(updatedList)
                 }
                 co2DataListDB.forEach { data ->
                     val dayOfWeek = data.dayOfWeek
@@ -120,6 +120,7 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
 
     private fun writeCO2Data(co2DataList: ConsumptionDataList) {
         val collectionName = "co2Data"
