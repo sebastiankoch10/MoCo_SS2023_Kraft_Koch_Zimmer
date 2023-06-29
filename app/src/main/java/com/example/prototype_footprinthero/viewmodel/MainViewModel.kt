@@ -95,7 +95,9 @@ class MainViewModel : ViewModel() {
     }
 
     fun readDataInit(collectionName: String, documentId: String) {
+        Log.i("MainViewModel", "readDataInit called")
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
+            Log.d("MainViewModel", "readDB List size: ${co2DataListDB?.size}")
             if (co2DataListDB != null) {
                 val currentList = _co2DataList.value?.co2Data ?: mutableListOf()
                 currentList.addAll(co2DataListDB)
@@ -151,6 +153,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun refreshWeekdayOverview() {
+        //Log.i("MainViewModel", "refreshWeekdayOverview called")
         // Benachrichtigen Sie die Beobachter über die Aktualisierung
         _co2DataList.value = _co2DataList.value
     }

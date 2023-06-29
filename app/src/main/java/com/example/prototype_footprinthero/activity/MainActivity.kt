@@ -1,6 +1,7 @@
 package com.example.prototype_footprinthero.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         // Observe the co2DataList State
         viewModel.co2DataList.observe(this) { co2DataList ->
+            Log.i("MainActivity", "co2DataList changed: $co2DataList")
             // Rufen Sie die Update-Funktion auf
             updateWeekdayOverview()
         }
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateWeekdayOverview() {
         // Aktualisieren Sie nur den betroffenen Teil der View
+        Log.i("MainActivity", "updateWeekdayOverview called")
         viewModel.refreshWeekdayOverview()
     }
 }
