@@ -97,33 +97,35 @@ class MainViewModel : ViewModel() {
     fun readDataInit(collectionName: String, documentId: String) {
         Log.i("MainViewModel", "readDataInit called")
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
-            Log.d("MainViewModel", "readDB List size: ${co2DataListDB?.size}")
-            if (co2DataListDB != null) {
-                val currentList = _co2DataList.value?.co2Data ?: mutableListOf()
-                currentList.addAll(co2DataListDB)
-
-                val updatedList = ConsumptionDataList(currentList)
-                _co2DataList.value = updatedList
-
-                val finalCo2DataList = _co2DataList.value // Separate Referenz
-                Log.d("MainViewModel", "_co2DataList size after adding: ${finalCo2DataList?.co2Data?.size}")
-
-                // Ausgabe der gelesenen Elemente
-                co2DataListDB.forEachIndexed { index, data ->
-                    Log.i("MainViewModel", "Gelesenes Element $index: $data")
-                }
-            } else {
-                Log.e("MainViewModel", "Failed to read co2 data: $error")
-            }
-
-            // Hinzufügen der Logik für den Erfolgs- oder Fehlerfall hier
             if (error != null) {
-                Log.e("MainViewModel", "Firestore query failed: $error")
+                Log.e("MainViewModel", "Failed to read co2 data: $error")
+                // Führen Sie hier die entsprechenden Fehlerbehandlungsmaßnahmen durch
             } else {
-                Log.i("MainViewModel", "Firestore query successful")
+                if (co2DataListDB != null) {
+                    val currentList = _co2DataList.value?.co2Data?.toMutableList() ?: mutableListOf()
+                    currentList.addAll(co2DataListDB)
+
+                    val updatedList = ConsumptionDataList(currentList)
+                    _co2DataList.value = updatedList
+
+                    // Weitere Operationen mit der aktualisierten Liste durchführen
+                    // ...
+
+                    Log.d("MainViewModel", "_co2DataList size after adding: ${updatedList.co2Data.size}")
+
+                    // Ausgabe der gelesenen Elemente
+                    co2DataListDB.forEachIndexed { index, data ->
+                        Log.i("MainViewModel", "Gelesenes Element $index: $data")
+                    }
+                } else {
+                    Log.e("MainViewModel", "Failed to read co2 data: Empty data")
+                    // Führen Sie hier die entsprechenden Fehlerbehandlungsmaßnahmen durch
+                }
             }
         }
     }
+
+
 
 
 
@@ -153,8 +155,16 @@ class MainViewModel : ViewModel() {
     }
 
     fun refreshWeekdayOverview() {
-        //Log.i("MainViewModel", "refreshWeekdayOverview called")
-        // Benachrichtigen Sie die Beobachter über die Aktualisierung
-        _co2DataList.value = _co2DataList.value
+        Log.i("MainViewModel", "refreshWeekdayOverview called")
+        val currentValue = _co2DataList.value
+        if (currentValue != null) {
+            // Führen Sie Ihre Logik zur Aktualisierung durch
+            // ...
+            // Benachrichtigen Sie die Beobachter nur bei tatsächlichen Änderungen
+            if (currentValue != _co2DataList.value) {
+                _co2DataList.value = currentValue
+            }
+        }
     }
+
 }

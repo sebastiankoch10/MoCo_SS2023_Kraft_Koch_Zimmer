@@ -7,10 +7,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
 import androidx.compose.ui.graphics.Color
-import com.example.prototype_footprinthero.model.ConsumptionDataList
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 import com.example.prototype_footprinthero.view.MainScreen
-import com.example.prototype_footprinthero.view.WeekdayOverview
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {

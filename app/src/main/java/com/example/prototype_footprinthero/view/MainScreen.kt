@@ -77,17 +77,7 @@ fun MainScreen(viewModel: MainViewModel) {
 
             DayView(viewModel)
             WeekdayOverview(viewModel)
-
-            //TODO richtig?
-            LaunchedEffect(viewModel.co2DataList.value) {
-                // Aktionen ausführen, wenn sich der Wert von viewModel.co2DataList ändert
-                Log.d("MainScreen", "viewModel.co2DataList changed: ${viewModel.co2DataList.value}")
-                // Hier können Sie Ihre Logik zur Aktualisierung der View einfügen
-                viewModel.co2DataList.value?.let { co2DataList ->
-                    // Aktualisieren Sie Ihre View mit den neuen Daten
-                }
             }
-        }
     }
 }
 
