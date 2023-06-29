@@ -24,6 +24,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        // Observe the co2DataList LiveData
+        viewModel.co2DataList.observe(this) { co2DataList ->
+            // Aktualisieren Sie Ihre View mit den neuen Daten
+            // Hier können Sie Ihre Logik zur Aktualisierung der View einfügen
+        }
     }
 }
 
