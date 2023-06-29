@@ -77,8 +77,10 @@ class MainViewModel : ViewModel() {
         writeCO2Data(updatedList)
 
         // Benachrichtigen Sie die Beobachter (Observer) über die Änderung der co2DataList
-        //_co2DataList.postValue(updatedList) // Nicht erforderlich, da bereits _co2DataList.value gesetzt wurde
+        _co2DataList.postValue(updatedList)
+        Log.d("MainViewModel", "Observer benachrichtigt: $updatedList")
     }
+
 
 
     private fun weekdayInGerman(): String {
