@@ -97,7 +97,10 @@ class MainViewModel : ViewModel() {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
             if (co2DataListDB != null) {
                 co2DataListDB.forEach { data ->
-                    co2DataList.addConsumption(data)
+                    val updatedList = _co2DataList.value?.apply {
+                        addConsumption(data)
+                    } ?: ConsumptionDataList(mutableListOf(data))
+                    _co2DataList.value = updatedList
                 }
                 co2DataListDB.forEach { data ->
                     val dayOfWeek = data.dayOfWeek
