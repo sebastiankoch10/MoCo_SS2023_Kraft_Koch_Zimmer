@@ -75,8 +75,9 @@ class MainViewModel : ViewModel() {
         writeCO2Data(updatedList)
 
         // Benachrichtigen Sie die Beobachter (Observer) über die Änderung der co2DataList
-        _co2DataList.postValue(updatedList) //TODO nur wenn erfolgreich geaddet wurde
+        //_co2DataList.postValue(updatedList) // Nicht erforderlich, da bereits _co2DataList.value gesetzt wurde
     }
+
 
     private fun weekdayInGerman(): String {
         val currentDateTime = LocalDateTime.now()
@@ -153,7 +154,7 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
+/*
     fun refreshWeekdayOverview() {
         Log.i("MainViewModel", "refreshWeekdayOverview called")
         val currentValue = _co2DataList.value
@@ -169,5 +170,7 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
+ */
 
 }
