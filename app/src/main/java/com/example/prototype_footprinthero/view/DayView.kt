@@ -16,17 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.model.ConsumptionDataList
-import com.example.prototype_footprinthero.model.MainViewModel
+import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DayView(viewModel: MainViewModel) {
-    val co2DataList =viewModel.co2DataList
+    val co2DataList = viewModel.co2DataList
     Log.i("DayView", "DayView called")
 
     val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
     val weekdayInGerman = viewModel.dayInGerman
-    val thData = aggregatedDataList.find { it.dayOfWeek == weekdayInGerman}
+    val thData = aggregatedDataList.find { it.dayOfWeek == weekdayInGerman }
     Log.d("DayView", "thData: $thData")
     val fillAmount: Float
 
@@ -49,8 +49,7 @@ fun DrawHorizontalProgressBar(fillAmount: Float) {
 
     Column {
         Text(
-            text = "Tagesanzeige",
-            modifier = Modifier.padding(8.dp)
+            text = "Tagesanzeige", modifier = Modifier.padding(8.dp)
         )
         Box(
             modifier = Modifier

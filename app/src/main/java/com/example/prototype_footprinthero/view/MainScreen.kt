@@ -1,7 +1,5 @@
 package com.example.prototype_footprinthero.view
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,29 +17,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.prototype_footprinthero.model.MainViewModel
+import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
-
-    // Zustand, um den aktuellen Bildschirm zu verfolgen
-    //var currentScreen by remember { mutableStateOf(Screen.Day) }
-
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                     ) {
                         Text(text = "Footprint Hero", style = MaterialTheme.typography.h5)
                     }
-                },
-                backgroundColor = Color(0xFF214001),
-                elevation = 0.dp
+                }, backgroundColor = Color(0xFF214001), elevation = 0.dp
             )
         },
     ) { innerPadding ->
@@ -59,15 +49,13 @@ fun MainScreen(viewModel: MainViewModel) {
 
             Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(modifier = Modifier.weight(1f)) {
-                    TransportationDurationView(
-                        durationInMinutes = viewModel.duration,
+                    TransportationDurationView(durationInMinutes = viewModel.duration,
                         onDurationChanged = { duration ->
                             viewModel.onDurationChanged(duration)
-                        }
-                    )
+                        })
                 }
 
-            Button(
+                Button(
                     onClick = { viewModel.calculateCO2() },
                     modifier = Modifier.padding(start = 8.dp)
                 ) {
@@ -77,35 +65,7 @@ fun MainScreen(viewModel: MainViewModel) {
 
             DayView(viewModel)
             WeekdayOverview(viewModel.co2DataList, viewModel)
-            // Anzeige des aktuellen Bildschirms basierend auf dem aktuellen Zustand
-            /*when (currentScreen) {
-                Screen.Day -> DayView(viewModel.co2DataList)
-                Screen.WeekdayOverview -> WeekdayOverview(viewModel.co2DataList)
-                Screen.WeeklyOverview -> WeeklyOverview()
-            }
-
-             */
-
         }
     }
 }
-
-/*
-enum class Screen {
-    Day,
-    WeekdayOverview,
-    WeeklyOverview
-}
-
- */
-
-/* TODO Observer für WeekdayOverview
-@Composable
-fun WeekdayOverview(co2DataList: ConsumptionDataList) {
-    // ...
-    // Logik zur Aktualisierung der WeekdayOverview basierend auf co2DataList
-    // ...
-}
-
- */
 

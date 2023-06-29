@@ -1,17 +1,16 @@
-package com.example.prototype_footprinthero.model
+package com.example.prototype_footprinthero.viewmodel
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.prototype_footprinthero.model.ConsumptionData
+import com.example.prototype_footprinthero.model.ConsumptionDataList
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.TextStyle
 import java.time.temporal.WeekFields
 import java.util.Locale
 
-@RequiresApi(Build.VERSION_CODES.O)
 class MainViewModel : ViewModel() {
     private val firestoreDatabase = FirestoreDatabase()
 
@@ -24,26 +23,6 @@ class MainViewModel : ViewModel() {
     var co2DataList = ConsumptionDataList(mutableListOf())
     var dayInGerman = ""
     var calendarWeek = 0
-
-
-
-    /* TODO Observer Pattern
-    private val co2DataObserver = object : DataObserver {
-        override fun onDataChangedFromObserver() {
-            Log.e("MainViewModel", "onDataChangedFromObserver: ${co2DataList.co2Data}")
-            updateWeekdayOverview()
-        }
-    }
-
-    fun updateWeekdayOverview() {
-        WeekdayOverview(co2DataList)
-    }
-
-    fun getCo2DataObserver(): DataObserver {
-        return co2DataObserver
-    }
-
-     */
 
 
     init {
@@ -65,7 +44,6 @@ class MainViewModel : ViewModel() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun calculateCO2() {
         co2CalculationViewModel.calculateCO2()
         co2.value = co2CalculationViewModel.model.co2
@@ -75,14 +53,13 @@ class MainViewModel : ViewModel() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun merchList(co2: Float) {
 
 
         val abbreviatedDayOfWeek = dayInGerman
 
 
-        Log.i(  "MainViewModel","Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
+        Log.i("MainViewModel", "Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
         val consumptionData = abbreviatedDayOfWeek.let {
             ConsumptionData(
@@ -93,16 +70,19 @@ class MainViewModel : ViewModel() {
         writeCO2Data(co2DataList)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun weekdayInGerman(): String {
         val currentDateTime = LocalDateTime.now()
         val dayOfWeek = currentDateTime.dayOfWeek
         return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.GERMANY)
     }
+
     fun getCurrentCalendarWeek(): Int {
         val currentDate = LocalDate.now()
         val weekFields = WeekFields.of(Locale.getDefault())
-        Log.d("MainViewModel_getCurrentCalendarWeek", "Current Calendar Week: ${currentDate.get(weekFields.weekOfWeekBasedYear())}")
+        Log.d(
+            "MainViewModel_getCurrentCalendarWeek",
+            "Current Calendar Week: ${currentDate.get(weekFields.weekOfWeekBasedYear())}"
+        )
         return currentDate.get(weekFields.weekOfWeekBasedYear())
     }
 
@@ -118,7 +98,8 @@ class MainViewModel : ViewModel() {
                     val calendarWeek = data.calendarWeek
 
                     Log.d(
-                        "MainViewModel", "Read From DB, co2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
+                        "MainViewModel",
+                        "Read From DB, co2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
                     )
                 }
             } else {
@@ -141,7 +122,8 @@ class MainViewModel : ViewModel() {
                     val calendarWeek = data.calendarWeek
 
                     Log.d(
-                        "MainViewModel", "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
+                        "MainViewModel",
+                        "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
                     )
                 }
 

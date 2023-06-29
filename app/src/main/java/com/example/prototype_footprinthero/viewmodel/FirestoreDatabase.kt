@@ -1,5 +1,7 @@
-package com.example.prototype_footprinthero.model
+package com.example.prototype_footprinthero.viewmodel
 
+import com.example.prototype_footprinthero.model.ConsumptionData
+import com.example.prototype_footprinthero.model.ConsumptionDataList
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -15,7 +17,9 @@ class FirestoreDatabase {
     ) {
         val firestoreData = co2Data.co2Data.map { consumptionData ->
             mapOf(
-                "dayOfWeek" to consumptionData.dayOfWeek, "co2" to consumptionData.co2, "calendarWeek" to consumptionData.calendarWeek
+                "dayOfWeek" to consumptionData.dayOfWeek,
+                "co2" to consumptionData.co2,
+                "calendarWeek" to consumptionData.calendarWeek
             )
         }
 
