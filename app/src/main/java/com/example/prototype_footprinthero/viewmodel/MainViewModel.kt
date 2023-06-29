@@ -26,6 +26,7 @@ class MainViewModel : ViewModel() {
     val co2DataList: LiveData<ConsumptionDataList> get() = _co2DataList
 
 
+
     var dayInGerman = ""
     var calendarWeek = 0
 
@@ -57,20 +58,17 @@ class MainViewModel : ViewModel() {
 
 
     private fun merchList(co2: Float) {
-
-
         val abbreviatedDayOfWeek = dayInGerman
-
 
         Log.i("MainViewModel", "Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
-        val consumptionData = abbreviatedDayOfWeek.let {
-            ConsumptionData(
-                it, co2, getCurrentCalendarWeek()
-            )
-        }
-        val updatedList = _co2DataList.value?.apply {
-            addConsumption(consumptionData)
+        val consumptionData = ConsumptionData(
+            abbreviatedDayOfWeek, co2, getCurrentCalendarWeek()
+        )
+
+        val updatedList = _co2DataList.value?.let {
+            it.addConsumption(consumptionData)
+            it
         } ?: ConsumptionDataList(mutableListOf(consumptionData))
 
         _co2DataList.value = updatedList
@@ -78,7 +76,7 @@ class MainViewModel : ViewModel() {
 
         // Benachrichtigen Sie die Beobachter (Observer) über die Änderung der co2DataList
         _co2DataList.postValue(updatedList) //TODO nur wenn erfolgreich geaddet wurde
-        }
+    }
 
     private fun weekdayInGerman(): String {
         val currentDateTime = LocalDateTime.now()
@@ -99,13 +97,14 @@ class MainViewModel : ViewModel() {
     fun readDataInit(collectionName: String, documentId: String) {
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
             if (co2DataListDB != null) {
-                _co2DataList.value?.let { co2DataList ->
-                    co2DataListDB.forEach { data ->
-                        co2DataList.addConsumption(data)
-                    }
-                }
+                val currentList = _co2DataList.value?.co2Data ?: mutableListOf()
+                currentList.addAll(co2DataListDB)
+
+                val updatedList = ConsumptionDataList(currentList)
+                _co2DataList.value = updatedList
+
                 val finalCo2DataList = _co2DataList.value // Separate Referenz
-                Log.d("MainViewModel", "co2DataList size after adding: ${finalCo2DataList?.co2Data?.size}")
+                Log.d("MainViewModel", "_co2DataList size after adding: ${finalCo2DataList?.co2Data?.size}")
 
                 // Ausgabe der gelesenen Elemente
                 co2DataListDB.forEachIndexed { index, data ->
@@ -123,6 +122,8 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
+
 
 
     private fun writeCO2Data(co2DataList: ConsumptionDataList) {
@@ -143,10 +144,14 @@ class MainViewModel : ViewModel() {
                         "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
                     )
                 }
-
             } else {
                 Log.e("MainViewModel", "Failed to write CO2 data: $error")
             }
         }
+    }
+
+    fun refreshWeekdayOverview() {
+        // Benachrichtigen Sie die Beobachter über die Aktualisierung
+        _co2DataList.value = _co2DataList.value
     }
 }
