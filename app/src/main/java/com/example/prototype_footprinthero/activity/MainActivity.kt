@@ -26,24 +26,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-/*
-        // Observe the co2DataList State
-        viewModel.co2DataList.observe(this) { co2DataList ->
-            Log.i("MainActivity", "co2DataList changed: $co2DataList")
-            // Rufen Sie die Update-Funktion auf
-            updateWeekdayOverview()
-        }
-
- */
     }
-/*
-    private fun updateWeekdayOverview() {
-        // Aktualisieren Sie nur den betroffenen Teil der View
-        Log.i("MainActivity", "updateWeekdayOverview called")
-        viewModel.refreshWeekdayOverview()
-    }
-
- */
 }
 
 
