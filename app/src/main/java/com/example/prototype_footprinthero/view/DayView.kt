@@ -10,24 +10,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.model.ConsumptionDataList
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import com.example.prototype_footprinthero.model.ConsumptionData
 
 
 @Composable
 fun DayView(viewModel: MainViewModel) {
     Log.i("DayView", "DayView called")
 
-    val co2DataList by viewModel.co2DataList.observeAsState(ConsumptionDataList(mutableListOf()))
+    val co2DataListState: State<ConsumptionDataList> = viewModel.co2DataList.collectAsState(ConsumptionDataList(mutableListOf()))
+    //val co2DataList = co2DataListState.value.co2Data
 
-    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel) //TODO an viemodel hängen
+    val aggregatedDataList = co2DataListState.value.aggregateToDaysOfThisWeek(viewModel)
 
     val weekdayInGerman = viewModel.dayInGerman
     val thData = aggregatedDataList.find { it.dayOfWeek == weekdayInGerman }
@@ -45,7 +47,6 @@ fun DayView(viewModel: MainViewModel) {
         DrawHorizontalProgressBar(fillAmount)
     }
 }
-
 
 
 

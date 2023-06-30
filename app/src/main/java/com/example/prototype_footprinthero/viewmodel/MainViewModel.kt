@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.prototype_footprinthero.model.ConsumptionData
 import com.example.prototype_footprinthero.model.ConsumptionDataList
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.TextStyle
@@ -22,8 +24,8 @@ class MainViewModel : ViewModel() {
     var duration: Int = Integer.valueOf(1)
     private val co2 = mutableStateOf(0f)
 
-    private val _co2DataList = MutableLiveData<ConsumptionDataList>()
-    val co2DataList: LiveData<ConsumptionDataList> get() = _co2DataList
+    private val _co2DataList = MutableStateFlow(ConsumptionDataList(mutableListOf()))
+    val co2DataList: StateFlow<ConsumptionDataList> get() = _co2DataList
 
     //TODO val mit Tagen der aktuellen KW
 
@@ -68,18 +70,18 @@ class MainViewModel : ViewModel() {
             abbreviatedDayOfWeek, co2, getCurrentCalendarWeek()
         )
 
-        val updatedList = _co2DataList.value?.let {
-            it.addConsumption(consumptionData)
-            it
-        } ?: ConsumptionDataList(mutableListOf(consumptionData))
+        val updatedList = _co2DataList.value.co2Data.toMutableList() ?: mutableListOf()
+        updatedList.add(consumptionData)
+        _co2DataList.value = ConsumptionDataList(updatedList)
 
-        _co2DataList.value = updatedList
-        writeCO2Data(updatedList)
+        updatedList.add(consumptionData)
+        _co2DataList.value = ConsumptionDataList(updatedList)
 
-        // Benachrichtigen Sie die Beobachter (Observer) über die Änderung der co2DataList
-        _co2DataList.postValue(updatedList)
-        Log.d("MainViewModel", "Observer benachrichtigt: $updatedList")
+        writeCO2Data(_co2DataList.value)
+
+        Log.d("MainViewModel", "Observer benachrichtigt: ${_co2DataList.value}")
     }
+
 
 
 
