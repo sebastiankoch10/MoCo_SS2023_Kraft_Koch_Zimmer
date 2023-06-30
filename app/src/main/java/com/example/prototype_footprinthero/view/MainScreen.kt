@@ -1,6 +1,5 @@
 package com.example.prototype_footprinthero.view
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +13,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -77,7 +75,7 @@ fun MainScreen(viewModel: MainViewModel) {
 
             DayView(viewModel)
             WeekdayOverview(viewModel)
-            }
+        }
     }
 }
 
