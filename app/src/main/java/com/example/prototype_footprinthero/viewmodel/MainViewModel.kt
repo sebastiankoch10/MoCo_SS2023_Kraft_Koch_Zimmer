@@ -2,9 +2,13 @@ package com.example.prototype_footprinthero.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.prototype_footprinthero.model.ConsumptionData
 import com.example.prototype_footprinthero.model.ConsumptionDataList
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.TextStyle
@@ -20,14 +24,19 @@ class MainViewModel : ViewModel() {
     var duration: Int = Integer.valueOf(1)
     private val co2 = mutableStateOf(0f)
 
-    var co2DataList = ConsumptionDataList(mutableListOf())
+    private val _co2DataList = MutableStateFlow(ConsumptionDataList(mutableListOf()))
+    val co2DataList: StateFlow<ConsumptionDataList> get() = _co2DataList
+
+    //TODO val mit Tagen der aktuellen KW
+
+
+
     var dayInGerman = ""
     var calendarWeek = 0
 
 
     init {
-        //co2DataList.registerObserver(co2DataObserver)
-        Log.i("MainViewModel", "init called")
+        Log.i("MainViewModel.init", "init called")
         readDataInit("co2Data", "your_document_id")
         dayInGerman = weekdayInGerman()
         calendarWeek = getCurrentCalendarWeek()
@@ -40,35 +49,38 @@ class MainViewModel : ViewModel() {
 
     fun onDurationChanged(duration: Int) {
         co2CalculationViewModel.onDurationChanged(duration)
-        //Log.d("MainViewModel", "Selected duration: $duration")
     }
 
 
     fun calculateCO2() {
         co2CalculationViewModel.calculateCO2()
         co2.value = co2CalculationViewModel.model.co2
-        Log.d("MainViewModel", "calculate CO2: ${co2.value}")
+        Log.d("MainViewModel.calculate", "calculate CO2: ${co2.value}")
 
         merchList(co2.value)
     }
 
 
     private fun merchList(co2: Float) {
-
-
         val abbreviatedDayOfWeek = dayInGerman
 
+        Log.i("MainViewModel.merchList", "Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
 
-        Log.i("MainViewModel", "Heutiger Tag (abgekürzt): $abbreviatedDayOfWeek")
+        val consumptionData = ConsumptionData(
+            abbreviatedDayOfWeek, co2, getCurrentCalendarWeek()
+        )
 
-        val consumptionData = abbreviatedDayOfWeek.let {
-            ConsumptionData(
-                it, co2, getCurrentCalendarWeek()
-            )
-        }
-        co2DataList.addConsumption(consumptionData)
-        writeCO2Data(co2DataList)
+        val updatedList = _co2DataList.value.co2Data.toMutableList() ?: mutableListOf()
+        updatedList.add(consumptionData)
+        _co2DataList.value = ConsumptionDataList(updatedList)
+        
+        writeCO2Data(_co2DataList.value)
+
+        Log.d("MainViewModel.merchList", "Observer benachrichtigt: ${_co2DataList.value}")
     }
+
+
+
 
     private fun weekdayInGerman(): String {
         val currentDateTime = LocalDateTime.now()
@@ -80,33 +92,47 @@ class MainViewModel : ViewModel() {
         val currentDate = LocalDate.now()
         val weekFields = WeekFields.of(Locale.getDefault())
         Log.d(
-            "MainViewModel_getCurrentCalendarWeek",
+            "MainViewModel.getCurrentCalendarWeek",
             "Current Calendar Week: ${currentDate.get(weekFields.weekOfWeekBasedYear())}"
         )
         return currentDate.get(weekFields.weekOfWeekBasedYear())
     }
 
-    private fun readDataInit(collectionName: String, documentId: String) {
+    fun readDataInit(collectionName: String, documentId: String) {
+        Log.i("MainViewModel.readDataInit", "readDataInit called")
         firestoreDatabase.readCO2Data(collectionName, documentId) { co2DataListDB, error ->
-            if (co2DataListDB != null) {
-                co2DataListDB.forEach { data ->
-                    co2DataList.addConsumption(data)
-                }
-                co2DataListDB.forEach { data ->
-                    val dayOfWeek = data.dayOfWeek
-                    val co2 = data.co2
-                    val calendarWeek = data.calendarWeek
-
-                    Log.d(
-                        "MainViewModel",
-                        "Read From DB, co2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
-                    )
-                }
+            if (error != null) {
+                Log.e("MainViewModel.readDataInit", "Failed to read co2 data: $error")
+                // Führen Sie hier die entsprechenden Fehlerbehandlungsmaßnahmen durch
             } else {
-                Log.e("MainViewModel", "Failed to read co2 data: $error")
+                if (co2DataListDB != null) {
+                    val currentList = _co2DataList.value?.co2Data?.toMutableList() ?: mutableListOf()
+                    currentList.addAll(co2DataListDB)
+
+                    val updatedList = ConsumptionDataList(currentList)
+                    _co2DataList.value = updatedList
+
+                    // Weitere Operationen mit der aktualisierten Liste durchführen
+                    // ...
+
+                    Log.d("MainViewModel.readDataInit", "_co2DataList size after adding: ${updatedList.co2Data.size}")
+
+                    // Ausgabe der gelesenen Elemente
+                    co2DataListDB.forEachIndexed { index, data ->
+                        Log.i("MainViewModel.readDataInit", "Gelesenes Element $index: $data")
+                    }
+                } else {
+                    Log.e("MainViewModel.readDataInit", "Failed to read co2 data: Empty data")
+                    // Führen Sie hier die entsprechenden Fehlerbehandlungsmaßnahmen durch
+                }
             }
         }
     }
+
+
+
+
+
 
     private fun writeCO2Data(co2DataList: ConsumptionDataList) {
         val collectionName = "co2Data"
@@ -122,17 +148,13 @@ class MainViewModel : ViewModel() {
                     val calendarWeek = data.calendarWeek
 
                     Log.d(
-                        "MainViewModel",
+                        "MainViewModel .writeCO2Data",
                         "Write to DB CO2 data: Tag: $dayOfWeek, CO2: $co2, CalendarWeek: $calendarWeek"
                     )
                 }
-
             } else {
-                Log.e("MainViewModel", "Failed to write CO2 data: $error")
+                Log.e("MainViewModel.writeCO2Data", "Failed to write CO2 data: $error")
             }
         }
     }
 }
-
-
-

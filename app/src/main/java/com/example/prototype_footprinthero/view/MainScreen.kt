@@ -21,17 +21,22 @@ import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
-
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Box(
-                        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Text(text = "Footprint Hero", style = MaterialTheme.typography.h5)
+                        Text(
+                            text = "Footprint Hero",
+                            style = MaterialTheme.typography.h5
+                        )
                     }
-                }, backgroundColor = Color(0xFF214001), elevation = 0.dp
+                },
+                backgroundColor = Color(0xFF214001),
+                elevation = 0.dp
             )
         },
     ) { innerPadding ->
@@ -47,12 +52,17 @@ fun MainScreen(viewModel: MainViewModel) {
                 onVehicleSelected = viewModel::onVehicleSelected
             )
 
-            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                Modifier.padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Box(modifier = Modifier.weight(1f)) {
-                    TransportationDurationView(durationInMinutes = viewModel.duration,
+                    TransportationDurationView(
+                        durationInMinutes = viewModel.duration,
                         onDurationChanged = { duration ->
                             viewModel.onDurationChanged(duration)
-                        })
+                        }
+                    )
                 }
 
                 Button(
@@ -64,7 +74,7 @@ fun MainScreen(viewModel: MainViewModel) {
             }
 
             DayView(viewModel)
-            WeekdayOverview(viewModel.co2DataList, viewModel)
+            WeekdayOverview(viewModel)
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.example.prototype_footprinthero.view
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,24 +21,17 @@ import com.example.prototype_footprinthero.model.ConsumptionDataList
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun WeekdayOverview(co2DataList: ConsumptionDataList, viewModel: MainViewModel) {
+fun WeekdayOverview(viewModel: MainViewModel) {
     Log.i("WeekdayOverview", "WeekdayOverview start")
 
-    Log.d("WeekdayOverview", "co2DataList Länge: ${co2DataList.co2Data.size}")
-
-    val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
-
+    val co2DataList by viewModel.co2DataList.collectAsState(ConsumptionDataList(mutableListOf()))
+    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
     val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
-
-
-
-    Log.d("WeekdayOverview", "maxValue: $maxValue")
 
     Column(Modifier.padding(16.dp)) {
         Text(
-            text = "Wochentagsübersicht(Tonne/Tag)",
+            text = "Wochentagsübersicht (Tonne/Tag)",
             style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(bottom = 8.dp)
         )
@@ -68,7 +61,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList, viewModel: MainViewModel) 
                     }
                     Text(
                         text = data.co2.toString(),
-                        style = MaterialTheme.typography.body1.merge(),
+                        style = MaterialTheme.typography.body1,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
@@ -76,3 +69,7 @@ fun WeekdayOverview(co2DataList: ConsumptionDataList, viewModel: MainViewModel) 
         }
     }
 }
+
+
+
+

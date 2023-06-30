@@ -46,14 +46,15 @@ class FirestoreDatabase {
                         dayOfWeek = data["dayOfWeek"] as? String ?: "",
                         co2 = (data["co2"] as? Number)?.toFloat() ?: 0f,
                         calendarWeek = (data["calendarWeek"] as? Number)?.toInt() ?: 0
-
                     )
                 }
                 callback(co2DataList, null)
-            }.addOnFailureListener { e ->
+            }
+            .addOnFailureListener { e ->
                 callback(null, e) // Fehler beim Lesen
             }
     }
+
 
 
     fun updateCO2Data(

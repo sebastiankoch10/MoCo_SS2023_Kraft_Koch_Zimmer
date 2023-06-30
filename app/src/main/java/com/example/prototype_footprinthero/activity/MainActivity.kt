@@ -1,4 +1,4 @@
-package com.example.prototype_footprinthero.view
+package com.example.prototype_footprinthero.activity
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
 import androidx.compose.ui.graphics.Color
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
+import com.example.prototype_footprinthero.view.MainScreen
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -19,11 +20,16 @@ class MainActivity : AppCompatActivity() {
             Prototype_FootPrintHeroTheme {
                 Surface(color = Color.White) {
                     MainScreen(
-                        viewModel = viewModel,
+                        viewModel = viewModel
                     )
                 }
             }
         }
     }
 }
+
+
+
+
+
 
