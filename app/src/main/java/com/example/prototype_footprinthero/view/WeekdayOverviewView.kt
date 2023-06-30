@@ -29,13 +29,13 @@ import androidx.compose.runtime.livedata.observeAsState
 fun WeekdayOverview(viewModel: MainViewModel) {
     Log.i("WeekdayOverview", "WeekdayOverview start")
 
-    val co2DataList by viewModel.co2DataList.observeAsState(ConsumptionDataList(mutableListOf()))
-    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel) //TODO an viemodel hängen
+    val co2DataList by viewModel.co2DataList.collectAsState(ConsumptionDataList(mutableListOf()))
+    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
     val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
 
     Column(Modifier.padding(16.dp)) {
         Text(
-            text = "Wochentagsübersicht(Tonne/Tag)",
+            text = "Wochentagsübersicht (Tonne/Tag)",
             style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(bottom = 8.dp)
         )
@@ -65,7 +65,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
                     }
                     Text(
                         text = data.co2.toString(),
-                        style = MaterialTheme.typography.body1.merge(),
+                        style = MaterialTheme.typography.body1,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
@@ -73,6 +73,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
         }
     }
 }
+
 
 
 
