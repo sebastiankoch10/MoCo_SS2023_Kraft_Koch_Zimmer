@@ -25,7 +25,6 @@ fun DayView(viewModel: MainViewModel) {
 
     val co2DataListState: State<ConsumptionDataList> =
         viewModel.co2DataList.collectAsState(ConsumptionDataList(mutableListOf()))
-    //val co2DataList = co2DataListState.value.co2Data
 
     val aggregatedDataList = co2DataListState.value.aggregateToDaysOfThisWeek(viewModel)
 

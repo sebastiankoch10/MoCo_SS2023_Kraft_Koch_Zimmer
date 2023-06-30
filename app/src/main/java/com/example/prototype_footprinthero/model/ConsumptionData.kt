@@ -33,9 +33,9 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
 
     fun aggregateToDaysOfThisWeek(viewModel: MainViewModel): ConsumptionDataList {
-        Log.i("aggregateByDayOfWeek", "aggregateByDayOfWeek called")
         val aggregatedList = ConsumptionDataList(mutableListOf())
 
+        Log.i("aggregateByDayOfWeek", "aggregateByDayOfWeek called addConsumptions")
         co2Data.groupBy { it.dayOfWeek }.forEach { (_, dataList) ->
             val firstData = dataList.firstOrNull { it.calendarWeek == viewModel.calendarWeek }
             if (firstData != null) {
@@ -44,7 +44,7 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
                 val aggregatedData =
                     ConsumptionData(firstData.dayOfWeek, totalValue, firstData.calendarWeek)
-                Log.i("aggregateByDayOfWeek", "aggregateByDayOfWeek called addConsumption")
+
                 aggregatedList.addConsumption(aggregatedData)
             }
         }
