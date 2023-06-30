@@ -26,17 +26,13 @@ fun MainScreen(viewModel: MainViewModel) {
             TopAppBar(
                 title = {
                     Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Footprint Hero",
-                            style = MaterialTheme.typography.h5
+                            text = "Footprint Hero", style = MaterialTheme.typography.h5
                         )
                     }
-                },
-                backgroundColor = Color(0xFF214001),
-                elevation = 0.dp
+                }, backgroundColor = Color(0xFF214001), elevation = 0.dp
             )
         },
     ) { innerPadding ->
@@ -53,16 +49,13 @@ fun MainScreen(viewModel: MainViewModel) {
             )
 
             Row(
-                Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(modifier = Modifier.weight(1f)) {
-                    TransportationDurationView(
-                        durationInMinutes = viewModel.duration,
+                    TransportationDurationView(durationInMinutes = viewModel.duration,
                         onDurationChanged = { duration ->
                             viewModel.onDurationChanged(duration)
-                        }
-                    )
+                        })
                 }
 
                 Button(

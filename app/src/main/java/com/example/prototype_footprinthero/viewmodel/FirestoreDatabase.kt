@@ -49,12 +49,10 @@ class FirestoreDatabase {
                     )
                 }
                 callback(co2DataList, null)
-            }
-            .addOnFailureListener { e ->
+            }.addOnFailureListener { e ->
                 callback(null, e) // Fehler beim Lesen
             }
     }
-
 
 
     fun updateCO2Data(

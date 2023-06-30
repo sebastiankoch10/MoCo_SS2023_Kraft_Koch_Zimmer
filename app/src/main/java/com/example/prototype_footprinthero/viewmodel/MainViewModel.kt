@@ -2,8 +2,6 @@ package com.example.prototype_footprinthero.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.prototype_footprinthero.model.ConsumptionData
 import com.example.prototype_footprinthero.model.ConsumptionDataList
@@ -28,7 +26,6 @@ class MainViewModel : ViewModel() {
     val co2DataList: StateFlow<ConsumptionDataList> get() = _co2DataList
 
     //TODO val mit Tagen der aktuellen KW
-
 
 
     var dayInGerman = ""
@@ -70,16 +67,14 @@ class MainViewModel : ViewModel() {
             abbreviatedDayOfWeek, co2, getCurrentCalendarWeek()
         )
 
-        val updatedList = _co2DataList.value.co2Data.toMutableList() ?: mutableListOf()
+        val updatedList = _co2DataList.value.co2Data.toMutableList()
         updatedList.add(consumptionData)
         _co2DataList.value = ConsumptionDataList(updatedList)
-        
+
         writeCO2Data(_co2DataList.value)
 
         Log.d("MainViewModel.merchList", "Observer benachrichtigt: ${_co2DataList.value}")
     }
-
-
 
 
     private fun weekdayInGerman(): String {
@@ -106,7 +101,8 @@ class MainViewModel : ViewModel() {
                 // Führen Sie hier die entsprechenden Fehlerbehandlungsmaßnahmen durch
             } else {
                 if (co2DataListDB != null) {
-                    val currentList = _co2DataList.value?.co2Data?.toMutableList() ?: mutableListOf()
+                    val currentList =
+                        _co2DataList.value.co2Data.toMutableList()
                     currentList.addAll(co2DataListDB)
 
                     val updatedList = ConsumptionDataList(currentList)
@@ -115,7 +111,10 @@ class MainViewModel : ViewModel() {
                     // Weitere Operationen mit der aktualisierten Liste durchführen
                     // ...
 
-                    Log.d("MainViewModel.readDataInit", "_co2DataList size after adding: ${updatedList.co2Data.size}")
+                    Log.d(
+                        "MainViewModel.readDataInit",
+                        "_co2DataList size after adding: ${updatedList.co2Data.size}"
+                    )
 
                     // Ausgabe der gelesenen Elemente
                     co2DataListDB.forEachIndexed { index, data ->
@@ -128,10 +127,6 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
-
-
-
 
 
     private fun writeCO2Data(co2DataList: ConsumptionDataList) {
