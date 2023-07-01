@@ -22,11 +22,9 @@ class MainViewModel : ViewModel() {
     var duration: Int = Integer.valueOf(1)
     private val co2 = mutableStateOf(0f)
 
+    //Observe Data
     private val _co2DataList = MutableStateFlow(ConsumptionDataList(mutableListOf()))
     val co2DataList: StateFlow<ConsumptionDataList> get() = _co2DataList
-
-    //TODO val mit Tagen der aktuellen KW
-
 
     var dayInGerman = ""
     var calendarWeek = 0
