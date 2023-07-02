@@ -20,14 +20,12 @@ class MotionDetectionService : Service(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private lateinit var motionSensor: Sensor
 
+    private var motionStartTimeMillis = 0L
+
     override fun onCreate() {
         super.onCreate()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         motionSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!!
-        startMotionDetection()
-    }
-
-    fun startService() {
         startMotionDetection()
     }
 
@@ -51,30 +49,46 @@ class MotionDetectionService : Service(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
+            val x = event.values[0]
+            val y = event.values[1]
+            val z = event.values[2]
+
             // Hier können Sie die Bewegungsdaten auswerten
             // und prüfen, ob die Bewegungsdauer 30 Minuten überschreitet
             // Beispiel:
-            val motionDurationMinutes = calculateMotionDuration(event.values[0], event.values[1], event.values[2])
+            val motionDurationMinutes = calculateMotionDuration(x, y, z)
+            Log.i("MotionDetection", "Bewegungsdauer: $motionDurationMinutes Minuten")
             if (motionDurationMinutes >= 30) {
-                Log.d("MotionDetection", "Bewegungsdauer: $motionDurationMinutes Minuten")
+                Log.d("MotionDetection", "30 Minuten Bewegungsdauer erreicht")
                 // Hier können Sie den Log-Eintrag erstellen oder eine andere Aktion ausführen
             }
         }
     }
 
     private fun startMotionDetection() {
-        sensorManager.registerListener(this, motionSensor, SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager.registerListener(
+            this,
+            motionSensor,
+            SensorManager.SENSOR_DELAY_NORMAL
+        )
+        motionStartTimeMillis = System.currentTimeMillis()
     }
 
     private fun stopMotionDetection() {
         sensorManager.unregisterListener(this)
+        motionStartTimeMillis = 0L
     }
 
     private fun calculateMotionDuration(x: Float, y: Float, z: Float): Int {
         // Hier können Sie die Bewegungsdauer basierend auf den Sensordaten berechnen
         // Dies ist nur ein Beispiel, wie Sie die Dauer abschätzen könnten
-        val acceleration = sqrt((x * x + y * y + z * z).toDouble())
-        val motionDurationMillis = (acceleration * 1000).toLong()
-        return (motionDurationMillis / (1000 * 60)).toInt()
+        val acceleration = sqrt(x * x + y * y + z * z)
+        val motionDurationMillis = System.currentTimeMillis() - motionStartTimeMillis
+        return if (acceleration > 0.1f) {
+            (motionDurationMillis / (1000 * 60)).toInt()
+        } else {
+            0
+        }
     }
 }
+
