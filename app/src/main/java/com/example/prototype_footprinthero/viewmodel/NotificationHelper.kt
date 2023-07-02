@@ -6,12 +6,10 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import kotlin.random.Random
 
 class NotificationHelper(private val context: Context) {
 
@@ -39,31 +37,22 @@ class NotificationHelper(private val context: Context) {
             context, 0, intent, PendingIntent.FLAG_IMMUTABLE
         )
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle("Test")
+            .setSmallIcon(android.R.drawable.ic_dialog_info).setContentTitle("Test")
             .setContentText("This is a test notification")
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
-            .build()
+            .setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(pendingIntent)
+            .setAutoCancel(true).build()
 
         val notificationManager = NotificationManagerCompat.from(context)
 
         if (notificationManager.areNotificationsEnabled()) {
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val serviceIntent = Intent(context, MyForegroundService::class.java)
-                    serviceIntent.putExtra("notification", notification)
-                    ContextCompat.startForegroundService(context, serviceIntent)
-                } else {
-                    notificationManager.notify(Random.nextInt(), notification)
-                }
+                val serviceIntent = Intent(context, MyForegroundService::class.java)
+                serviceIntent.putExtra("notification", notification)
+                ContextCompat.startForegroundService(context, serviceIntent)
             } catch (e: SecurityException) {
                 // Behandlung der SecurityException
                 Toast.makeText(
-                    context,
-                    "Fehler beim Anzeigen der Benachrichtigung",
-                    Toast.LENGTH_SHORT
+                    context, "Fehler beim Anzeigen der Benachrichtigung", Toast.LENGTH_SHORT
                 ).show()
             }
         } else {

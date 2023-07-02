@@ -9,10 +9,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-
 import kotlin.math.sqrt
 
 class MotionDetectionService : Service(), SensorEventListener {
@@ -53,13 +50,13 @@ class MotionDetectionService : Service(), SensorEventListener {
             // Beispiel:
             val motionDurationMinutes = calculateMotionDuration(x, y, z)
             //Log.i("MotionDetection", "Bewegungsdauer: $motionDurationMinutes Minuten")
-            //if (motionDurationMinutes >= 30) {
-                Toast.makeText(applicationContext, "30 Minuten Bewegungsdauer erreicht", Toast.LENGTH_SHORT).show()
+            if (motionDurationMinutes >= 30) {
+                //Toast.makeText(applicationContext, "30 Minuten Bewegungsdauer erreicht", Toast.LENGTH_SHORT).show()
                 //Log.d("MotionDetection", "30 Minuten Bewegungsdauer erreicht")
                 // Hier können Sie den Log-Eintrag erstellen oder eine andere Aktion ausführen
                 val notificationHelper = NotificationHelper(applicationContext)
                 notificationHelper.showNotification()
-            //}
+            }
         }
     }
 
