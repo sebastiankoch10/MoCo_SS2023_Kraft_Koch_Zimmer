@@ -31,10 +31,6 @@ class MotionDetectionService : Service(), SensorEventListener {
         startMotionDetection()
     }
 
-    fun stopService() {
-        stopMotionDetection()
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         startMotionDetection()
         return START_STICKY

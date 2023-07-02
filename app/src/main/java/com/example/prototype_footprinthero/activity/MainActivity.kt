@@ -1,5 +1,6 @@
 package com.example.prototype_footprinthero.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -42,13 +43,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startMotionDetectionService() {
-        motionDetectionService.startService()
+        val intent = Intent(this, MotionDetectionService::class.java)
+        startService(intent)
     }
 
     private fun stopMotionDetectionService() {
-        motionDetectionService.stopService()
+        val intent = Intent(this, MotionDetectionService::class.java)
+        stopService(intent)
     }
 }
+
 
 
 
