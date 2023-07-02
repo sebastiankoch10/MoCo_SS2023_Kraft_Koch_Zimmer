@@ -9,7 +9,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import kotlin.random.Random
+import androidx.core.content.ContextCompat
 
 class NotificationHelper(private val context: Context) {
 
@@ -31,36 +31,36 @@ class NotificationHelper(private val context: Context) {
         notificationManager.createNotificationChannel(channel)
     }
 
-
     fun showNotification() {
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:123456789"))
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
             context, 0, intent, PendingIntent.FLAG_IMMUTABLE
         )
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle("Test")
+            .setSmallIcon(android.R.drawable.ic_dialog_info).setContentTitle("Test")
             .setContentText("This is a test notification")
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
-            .build()
+            .setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(pendingIntent)
+            .setAutoCancel(true).build()
 
         val notificationManager = NotificationManagerCompat.from(context)
 
         if (notificationManager.areNotificationsEnabled()) {
             try {
-                notificationManager.notify(Random.nextInt(), notification)
+                val serviceIntent = Intent(context, MyForegroundService::class.java)
+                serviceIntent.putExtra("notification", notification)
+                ContextCompat.startForegroundService(context, serviceIntent)
             } catch (e: SecurityException) {
                 // Behandlung der SecurityException
-                Toast.makeText(context, "Fehler beim Anzeigen der Benachrichtigung", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context, "Fehler beim Anzeigen der Benachrichtigung", Toast.LENGTH_SHORT
+                ).show()
             }
         } else {
             // Benachrichtigungen sind deaktiviert
-            Toast.makeText(context, "Bitte aktivieren Sie Benachrichtigungen", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Bitte aktivieren Sie Benachrichtigungen", Toast.LENGTH_SHORT)
+                .show()
         }
-
     }
-
-
 }
+
+
