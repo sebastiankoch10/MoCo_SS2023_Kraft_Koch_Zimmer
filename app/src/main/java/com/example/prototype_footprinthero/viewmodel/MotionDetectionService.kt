@@ -36,7 +36,7 @@ class MotionDetectionService : Service(), SensorEventListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopMotionDetection()
+        //stopMotionDetection() Läuft weiter, auch wenn App geschlossen wird
     }
 
     override fun onBind(intent: Intent?): IBinder? {
