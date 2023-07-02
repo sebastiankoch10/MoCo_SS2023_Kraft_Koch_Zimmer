@@ -7,8 +7,11 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.annotation.RequiresApi
+
 import kotlin.math.sqrt
 
 class MotionDetectionService : Service(), SensorEventListener {
@@ -37,6 +40,7 @@ class MotionDetectionService : Service(), SensorEventListener {
         // nur zum override
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
             val x = event.values[0]
@@ -51,6 +55,8 @@ class MotionDetectionService : Service(), SensorEventListener {
             if (motionDurationMinutes >= 30) {
                 Log.d("MotionDetection", "30 Minuten Bewegungsdauer erreicht")
                 // Hier können Sie den Log-Eintrag erstellen oder eine andere Aktion ausführen
+                val notificationHelper = NotificationHelper(applicationContext)
+                notificationHelper.showNotification()
             }
         }
     }
