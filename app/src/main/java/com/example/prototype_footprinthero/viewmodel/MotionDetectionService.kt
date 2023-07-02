@@ -1,5 +1,7 @@
 package com.example.prototype_footprinthero.viewmodel
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -7,8 +9,11 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import com.example.prototype_footprinthero.R
 import kotlin.math.sqrt
 
 class MotionDetectionService : Service(), SensorEventListener {
