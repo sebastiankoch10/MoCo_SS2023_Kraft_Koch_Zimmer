@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.Color
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 import com.example.prototype_footprinthero.view.MainScreen
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
-
 import com.example.prototype_footprinthero.viewmodel.MotionDetectionService
 
 class MainActivity : AppCompatActivity() {

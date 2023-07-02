@@ -24,6 +24,7 @@ class MotionDetectionService : Service(), SensorEventListener {
         super.onCreate()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         motionSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!!
+        startMotionDetection()
     }
 
     fun startService() {
