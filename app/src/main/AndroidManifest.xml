@@ -34,6 +34,12 @@
             android:name=".viewmodel.MotionDetectionService"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".viewmodel.MyForegroundService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>

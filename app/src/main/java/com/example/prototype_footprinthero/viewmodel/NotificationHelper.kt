@@ -6,9 +6,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import kotlin.random.Random
 
 class NotificationHelper(private val context: Context) {
@@ -31,7 +33,6 @@ class NotificationHelper(private val context: Context) {
         notificationManager.createNotificationChannel(channel)
     }
 
-
     fun showNotification() {
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:123456789"))
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
@@ -50,17 +51,27 @@ class NotificationHelper(private val context: Context) {
 
         if (notificationManager.areNotificationsEnabled()) {
             try {
-                notificationManager.notify(Random.nextInt(), notification)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    val serviceIntent = Intent(context, MyForegroundService::class.java)
+                    serviceIntent.putExtra("notification", notification)
+                    ContextCompat.startForegroundService(context, serviceIntent)
+                } else {
+                    notificationManager.notify(Random.nextInt(), notification)
+                }
             } catch (e: SecurityException) {
                 // Behandlung der SecurityException
-                Toast.makeText(context, "Fehler beim Anzeigen der Benachrichtigung", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "Fehler beim Anzeigen der Benachrichtigung",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } else {
             // Benachrichtigungen sind deaktiviert
-            Toast.makeText(context, "Bitte aktivieren Sie Benachrichtigungen", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Bitte aktivieren Sie Benachrichtigungen", Toast.LENGTH_SHORT)
+                .show()
         }
-
     }
-
-
 }
+
+
