@@ -53,7 +53,7 @@ class MotionDetectionService : Service(), SensorEventListener {
             val motionDurationMinutes = calculateMotionDuration(x, y, z)
 
             if (motionDurationMinutes >= 2 && !notificationShown) {
-                // Wenn die Bewegungsdauer 30 Minuten überschreitet und die Benachrichtigung noch nicht gezeigt wurde
+                // Wenn die Bewegungsdauer 2 Minuten überschreitet und die Benachrichtigung noch nicht gezeigt wurde
                 if (motionStartTime == 0L) {
                     motionStartTime = System.currentTimeMillis()
                 } else {
@@ -66,12 +66,16 @@ class MotionDetectionService : Service(), SensorEventListener {
                         notificationHelper.showNotification()
                     }
                 }
-            } else {
-                // Wenn die Bewegungsdauer weniger als 30 Minuten ist oder die Benachrichtigung bereits gezeigt wurde, setzen Sie motionStartTime zurück
+            }
+
+            // Wenn die Bewegungsdauer weniger als 2 Minuten ist oder die Benachrichtigung bereits gezeigt wurde, setzen Sie motionStartTime zurück
+            if (motionDurationMinutes < 2) {
                 motionStartTime = 0
             }
         }
     }
+
+
 
     private fun startMotionDetection() {
         sensorManager.registerListener(
