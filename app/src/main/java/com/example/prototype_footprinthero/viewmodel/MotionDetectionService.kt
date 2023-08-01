@@ -52,14 +52,14 @@ class MotionDetectionService : Service(), SensorEventListener {
             // Beispiel:
             val motionDurationMinutes = calculateMotionDuration(x, y, z)
 
-            if (motionDurationMinutes >= 30 && !notificationShown) {
+            if (motionDurationMinutes >= 2 && !notificationShown) {
                 // Wenn die Bewegungsdauer 30 Minuten überschreitet und die Benachrichtigung noch nicht gezeigt wurde
                 if (motionStartTime == 0L) {
                     motionStartTime = System.currentTimeMillis()
                 } else {
                     val currentTime = System.currentTimeMillis()
                     val elapsedTimeMinutes = (currentTime - motionStartTime) / (1000 * 60)
-                    if (elapsedTimeMinutes >= 30) {
+                    if (elapsedTimeMinutes >= 2) {
                         notificationShown = true
                         // Hier können Sie den Log-Eintrag erstellen oder eine andere Aktion ausführen
                         val notificationHelper = NotificationHelper(applicationContext)
