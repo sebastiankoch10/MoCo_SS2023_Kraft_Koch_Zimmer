@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.IBinder
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kotlin.math.sqrt
 
@@ -17,6 +18,7 @@ class MotionDetectionService : Service(), SensorEventListener {
     private lateinit var motionSensor: Sensor
 
     private var motionStartTimeMillis = 0L
+    private var notificationShown = false
 
     override fun onCreate() {
         super.onCreate()
@@ -40,6 +42,7 @@ class MotionDetectionService : Service(), SensorEventListener {
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onSensorChanged(event: SensorEvent?) {
+
         if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
             val x = event.values[0]
             val y = event.values[1]
@@ -49,9 +52,15 @@ class MotionDetectionService : Service(), SensorEventListener {
             // und prüfen, ob die Bewegungsdauer 30 Minuten überschreitet
             // Beispiel:
             val motionDurationMinutes = calculateMotionDuration(x, y, z)
-            //Log.i("MotionDetection", "Bewegungsdauer: $motionDurationMinutes Minuten")
-            if (motionDurationMinutes >= 30) {
-                //Toast.makeText(applicationContext, "30 Minuten Bewegungsdauer erreicht", Toast.LENGTH_SHORT).show()
+
+            if (motionDurationMinutes == 0 && notificationShown) {
+                Toast.makeText(applicationContext, "Reset Time", Toast.LENGTH_SHORT).show()
+                notificationShown = false
+            }
+
+            if (motionDurationMinutes == 30 && !notificationShown) {
+                notificationShown = true
+                Toast.makeText(applicationContext, "30 Minuten Bewegungsdauer erreicht", Toast.LENGTH_SHORT).show()
                 //Log.d("MotionDetection", "30 Minuten Bewegungsdauer erreicht")
                 // Hier können Sie den Log-Eintrag erstellen oder eine andere Aktion ausführen
                 val notificationHelper = NotificationHelper(applicationContext)
@@ -59,6 +68,8 @@ class MotionDetectionService : Service(), SensorEventListener {
             }
         }
     }
+
+
 
     private fun startMotionDetection() {
         sensorManager.registerListener(
