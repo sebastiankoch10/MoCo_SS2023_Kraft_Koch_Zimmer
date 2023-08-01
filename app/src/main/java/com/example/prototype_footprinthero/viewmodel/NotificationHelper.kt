@@ -20,8 +20,8 @@ class NotificationHelper(private val context: Context) {
     }
 
     private fun createNotificationChannel() {
-        val name = "Test Channel"
-        val description = "This is a test channel"
+        val name = "Footprint Hero calculation"
+        val description = "You do a journy, use the Footrint Hero calulation"
         val importance = NotificationManager.IMPORTANCE_HIGH
         val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
             this.description = description
@@ -32,13 +32,14 @@ class NotificationHelper(private val context: Context) {
     }
 
     fun showNotification() {
-        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:123456789"))
+        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         val pendingIntent: PendingIntent = PendingIntent.getActivity(
             context, 0, intent, PendingIntent.FLAG_IMMUTABLE
         )
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.ic_dialog_info).setContentTitle("Test")
-            .setContentText("This is a test notification")
+            .setSmallIcon(android.R.drawable.ic_dialog_info).setContentTitle("Footprint Hero calculation")
+            .setContentText("You do a journy, use the Footrint Hero calulation")
             .setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(pendingIntent)
             .setAutoCancel(true).build()
 
