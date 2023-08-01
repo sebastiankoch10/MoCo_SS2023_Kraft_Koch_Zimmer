@@ -54,13 +54,13 @@ class MotionDetectionService : Service(), SensorEventListener {
             val motionDurationMinutes = calculateMotionDuration(x, y, z)
 
             if (motionDurationMinutes == 0 && notificationShown) {
-                Toast.makeText(applicationContext, "Reset Time", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "Reset Time", Toast.LENGTH_SHORT).show()
                 notificationShown = false
             }
 
             if (motionDurationMinutes == 30 && !notificationShown) {
                 notificationShown = true
-                Toast.makeText(applicationContext, "30 Minuten Bewegungsdauer erreicht", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "30 Minuten Bewegungsdauer erreicht", Toast.LENGTH_SHORT).show()
                 //Log.d("MotionDetection", "30 Minuten Bewegungsdauer erreicht")
                 // Hier können Sie den Log-Eintrag erstellen oder eine andere Aktion ausführen
                 val notificationHelper = NotificationHelper(applicationContext)
