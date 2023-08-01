@@ -17,6 +17,8 @@ class MotionDetectionService : Service(), SensorEventListener {
     private lateinit var motionSensor: Sensor
 
     private var motionStartTimeMillis = 0L
+    private var motionStartTime: Long = 0
+    private var notificationShown: Boolean = false
 
     override fun onCreate() {
         super.onCreate()
@@ -49,13 +51,24 @@ class MotionDetectionService : Service(), SensorEventListener {
             // und prüfen, ob die Bewegungsdauer 30 Minuten überschreitet
             // Beispiel:
             val motionDurationMinutes = calculateMotionDuration(x, y, z)
-            //Log.i("MotionDetection", "Bewegungsdauer: $motionDurationMinutes Minuten")
-            if (motionDurationMinutes >= 30) {
-                //Toast.makeText(applicationContext, "30 Minuten Bewegungsdauer erreicht", Toast.LENGTH_SHORT).show()
-                //Log.d("MotionDetection", "30 Minuten Bewegungsdauer erreicht")
-                // Hier können Sie den Log-Eintrag erstellen oder eine andere Aktion ausführen
-                val notificationHelper = NotificationHelper(applicationContext)
-                notificationHelper.showNotification()
+
+            if (motionDurationMinutes >= 30 && !notificationShown) {
+                // Wenn die Bewegungsdauer 30 Minuten überschreitet und die Benachrichtigung noch nicht gezeigt wurde
+                if (motionStartTime == 0L) {
+                    motionStartTime = System.currentTimeMillis()
+                } else {
+                    val currentTime = System.currentTimeMillis()
+                    val elapsedTimeMinutes = (currentTime - motionStartTime) / (1000 * 60)
+                    if (elapsedTimeMinutes >= 30) {
+                        notificationShown = true
+                        // Hier können Sie den Log-Eintrag erstellen oder eine andere Aktion ausführen
+                        val notificationHelper = NotificationHelper(applicationContext)
+                        notificationHelper.showNotification()
+                    }
+                }
+            } else {
+                // Wenn die Bewegungsdauer weniger als 30 Minuten ist oder die Benachrichtigung bereits gezeigt wurde, setzen Sie motionStartTime zurück
+                motionStartTime = 0
             }
         }
     }
