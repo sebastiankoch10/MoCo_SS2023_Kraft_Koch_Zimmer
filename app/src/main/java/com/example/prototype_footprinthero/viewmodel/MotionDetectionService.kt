@@ -9,7 +9,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Build
 import android.os.IBinder
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kotlin.math.sqrt
 
@@ -70,7 +69,6 @@ class MotionDetectionService : Service(), SensorEventListener {
     }
 
 
-
     private fun startMotionDetection() {
         sensorManager.registerListener(
             this,
@@ -80,10 +78,14 @@ class MotionDetectionService : Service(), SensorEventListener {
         motionStartTimeMillis = System.currentTimeMillis()
     }
 
+    /*
     private fun stopMotionDetection() {
+
         sensorManager.unregisterListener(this)
         motionStartTimeMillis = 0L
     }
+
+     */
 
     private fun calculateMotionDuration(x: Float, y: Float, z: Float): Int {
         // Hier können Sie die Bewegungsdauer basierend auf den Sensordaten berechnen
