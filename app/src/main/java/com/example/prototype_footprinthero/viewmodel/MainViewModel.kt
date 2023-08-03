@@ -99,8 +99,7 @@ class MainViewModel : ViewModel() {
                 // Führen Sie hier die entsprechenden Fehlerbehandlungsmaßnahmen durch
             } else {
                 if (co2DataListDB != null) {
-                    val currentList =
-                        _co2DataList.value.co2Data.toMutableList()
+                    val currentList = _co2DataList.value.co2Data.toMutableList()
                     currentList.addAll(co2DataListDB)
 
                     val updatedList = ConsumptionDataList(currentList)

@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -38,7 +37,8 @@ class NotificationHelper(private val context: Context) {
             context, 0, intent, PendingIntent.FLAG_IMMUTABLE
         )
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.ic_dialog_info).setContentTitle("Footprint Hero calculation")
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setContentTitle("Footprint Hero calculation")
             .setContentText("You do a journy, use the Footrint Hero calulation")
             .setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(pendingIntent)
             .setAutoCancel(true).build()
