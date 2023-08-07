@@ -1,0 +1,6 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {section}{\numberline {1}Beschreibung der Funktionalität (z. B. "Was haben Sie erstellt? Funktionalität Ihrer App?")}{1}{}%
+\contentsline {section}{\numberline {2}Dokumentation des Systems (z. B. "Welche Komponenten? Architektur? Datenmodell?")}{2}{}%
+\contentsline {section}{\numberline {3}Diskussion besonderer Aspekte von Mobilität und mobiler Software}{2}{}%
+\contentsline {section}{\numberline {4}Reflexion über den Entwicklungsprozess (z. B. "Feedback einholen? Gelernte Lektionen?")}{2}{}%
+\contentsline {section}{\numberline {5}Teammatrix}{2}{}%
