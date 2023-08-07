@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  7 AUG 2023 11:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  7 AUG 2023 11:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -89,19 +89,23 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \openout3 = `Dokumentation.toc'.
 
 
-Overfull \hbox (1.25374pt too wide) in paragraph at lines 25--26
-\T1/cmr/m/n/10.95 sie-rend auf der ge-wähl-ten Fort-be-we-gungs-me-tho-de und d
-er ein-ge-ge-be-nen Dau-
+Underfull \hbox (badness 10000) in paragraph at lines 19--33
+
  []
 
 [1
 
 {C:/Users/phili/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 36--79
+
+ []
+
+[2]
 Overfull \hbox (2.9025pt too wide) in paragraph at lines 81--81
 []\T1/cmr/bx/n/14.4 Diskussion be-son-de-rer Aspek-te von Mo-bi-li-tät und
  []
 
-[2] (Dokumentation.aux)
+[3] (Dokumentation.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-06-30>
@@ -110,20 +114,20 @@ L3 programming layer <2023-06-30>
 Here is how much of TeX's memory you used:
  1808 strings out of 475551
  30991 string characters out of 5772370
- 1922238 words of memory out of 5000000
+ 1923238 words of memory out of 5000000
  23067 multiletter control sequences out of 15000+600000
  565732 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,6n,52p,341b,197s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 43i,6n,52p,312b,197s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm
 1095.pk> <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
 0\ecbx1095.pk> <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\ecbx1440.pk> <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
 pen/ec/dpi600\ecrm1200.pk> <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour
 /jknappen/ec/dpi600\ecrm1728.pk>
-Output written on Dokumentation.pdf (2 pages, 78445 bytes).
+Output written on Dokumentation.pdf (3 pages, 79319 bytes).
 PDF statistics:
- 237 PDF objects out of 1000 (max. 8388607)
+ 242 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

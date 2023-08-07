@@ -16,66 +16,66 @@ Maximal 12 Seiten, eine zusätzliche Seite für die Team-Beitragsmatrix
 
 
 \section{Beschreibung der Funktionalität (z. B. "Was haben Sie erstellt? Funktionalität Ihrer App?")}
-Registrierung und Login: Der Benutzer kann sich registrieren und ein Konto erstellen oder sich mit einem bestehenden Konto anmelden.
-
-Fortbewegungsmittel: Der Benutzer kann durch Buttons von Fortbewegungsmitteln auswählen, wie er sich fortbewegt hat, einschließlich Auto, Fahrrad, Flugzeug usw. 
-
-Eingabe der Fortbewegungsdauer: Der Benutzer kann die Dauer der Fortbewegung eingeben, indem er einen Radknopf dreht, um die ungefähre Dauer in Minuten-Schritten nach oben oder unten einzustellen.
-
-CO2-Berechnung: Die App berechnet automatisch den CO2-Ausstoß basierend auf der gewählten Fortbewegungsmethode und der eingegebenen Dauer
-
-Wochentagsübersicht:
-Zeigt den Co2 Ausstoß tagesweise für die aktuelle Woche an, um ihm zu zeigen, ob er seinen CO2-Ausstoß verringert hat oder nicht.
-
-Wochenübersicht: Die App zeigt dem Benutzer eine Wochenübersicht seines CO2-Ausstoßes an und vergleicht diese mit der Vorwoche, um ihm zu zeigen, ob er seinen CO2-Ausstoß verringert hat oder nicht.
-
-Benachrichtigungen: Die App sendet dem Benutzer Benachrichtigungen, wenn er sich 30 Minuten fortbewegt hat, um ihn daran zu erinnern, seine Fortbewegungen einzugeben und um ihm eine Wochenstatistik zu senden. Diese Funktionalität wird auch zu Verfügung gestellt, wenn die App im Hintergrund läuft.
+Registrierung und Login:\\
+Der Benutzer kann sich registrieren und ein Konto erstellen oder sich mit einem bestehenden Konto anmelden.\\
+Fortbewegungsmittel: \\
+Der Benutzer kann durch Buttons von Fortbewegungsmitteln auswählen, wie er sich fortbewegt hat, einschließlich Auto, Fahrrad, Flugzeug usw. \\
+Eingabe der Fortbewegungsdauer: \\
+Der Benutzer kann die Dauer der Fortbewegung eingeben, indem er einen Radknopf dreht, um die ungefähre Dauer in Minuten-Schritten nach oben oder unten einzustellen.\\
+CO2-Berechnung: \\
+Die App berechnet automatisch den CO2-Ausstoß basierend auf der gewählten Fortbewegungsmethode und der eingegebenen Dauer.\\
+Wochentagsübersicht:\\
+Zeigt den Co2 Ausstoß tagesweise für die aktuelle Woche an, um ihm zu zeigen, ob er seinen CO2-Ausstoß verringert hat oder nicht.\\
+Wochenübersicht: \\
+Die App zeigt dem Benutzer eine Wochenübersicht seines CO2-Ausstoßes an und vergleicht diese mit der Vorwoche, um ihm zu zeigen, ob er seinen CO2-Ausstoß verringert hat oder nicht.\\
+Benachrichtigungen: \\
+Die App sendet dem Benutzer Benachrichtigungen, wenn er sich 30 Minuten fortbewegt hat, um ihn daran zu erinnern, seine Fortbewegungen einzugeben und um ihm eine Wochenstatistik zu senden. Diese Funktionalität wird auch zu Verfügung gestellt, wenn die App im Hintergrund läuft.\\
 
 
 \section{Dokumentation des Systems (z. B. "Welche Komponenten? Architektur? Datenmodell?")}
-(MainActivity)
-	MainView
-	MotionDetection
-Views
-	(Material Design)
-	(Different Pixel Densities) an Bildschirmanpassen
-	(Jetpack Compose) paradigment Compose Vorlesung
-	Composables
-	(CONTEXT AND INTENTS)
-	Main
-	(Login)
-	DayView
-	Transport duration calulation Views
-	Overview Views
-ViewModel
-	(LIFECYCLE)
-	(Zygote/ background Operations) / (threads)
-	Service Components
-	Coroutines / ASYNCHRONISM / Permission / notification / sensor
-	Database
-	Communication (Request-response / Event-based architecture) Vorlesung 26
-	MainViewModel
-	Firestore
-		Database Lesen
-		Database Schreiben
-	CO2 Calculation
-	MotionDetectionService
-		Sensorik
-			Bewegung
-			Running in background
-			Berechnung bewegung
-	MyForegroundService
-	NotificationHeper
-		Notification
-			Reminder
-			(Click open app main screen?)
-			Running in background
-Model
-	ConsumptionData
-MVVM
-	Liste für Werte / Model
-	Model Views
-	Views
+(MainActivity)\\
+	-MainView \\
+	-MotionDetection\\
+Views\\
+	-(Material Design)\\
+	-(Different Pixel Densities) an Bildschirmanpassen\\
+	-(Jetpack Compose) paradigment Compose Vorlesung\\
+	-Composables\\
+	-(CONTEXT AND INTENTS)\\
+	-Main\\
+	-(Login)\\
+	-DayView\\
+	-Transport duration calulation Views\\
+	-Overview Views\\
+ViewModel\\
+	-(LIFECYCLE)\\
+	-(Zygote/ background Operations) / (threads)\\
+	-Service Components\\
+	-Coroutines / ASYNCHRONISM / Permission / notification / sensor\\
+	-Database\\
+	-Communication (Request-response / Event-based architecture) Vorlesung 26\\
+	-MainViewModel\\
+	-Firestore\\
+		--Database Lesen\\
+		--Database Schreiben\\
+	-CO2 Calculation\\
+	-MotionDetectionService\\
+		--Sensorik\\
+			---Bewegung\\
+			---Running in background\\
+			---Berechnung bewegung\\
+	-MyForegroundService\\
+	-NotificationHeper\\
+		--Notification\\
+			---Reminder\\
+			---(Click open app main screen?)\\
+			---Running in background\\
+Model\\
+	-ConsumptionData\\
+MVVM\\
+	-Liste für Werte / Model\\
+	-Model Views\\
+	-Views\\
 
 
 \section{Diskussion besonderer Aspekte von Mobilität und mobiler Software}
