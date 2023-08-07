@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  7 AUG 2023 11:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  7 AUG 2023 11:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -105,6 +105,11 @@ Overfull \hbox (2.9025pt too wide) in paragraph at lines 81--81
 []\T1/cmr/bx/n/14.4 Diskussion be-son-de-rer Aspek-te von Mo-bi-li-tät und
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--94
+
+ []
+
 [3] (Dokumentation.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
@@ -125,9 +130,9 @@ Here is how much of TeX's memory you used:
 /dpi600\ecbx1440.pk> <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
 pen/ec/dpi600\ecrm1200.pk> <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour
 /jknappen/ec/dpi600\ecrm1728.pk>
-Output written on Dokumentation.pdf (3 pages, 79319 bytes).
+Output written on Dokumentation.pdf (3 pages, 81482 bytes).
 PDF statistics:
- 242 PDF objects out of 1000 (max. 8388607)
+ 247 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
