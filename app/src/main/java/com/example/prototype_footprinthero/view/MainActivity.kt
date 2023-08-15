@@ -1,32 +1,53 @@
-package com.example.prototype_footprinthero.view
+package com.example.prototype_footprinthero.activity
 
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.ViewModelProvider
-import com.example.prototype_footprinthero.model.MainViewModel
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
+import com.example.prototype_footprinthero.view.Login
+import com.example.prototype_footprinthero.view.MainScreen
+import com.example.prototype_footprinthero.viewmodel.MotionDetectionService
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainViewModel
+    private var isLoggedIn = true
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         setContent {
             Prototype_FootPrintHeroTheme {
                 Surface(color = Color.White) {
-                    MainScreen(
-                        viewModel = viewModel,
-                    )
+                    if (isLoggedIn) {
+                        MainScreen(isLoggedIn = isLoggedIn, onLogout = { isLoggedIn = false })
+                    } else {
+                        Login(onLoginSuccess = { isLoggedIn = true })
+                    }
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startMotionDetectionService()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopMotionDetectionService()
+    }
+
+    private fun startMotionDetectionService() {
+        val intent = Intent(this, MotionDetectionService::class.java)
+        startService(intent)
+    }
+
+    private fun stopMotionDetectionService() {
+        val intent = Intent(this, MotionDetectionService::class.java)
+        stopService(intent)
     }
 }
