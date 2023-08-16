@@ -4,7 +4,7 @@ import android.util.Log
 
 data class CO2CalculationModel(
     var co2: Float = 0f, val transportationCO2: Map<String, Float> = mapOf(
-        "Auto" to 0.162f, "Bahn" to 0.073f, "Bus" to 0.062f, "Fahrrad" to 0.0f, "Flugzeug" to 0.271f
+        "Auto" to 0.162f, "Bahn" to 0.073f, "Bus" to 0.062f, "Fahrrad" to 0.0f, "Taxi" to 0.17f, "zu Fuß" to 0.0f, "Flugzeug" to 0.271f
     ), var selectedTransportation: String = "NULL", var duration: Int = 0
 )
 
