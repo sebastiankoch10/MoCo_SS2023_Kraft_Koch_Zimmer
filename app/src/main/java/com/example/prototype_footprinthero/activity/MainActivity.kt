@@ -8,12 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Surface
 import androidx.compose.ui.graphics.Color
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
+import com.example.prototype_footprinthero.view.Login
 import com.example.prototype_footprinthero.view.MainScreen
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 import com.example.prototype_footprinthero.viewmodel.MotionDetectionService
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels()
+    //private val viewModel: MainViewModel by viewModels()
     private lateinit var motionDetectionService: MotionDetectionService
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +25,11 @@ class MainActivity : AppCompatActivity() {
         setContent {
             Prototype_FootPrintHeroTheme {
                 Surface(color = Color.White) {
-                    MainScreen(
-                        viewModel = viewModel
-                    )
+                    if (isLoggedIn) {
+                        MainScreen(isLoggedIn = isLoggedIn, onLogout = { isLoggedIn = false })
+                    } else {
+                        Login(onLoginSuccess = { isLoggedIn = true })
+                    }
                 }
             }
         }
