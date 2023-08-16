@@ -16,7 +16,7 @@ import java.util.Locale
 class MainViewModel : ViewModel() {
     private val firestoreDatabase = FirestoreDatabase()
 
-    val vehicles = listOf("Auto","öffentliche Verkehrsmittel","Fahrrad","zu Fuß","Taxi","Flugzeug")
+    val vehicles = listOf("Auto","Bahn","Bus","Fahrrad","zu Fuß","Taxi","Flugzeug")
     private val co2CalculationViewModel = CO2CalculationViewModel()
     val selectedVehicle = mutableStateOf("Auto")
     var duration: Int = Integer.valueOf(1)
