@@ -1,16 +1,11 @@
-package com.example.prototype_footprinthero.model
+package com.example.prototype_footprinthero.viewmodel
 
 import android.util.Log
 
 data class CO2CalculationModel(
-    var co2: Float = 0f,
-    val transportationCO2: Map<String, Float> = mapOf(
-        "Auto" to 0.162f,
-        "Fahrrad" to 0.0f,
-        "Flugzeug" to 0.25f
-    ),
-    var selectedTransportation: String = "Auto",
-    var duration: Int = 0
+    var co2: Float = 0f, val transportationCO2: Map<String, Float> = mapOf(
+        "Auto" to 0.162f, "Fahrrad" to 0.0f, "Flugzeug" to 0.25f
+    ), var selectedTransportation: String = "Auto", var duration: Int = 0
 )
 
 

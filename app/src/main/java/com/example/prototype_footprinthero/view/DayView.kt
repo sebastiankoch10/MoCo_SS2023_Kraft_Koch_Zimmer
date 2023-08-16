@@ -1,8 +1,6 @@
 package com.example.prototype_footprinthero.view
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,21 +10,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.model.ConsumptionDataList
-import com.example.prototype_footprinthero.model.MainViewModel
+import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun DayView(viewModel: MainViewModel) {
-    val co2DataList =viewModel.co2DataList
     Log.i("DayView", "DayView called")
 
-    val aggregatedDataList: ConsumptionDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
+    val co2DataListState: State<ConsumptionDataList> =
+        viewModel.co2DataList.collectAsState(ConsumptionDataList(mutableListOf()))
+
+    val aggregatedDataList = co2DataListState.value.aggregateToDaysOfThisWeek(viewModel)
+
     val weekdayInGerman = viewModel.dayInGerman
-    val thData = aggregatedDataList.find { it.dayOfWeek == weekdayInGerman}
+    val thData = aggregatedDataList.find { it.dayOfWeek == weekdayInGerman }
     Log.d("DayView", "thData: $thData")
     val fillAmount: Float
 
@@ -42,6 +45,7 @@ fun DayView(viewModel: MainViewModel) {
     }
 }
 
+
 @Composable
 fun DrawHorizontalProgressBar(fillAmount: Float) {
     Log.d("DayView", "DrawHorizontalProgressBar called with fillAmount: $fillAmount")
@@ -49,8 +53,7 @@ fun DrawHorizontalProgressBar(fillAmount: Float) {
 
     Column {
         Text(
-            text = "Tagesanzeige",
-            modifier = Modifier.padding(8.dp)
+            text = "Tagesanzeige", modifier = Modifier.padding(8.dp)
         )
         Box(
             modifier = Modifier

@@ -1,5 +1,6 @@
 <div align="center">
-      <h1> <img src="A" width="80px"><br/>FootPrint Hero</h1>
+      <img src="https://github.com/sebastiankoch10/MoCo_SS2023_Kraft_Koch_Zimmer/blob/main/Sonstig/Bilder/app%20symbol.png?raw=true" width="240px"><br/>imagine.art
+      <h1> <br/>FootPrint Hero</h1>
      </div>
 
 
