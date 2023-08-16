@@ -22,7 +22,7 @@ import com.example.prototype_footprinthero.viewmodel.MainViewModel
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
     Scaffold(
-        topBar = {
+       /* topBar = {
             TopAppBar(
                 title = {
                     Box(
@@ -35,6 +35,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 }, backgroundColor = Color(0xFF214001), elevation = 0.dp
             )
         },
+        */
     ) { innerPadding ->
         Column(
             modifier = Modifier
