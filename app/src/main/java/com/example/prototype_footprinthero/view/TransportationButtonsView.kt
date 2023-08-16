@@ -21,24 +21,48 @@ fun TransportationButtonsView(
 ) {
     Column(Modifier.padding(16.dp)) {
         Text(text = "Fortbewegungsmittel", style = MaterialTheme.typography.h6)
-        Row(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
+
+        // Buttons in einer Rasteranordnung
+        val columnCount = 3 // Anzahl der Spalten
+        val rowCount = (vehicles.size + columnCount - 1) / columnCount
+
+        Column(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            vehicles.forEach { vehicle ->
-                Button(
-                    onClick = { onVehicleSelected(vehicle) },
-                    modifier = Modifier.padding(horizontal = 8.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = if (selectedVehicle == vehicle) Color.Blue else MaterialTheme.colors.primary,
-                        contentColor = Color.White // Specify the text color of the button
-                    )
+            for (rowIndex in 0 until rowCount) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Text(text = vehicle)
+                    val startIndex = rowIndex * columnCount
+                    val endIndex = minOf(startIndex + columnCount, vehicles.size)
+                    val rowVehicles = vehicles.subList(startIndex, endIndex)
+
+                    rowVehicles.forEach { vehicle ->
+                        Button(
+                            onClick = { onVehicleSelected(vehicle) },
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = if (selectedVehicle == vehicle) Color.Blue else MaterialTheme.colors.primary,
+                                contentColor = Color.White
+                            )
+                        ) {
+                            Text(text = vehicle)
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+
 
 
 
