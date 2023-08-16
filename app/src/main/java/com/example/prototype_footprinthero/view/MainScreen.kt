@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 @Composable
-fun MainScreen(viewModel: MainViewModel) {
+fun MainScreen(viewModel: MainViewModel) { //TODO name der App und ganze obere schwarze Balken anpassen
     Scaffold(
        /* topBar = {
             TopAppBar(
