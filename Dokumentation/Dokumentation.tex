@@ -1,0 +1,213 @@
+\documentclass{article}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\title{Projektbericht: Footprint Hero - CO2-Berechnungs-App}
+\author{Ihr Name}
+\date{\today}
+
+\lstdefinelanguage{Kotlin}{
+  comment=[l]{//},
+  commentstyle={\color{green}\ttfamily},
+  emph={delegate, filter, firstOrNull, forEach, map, mapNotNull, println},
+  emphstyle={\color{orange}},
+  identifierstyle=\color{black},
+  keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, if, import, in, infix, init, inline, interface, internal, is, lateinit, noinline, null, object, open, operator, out, override, package, private, protected, public, reified, return, sealed, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
+  keywordstyle={\color{blue}\bfseries},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[s]{"""*}{*"""},
+  ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String, Thread, Throwable, Unit},
+  ndkeywordstyle={\color{orange}\bfseries},
+  sensitive=true,
+  stringstyle={\color{olive}\ttfamily},
+}
+
+\lstset{
+    language=Kotlin,
+    basicstyle=\ttfamily,
+    columns=fullflexible,
+    frame=single,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Einleitung}
+
+Die \textbf{Footprint Hero} App ist eine mobile Anwendung, die Benutzern hilft, bewusstere Entscheidungen zu treffen, indem sie ihre CO2-Emissionen erfassen, berechnen und verfolgen können. Footprint Hero soll den Nutzern ein generelles Bewusstsein für ihren CO2-Fußabdruck geben, indem sie über eine grafische Oberfläche einen Überblick über ihre Emissionen mit verschiedenen Fahrzeugen über verschiedene Zeiträume erhalten.
+
+\section{Funktionen der App}
+
+Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutzern dabei helfen, bewusstere Entscheidungen in Bezug auf ihre CO2-Emissionen im Verkehrssektor zu treffen. Nachfolgend werden die Funktionen im Detail erläutert:
+
+\begin{enumerate}
+    \item \textbf{Verkehrsmittel- und Dauerwahl}:
+    Benutzer können aus einer Liste von Verkehrsmitteln auswählen, darunter Auto, Bahn, Bus, Fahrrad, Taxi und Flugzeug. Diese Auswahl erfolgt über den MainScreen, der durch das \texttt{MainViewModel} gesteuert wird. Hierbei wird die ausgewählte Option des Benutzers erfasst und an das \texttt{CO2CalculationViewModel} weitergegeben. Beispielhaft dazu der Codeauszug:
+    
+    \begin{lstlisting}
+    fun onVehicleSelected(vehicle: String) {
+        selectedVehicle.value = vehicle
+        co2CalculationViewModel.onVehicleSelected(vehicle)
+    }
+    \end{lstlisting}
+
+    \item \textbf{CO2-Berechnung}:
+    Die App verwendet vordefinierte Emissionswerte für verschiedene Verkehrsmittel, die im \texttt{CO2CalculationViewModel} definiert sind. Nach der Auswahl eines Verkehrsmittels und der Eingabe der Dauer berechnet die App die geschätzten CO2-Emissionen. Diese Berechnung erfolgt durch die Methode \texttt{calculateCO2} im \texttt{CO2CalculationViewModel}. Hier ist ein Beispiel, wie die CO2-Berechnung implementiert ist:
+    
+    \begin{lstlisting}
+    fun calculateCO2() {
+        val co2Emission = model.transportationCO2[model.selectedTransportation] ?: 0f
+        val calculatedCo2 = (co2Emission * model.duration) / 60f
+        if (!calculatedCo2.isNaN()) {
+            model.co2 = calculatedCo2
+        }
+        Log.d("CO2CalculationModel", "Calculated CO2: $calculatedCo2")
+    }
+    \end{lstlisting}
+    
+            \item \textbf{Login}: Der LoginScreen ist der Startpunkt der App. Hier können Benutzer ihre Anmeldeinformationen eingeben, um Zugriff auf die Funktionalitäten der App zu erhalten. Der Login-Bildschirm stellt sicher, dass die persönlichen Daten und CO2-Berechnungen eines Benutzers privat und sicher bleiben.
+
+    xxxx:
+    
+    \begin{lstlisting}
+   xx
+   
+   
+    \end{lstlisting}
+    
+    
+    
+        \item \textbf{Datenverfolgung}:
+    Die berechneten CO2-Daten werden im \texttt{MainViewModel} gespeichert und verwaltet. Die Methode \texttt{merchList} aktualisiert die Liste der CO2-Daten und speichert sie in der Firebase-Datenbank. Diese Daten können dann auf dem MainScreen angezeigt werden, um den Benutzern einen Überblick über ihre CO2-Emissionen im Laufe der Zeit zu geben. Hier ist ein Beispiel für die Aktualisierung der CO2-Datenliste:
+    
+    \begin{lstlisting}
+    private fun merchList(co2: Float) {
+        // ...
+        val consumptionData = ConsumptionData(
+            abbreviatedDayOfWeek, co2, getCurrentCalendarWeek()
+        )
+        val updatedList = _co2DataList.value.co2Data.toMutableList()
+        updatedList.add(consumptionData)
+        _co2DataList.value = ConsumptionDataList(updatedList)
+        writeCO2Data(_co2DataList.value)
+        // ...
+    }
+    \end{lstlisting}
+
+    \item \textbf{Bewegungserkennung}:
+    Die App erfasst Bewegungsdaten mithilfe des Beschleunigungssensors des Geräts. Dies erfolgt durch den \texttt{MotionDetectionService}. Wenn eine Bewegungsdauer von 30 Minuten erreicht wird, zeigt die App eine Benachrichtigung an, die den Benutzer dazu auffordert, die App zu verwenden. Hier ist die Methode zur Berechnung der Bewegungsdauer:
+    
+    \begin{lstlisting}
+    private fun calculateMotionDuration(x: Float, y: Float, z: Float): Int {
+        val acceleration = sqrt(x * x + y * y + z * z)
+        val motionDurationMillis = System.currentTimeMillis() - motionStartTimeMillis
+        return if (acceleration > 0.1f) {
+            (motionDurationMillis / (1000 * 60)).toInt()
+        } else {
+            0
+        }
+    }
+    \end{lstlisting}
+    
+    % Weitere Funktionalitäten hier
+
+\end{enumerate}
+
+
+\section{Architektur: Model-View-ViewModel (MVVM)}
+
+Die Footprint Hero App folgt dem MVVM-Architekturmuster, das eine klare Trennung von Daten, Benutzeroberfläche und Geschäftslogik ermöglicht.
+
+\subsection{Modell (Model)}
+
+Im Modellbereich werden die Datenstrukturen definiert, die zur Speicherung von Informationen verwendet werden. Die \texttt{ConsumptionData}-Klasse speichert CO2-Daten wie den Wochentag, die CO2-Emissionen und die Kalenderwoche. Die \texttt{CO2CalculationModel}-Klasse enthält Informationen für die CO2-Berechnung, wie ausgewähltes Verkehrsmittel, Dauer und berechnetes CO2.
+
+\section{Sicht (View)}
+
+Die Benutzeroberflächenelemente und die Logik zur Anzeige von Daten werden im View-Bereich erstellt. Die Benutzerinteraktion erfolgt hier, indem sie Verkehrsmittel und Dauer auswählen. Die berechneten CO2-Daten werden angezeigt.
+
+\subsection{MainScreen}
+
+Hier können Benutzer ihre Auswahl des Verkehrsmittels und der Dauer treffen, um die CO2-Berechnungen durchzuführen. Zusätzlich bietet der MainScreen eine Übersicht über die bisherigen CO2-Emissionen für den ausgewählten Zeitraum. Die Benutzer können auch auf die Einstellungen zugreifen, um benutzerdefinierte CO2-Emissionswerte hinzuzufügen.
+
+%\begin{figure}[h]
+    %\centering
+    %\includegraphics[width=0.6\textwidth]{pfad/zum/main-screen.png}
+    %\caption{MainScreen der Footprint Hero App}
+    %\label{fig:main-screen}
+%\end{figure}
+
+\subsection{LoginScreen}
+
+Im LoginScreen können Benutzer ihre Anmeldeinformationen eingeben, um auf den MainScreen weitergeleitet zu werden. Der LoginScreen stellt sicher, dass die persönlichen Daten< eines Benutzers privat und sicher bleiben.
+
+%\begin{figure}[h]
+   % \centering
+    %\includegraphics[width=0.4\textwidth]{pfad/zum/login-screen.png}
+    %\caption{Login-Bildschirm der Footprint Hero App}
+    %\label{fig:login-screen}
+%\end{figure}
+
+\subsection{ViewModel}
+
+Die ViewModel-Klassen \texttt{MainViewModel} und \texttt{CO2CalculationViewModel} sind für die Funktionalität der App verantwortlich. Sie verarbeiten die Auswahl von Verkehrsmitteln und Dauer, führen die CO2-Berechnung durch und aktualisieren die CO2-Datenliste.
+
+\subsection{Datenbank und Benachrichtigungen}
+
+Die \texttt{FirestoreDatabase}-Klasse behandelt die Kommunikation mit der Firebase Firestore-Datenbank. Sie bietet Methoden zum Schreiben, Lesen, Aktualisieren und Löschen von CO2-Daten. Die \texttt{NotificationHelper}-Klasse vereinfacht das Erstellen und Anzeigen von Benachrichtigungen, um Benutzer zur Verwendung der App zu motivieren.
+
+\section{Erweiterung der Funktionen}
+
+xxx:
+
+\begin{itemize}
+    \item Weitere Einzelheiten zur Implementierung der CO2-Berechnung und -Verfolgung.:
+    
+    \item Technische Details zur Sensordatenerfassung und Bewegungserkennung.:
+    
+    \item Implementierung von  Observer.:
+    
+    
+
+    
+   
+    
+\end{itemize}
+
+\section{Nicht umgesetze Ideen / Überlegungen}
+
+    Nutzerfeedback und Verbesserungsvorschläge für zukünftige Versionen der App.
+    
+    
+    Anpassungsmöglichkeiten für den Benutzer, wie die Möglichkeit, benutzerdefinierte CO2-Emissionswerte hinzuzufügen.:
+    
+    \begin{enumerate}
+    \item \textbf{Schritt 1:} Der Benutzer navigiert zur Einstellungsseite der App, wo die Option zur Anpassung der CO2-Emissionswerte verfügbar ist.
+
+    \item \textbf{Schritt 2:} Die App listet die verschiedenen Verkehrsmittel auf, für die der Benutzer Emissionswerte definieren kann.
+
+    \item \textbf{Schritt 3:} Der Benutzer wählt ein Verkehrsmittel aus, für das er den Emissionswert anpassen möchte.
+
+    \item \textbf{Schritt 4:} Die App präsentiert dem Benutzer ein Eingabefeld, in dem er den benutzerdefinierten Emissionswert eingeben kann. Zusätzlich kann er eine kurze Beschreibung oder eine Begründung für den gewählten Wert angeben.
+
+    \item \textbf{Schritt 5:} Nachdem der Benutzer den neuen Wert eingegeben hat, bestätigt er die Änderung, und die App speichert den benutzerdefinierten Emissionswert für zukünftige Berechnungen.
+
+    \end{enumerate}
+    
+\section{Herausforderungen / Probleme}
+
+    Nutzerfeedback und Verbesserungsvorschläge für zukünftige Versionen der App.
+
+\section{Zusammenfassung}
+
+Die Footprint Hero App stellt eine innovative Möglichkeit dar, Benutzern bewusstere Entscheidungen im Verkehrsbereich zu ermöglichen. Mit einer klaren Architektur, die das MVVM-Muster nutzt, bietet die App eine benutzerfreundliche Benutzeroberfläche, die einfache CO2-Berechnung und -Verfolgung ermöglicht. Die Integration von Sensordaten zur Bewegungserkennung und die Verwendung von Benachrichtigungen tragen zur Steigerung der Benutzereinbindung bei. Durch die Förderung nachhaltigerer Verkehrsgewohnheiten kann die App einen positiven Beitrag zur Umwelt leisten.
+
+\end{document}
