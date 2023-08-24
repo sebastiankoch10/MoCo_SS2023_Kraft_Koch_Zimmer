@@ -16,7 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 @Composable
@@ -70,6 +72,16 @@ fun MainScreen(viewModel: MainViewModel) { //TODO name der App und ganze obere s
             DayView(viewModel)
             WeekdayOverview(viewModel)
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewMainScreen() {
+    val viewModel = MainViewModel() 
+
+        Prototype_FootPrintHeroTheme {
+        MainScreen(viewModel = viewModel)
     }
 }
 
