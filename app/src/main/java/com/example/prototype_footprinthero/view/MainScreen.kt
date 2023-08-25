@@ -78,7 +78,7 @@ fun MainScreen(viewModel: MainViewModel) { //TODO name der App und ganze obere s
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainScreen() {
-    val viewModel = MainViewModel() 
+    val viewModel = MainViewModel()
 
         Prototype_FootPrintHeroTheme {
         MainScreen(viewModel = viewModel)

@@ -12,6 +12,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -21,6 +23,9 @@ import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 
 @Composable
 fun LoginScreen(onLoginClicked: (String, String) -> Unit) {
+    val usernameState = remember { mutableStateOf("123") }
+    val passwordState = remember { mutableStateOf("123") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -35,8 +40,8 @@ fun LoginScreen(onLoginClicked: (String, String) -> Unit) {
         )
 
         OutlinedTextField(
-            value = "",
-            onValueChange = { },
+            value = usernameState.value,
+            onValueChange = { usernameState.value = it },
             label = { Text(text = "Username") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -44,8 +49,8 @@ fun LoginScreen(onLoginClicked: (String, String) -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = "",
-            onValueChange = { },
+            value = passwordState.value,
+            onValueChange = { passwordState.value = it },
             label = { Text(text = "Password") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
@@ -54,7 +59,7 @@ fun LoginScreen(onLoginClicked: (String, String) -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { onLoginClicked("", "") },
+            onClick = { onLoginClicked(usernameState.value, passwordState.value) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Login")
