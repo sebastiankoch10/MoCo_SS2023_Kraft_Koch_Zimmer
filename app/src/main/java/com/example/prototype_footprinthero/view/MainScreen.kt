@@ -1,5 +1,6 @@
 package com.example.prototype_footprinthero.view
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -75,6 +76,7 @@ fun MainScreen(viewModel: MainViewModel) { //TODO name der App und ganze obere s
     }
 }
 
+@SuppressLint("SuspiciousIndentation")
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainScreen() {
