@@ -166,6 +166,16 @@ Die \texttt{FirestoreDatabase}-Klasse behandelt die Kommunikation mit der Fireba
 
 \section{Erweiterung der Funktionen}
 
+Bewegungserfassung durch den Bewegungssensor\\
+Die erfassten Bewegungsdaten werden in Echtzeit abgefragt und auf eine Bewegungsdauer von 30 Minuten überprüft. Daraufhin wird eine entsprechende Benachrichtigung eindeutig ausgelöst.\\
+
+Notification\\
+Die Benachrichtigung erfolgt durch die Abfrage des Bewegungssensors und wird erst nach 30 Minuten ausgelöst, wenn der Benutzer stehen bleibt. In diesem Fall startet die dreißigminütige Zählung von Neuem.\\
+
+Observer\\
+Die Absorber befinden sich im MainViewModel. Sie erfassen sämtliche Veränderungen in der Liste der CO2-Werte und informieren entsprechenden Views.\\
+
+
 xxx:
 
 \begin{itemize}
