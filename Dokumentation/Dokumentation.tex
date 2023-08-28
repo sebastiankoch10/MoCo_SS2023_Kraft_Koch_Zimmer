@@ -72,13 +72,15 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
         Log.d("CO2CalculationModel", "Calculated CO2: $calculatedCo2")
     }
     \end{lstlisting}
+    \textcolor{red}{ToDo} Quellen zu den Werten
+
     
             \item \textbf{Login}: Der LoginScreen ist der Startpunkt der App. Hier können Benutzer ihre Anmeldeinformationen eingeben, um Zugriff auf die Funktionalitäten der App zu erhalten. Der Login-Bildschirm stellt sicher, dass die persönlichen Daten und CO2-Berechnungen eines Benutzers privat und sicher bleiben.
 
     xxxx:
     
     \begin{lstlisting}
-   xx
+   \textcolor{red}{ToDo}
    
    
     \end{lstlisting}
@@ -128,7 +130,7 @@ Die Footprint Hero App folgt dem MVVM-Architekturmuster, das eine klare Trennung
 
 \subsection{Modell (Model)}
 
-Im Modellbereich werden die Datenstrukturen definiert, die zur Speicherung von Informationen verwendet werden. Die \texttt{ConsumptionData}-Klasse speichert CO2-Daten wie den Wochentag, die CO2-Emissionen und die Kalenderwoche. Die \texttt{CO2CalculationModel}-Klasse enthält Informationen für die CO2-Berechnung, wie ausgewähltes Verkehrsmittel, Dauer und berechnetes CO2.
+Im Modellbereich werden die Datenstrukturen definiert, die zur Speicherung von Informationen verwendet werden. Die \texttt{ConsumptionData}-Klasse speichert CO2-Daten wie den Wochentag, die CO2-Emissionen und die Kalenderwoche. Die \texttt{User}-Klasse enthält Informationen \textcolor{red}{ToDo}.
 
 \section{Sicht (View)}
 
@@ -157,43 +159,36 @@ Im LoginScreen können Benutzer ihre Anmeldeinformationen eingeben, um auf den M
 %\end{figure}
 
 \subsection{ViewModel}
-
+\textcolor{red}{ToDo} Die anderen ViewModels?\\
 Die ViewModel-Klassen \texttt{MainViewModel} und \texttt{CO2CalculationViewModel} sind für die Funktionalität der App verantwortlich. Sie verarbeiten die Auswahl von Verkehrsmitteln und Dauer, führen die CO2-Berechnung durch und aktualisieren die CO2-Datenliste.
 
 \subsection{Datenbank und Benachrichtigungen}
 
-Die \texttt{FirestoreDatabase}-Klasse behandelt die Kommunikation mit der Firebase Firestore-Datenbank. Sie bietet Methoden zum Schreiben, Lesen, Aktualisieren und Löschen von CO2-Daten. Die \texttt{NotificationHelper}-Klasse vereinfacht das Erstellen und Anzeigen von Benachrichtigungen, um Benutzer zur Verwendung der App zu motivieren.
+Die \texttt{FirestoreDatabase}-Klasse behandelt die Kommunikation mit der Firebase Firestore-Datenbank. Sie bietet Methoden zum Schreiben, Lesen, Aktualisieren und Löschen von CO2-Daten.
 
-\section{Erweiterung der Funktionen}
+\section{Bewegungserfassung durch den Bewegungssensor}
 
-Bewegungserfassung durch den Bewegungssensor\\
-Die erfassten Bewegungsdaten werden in Echtzeit abgefragt und auf eine Bewegungsdauer von 30 Minuten überprüft. Daraufhin wird eine entsprechende Benachrichtigung eindeutig ausgelöst.\\
+Die erfassten Bewegungsdaten werden in Echtzeit abgefragt und auf eine Bewegungsdauer von 30 Minuten überprüft. Daraufhin wird eine entsprechende Notification einmalig ausgelöst.
 
-Notification\\
-Die Benachrichtigung erfolgt durch die Abfrage des Bewegungssensors und wird erst nach 30 Minuten ausgelöst, wenn der Benutzer stehen bleibt. In diesem Fall startet die dreißigminütige Zählung von Neuem.\\
+\section{Notification}
+Die Benachrichtigung erfolgt durch die Abfrage des Bewegungssensors und wird erst nach 30 Minuten ausgelöst, wenn der Benutzer stehen bleibt. In diesem Fall startet die dreißigminütige Zählung von Neuem.  Die \texttt{NotificationHelper}-Klasse vereinfacht das Erstellen und Anzeigen von Benachrichtigungen, um Benutzer zur Verwendung der App zu motivieren.\\\textcolor{red}{ToDos}: Code?
 
-Observer\\
-Die Absorber befinden sich im MainViewModel. Sie erfassen sämtliche Veränderungen in der Liste der CO2-Werte und informieren entsprechenden Views.\\
+
+\section{Observer}
+Die Absorber befinden sich im MainViewModel. Sie erfassen sämtliche Veränderungen in der Liste der CO2-Werte und informieren entsprechenden Views.
+Hier die ensprechende Codestelle mit dem StateFlow:
 \begin{lstlisting}
   private val _co2DataList = MutableStateFlow(ConsumptionDataList(mutableListOf()))
     val co2DataList: StateFlow<ConsumptionDataList> get() = _co2DataList
 \end{lstlisting}
 
+\section{Erweiterung der Funktionen}
 
-xxx:
+\textcolor{red}{ToDos}:
 
 \begin{itemize}
-    \item Weitere Einzelheiten zur Implementierung der CO2-Berechnung und -Verfolgung.:
-    
-    \item Technische Details zur Sensordatenerfassung und Bewegungserkennung.:
-    
-    \item Implementierung von  Observer.:
-    
-    
-
-    
-   
-    
+	\item Coroutines / ASYNCHRONISM / Permission
+    \item Weitere Einzelheiten zur Implementierung der CO2-Berechnung und -Verfolgung.: 
 \end{itemize}
 
 \section{Nicht umgesetze Ideen / Überlegungen}
