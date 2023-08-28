@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  28 AUG 2023 10:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  28 AUG 2023 11:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -315,79 +315,85 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 42.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 42.
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 56.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 56.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 56.
  [1
 
 {C:/Users/phili/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 75.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 75.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 75.
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-72.
+91.
 
 (C:\Program Files\MiKTeX\tex/latex/base\ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
-Overfull \hbox (7.84645pt too wide) in paragraph at lines 90--92
+) [2]
+Overfull \hbox (7.84645pt too wide) in paragraph at lines 109--111
 []\OT1/cmr/bx/n/10 Datenverfolgung\OT1/cmr/m/n/10 : Die berech-neten CO2-Daten 
 wer-den im \OT1/cmtt/m/n/10 MainViewModel
  []
 
 
-Overfull \hbox (50.75401pt too wide) in paragraph at lines 107--109
+Overfull \hbox (50.75401pt too wide) in paragraph at lines 126--128
 \OT1/cmr/m/n/10 Beschle-u-ni-gungssen-sors des Ger^^?ats. Dies er-folgt durch d
 en \OT1/cmtt/m/n/10 MotionDetectionService\OT1/cmr/m/n/10 .
  []
 
-[2]
-Overfull \hbox (16.82468pt too wide) in paragraph at lines 127--127
+[3]
+Overfull \hbox (16.82468pt too wide) in paragraph at lines 146--146
 []\OT1/cmr/bx/n/14.4 Architektur: Model-View-ViewModel (MVVM) 
  []
 
-[3]
-Overfull \hbox (6.03304pt too wide) in paragraph at lines 169--169
+[4]
+Overfull \hbox (6.03304pt too wide) in paragraph at lines 188--188
 []\OT1/cmr/bx/n/14.4 Bewegungserfassung durch den Be-we-gungssen-
  []
 
 
-Overfull \hbox (24.07468pt too wide) in paragraph at lines 178--180
+Overfull \hbox (24.07468pt too wide) in paragraph at lines 197--199
 \OT1/cmr/m/n/10 Die Ab-sorber befinden sich im Main-View-Model. Sie er-fassen s
 ^^?amtliche Ver^^?anderungen
  []
 
-[4]
-Overfull \hbox (26.13951pt too wide) in paragraph at lines 199--200
+[5]
+Overfull \hbox (26.13951pt too wide) in paragraph at lines 218--219
 []\OT1/cmr/m/n/10 Anpassungsm^^?oglichkeiten f^^?ur den Be-nutzer, wie die M^^?
 oglichkeit, be-nutzerdefinierte
  []
 
 
-Overfull \hbox (7.5558pt too wide) in paragraph at lines 210--211
-[]\OT1/cmr/bx/n/10 Schritt 5: \OT1/cmr/m/n/10 Nach-dem der Be-nutzer den neuen 
-Wert eingegeben hat, best^^?atigt
+Overfull \hbox (3.73305pt too wide) in paragraph at lines 228--228
+[]\OT1/cmr/bx/n/14.4 Diskussion beson-derer As-pekte von Mo-bilit^^?at
  []
 
-
-Overfull \hbox (30.36176pt too wide) in paragraph at lines 220--221
+[6]
+Overfull \hbox (30.36176pt too wide) in paragraph at lines 269--270
 \OT1/cmr/m/n/10 undliche Be-nutze-r-oberfl^^?ache, die ein-fache CO2-Berechnung
  und -Verfolgung erm^^?oglicht.
  []
 
-[5] [6] (Dokumentation.aux)
+[7] (Dokumentation.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-06-30>
  ***********
-Package rerunfilecheck Info: File `Dokumentation.out' has not changed.
-(rerunfilecheck)             Checksum: 0A4D478A461414815EEEF1354C970319;2470.
+
+
+Package rerunfilecheck Warning: File `Dokumentation.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Dokumentation.out':
+(rerunfilecheck)             Before: E030E1EDCEDA91F7F41628C09575CAE3;3254
+(rerunfilecheck)             After:  17E90C0291EDDD15C1FF827CA9DEB1FF;3329.
  ) 
 Here is how much of TeX's memory you used:
- 11543 strings out of 475551
- 177345 string characters out of 5772370
- 2047238 words of memory out of 5000000
- 32578 multiletter control sequences out of 15000+600000
+ 11580 strings out of 475551
+ 177630 string characters out of 5772370
+ 2065238 words of memory out of 5000000
+ 32581 multiletter control sequences out of 15000+600000
  563124 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  79i,6n,93p,612b,1511s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -400,9 +406,9 @@ eX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Dokumentation.pdf (6 pages, 152045 bytes).
+Output written on Dokumentation.pdf (7 pages, 162822 bytes).
 PDF statistics:
- 213 PDF objects out of 1000 (max. 8388607)
- 74 named destinations out of 1000 (max. 500000)
- 129 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 266 PDF objects out of 1000 (max. 8388607)
+ 108 named destinations out of 1000 (max. 500000)
+ 153 words of extra memory for PDF output out of 10000 (max. 10000000)
 
