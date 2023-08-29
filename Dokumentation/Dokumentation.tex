@@ -147,15 +147,15 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
 
 Die Footprint Hero App folgt dem MVVM-Architekturmuster, das eine klare Trennung von Daten, Benutzeroberfläche und Geschäftslogik ermöglicht.
 \begin{itemize}
-\item{ (Model)}
+\item \textbf{(Model)}
 
 Im Modellbereich werden die Datenstrukturen definiert, die zur Speicherung von Informationen verwendet werden. Die \texttt{ConsumptionData}-Klasse speichert CO2-Daten wie den Wochentag, die CO2-Emissionen und die Kalenderwoche. Die \texttt{User}-Klasse enthält Informationen \textcolor{red}{ToDo}.
 
-\item{Sicht (View)}
+\item \textbf{Sicht (View)}
 
 Die Benutzeroberflächenelemente und die Logik zur Anzeige von Daten werden im View-Bereich erstellt. Die Benutzerinteraktion erfolgt hier, indem sie Verkehrsmittel und Dauer auswählen. Die berechneten CO2-Daten werden angezeigt.
 
-\item{MainScreen}
+\item \textbf{MainScreen}
 
 Hier können Benutzer ihre Auswahl des Verkehrsmittels und der Dauer treffen, um die CO2-Berechnungen durchzuführen. Zusätzlich bietet der MainScreen eine Übersicht über die bisherigen CO2-Emissionen für den ausgewählten Zeitraum. Die Benutzer können auch auf die Einstellungen zugreifen, um benutzerdefinierte CO2-Emissionswerte hinzuzufügen.
 
@@ -166,7 +166,7 @@ Hier können Benutzer ihre Auswahl des Verkehrsmittels und der Dauer treffen, um
     %\label{fig:main-screen}
 %\end{figure}
 
-\item{LoginScreen}
+\item \textbf{LoginScreen}
 
 Im LoginScreen können Benutzer ihre Anmeldeinformationen eingeben, um auf den MainScreen weitergeleitet zu werden. Der LoginScreen stellt sicher, dass die persönlichen Daten< eines Benutzers privat und sicher bleiben.
 
@@ -177,26 +177,26 @@ Im LoginScreen können Benutzer ihre Anmeldeinformationen eingeben, um auf den M
     %\label{fig:login-screen}
 %\end{figure}
 
-\item{ViewModel}
+\item \textbf{ViewModel}
 \textcolor{red}{ToDo} Die anderen ViewModels?\\
 Die ViewModel-Klassen \texttt{MainViewModel} und \texttt{CO2CalculationViewModel} sind für die Funktionalität der App verantwortlich. Sie verarbeiten die Auswahl von Verkehrsmitteln und Dauer, führen die CO2-Berechnung durch und aktualisieren die CO2-Datenliste.
 \end{itemize}
 
 \begin{itemize}
 
-\item{Datenbank und Benachrichtigungen}
+\item \textbf{Datenbank und Benachrichtigungen}
 
 Die \texttt{FirestoreDatabase}-Klasse behandelt die Kommunikation mit der Firebase Firestore-Datenbank. Sie bietet Methoden zum Schreiben, Lesen, Aktualisieren und Löschen von CO2-Daten.
 
-\item{Bewegungserfassung durch den Bewegungssensor}
+\item \textbf{Bewegungserfassung durch den Bewegungssensor}
 
 Die erfassten Bewegungsdaten werden in Echtzeit abgefragt und auf eine Bewegungsdauer von 30 Minuten überprüft. Daraufhin wird eine entsprechende Notification einmalig ausgelöst.
 
-\item{Notification}
+\item \textbf{Notification}
 Die Benachrichtigung erfolgt durch die Abfrage des Bewegungssensors und wird erst nach 30 Minuten ausgelöst, wenn der Benutzer stehen bleibt. In diesem Fall startet die dreißigminütige Zählung von Neuem.  Die \texttt{NotificationHelper}-Klasse vereinfacht das Erstellen und Anzeigen von Benachrichtigungen, um Benutzer zur Verwendung der App zu motivieren.\\\textcolor{red}{ToDos}: Code?
 
 
-\item{Observer}
+\item \textbf{Observer}
 Die Absorber befinden sich im MainViewModel. Sie erfassen sämtliche Veränderungen in der Liste der CO2-Werte und informieren entsprechenden Views.
 Hier die ensprechende Codestelle mit dem StateFlow:
 \begin{lstlisting}
