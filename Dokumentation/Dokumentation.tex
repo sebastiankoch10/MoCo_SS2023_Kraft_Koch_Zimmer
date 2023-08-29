@@ -137,8 +137,28 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
         }
     }
     \end{lstlisting}
-    
-    % Weitere Funktionalitäten hier
+
+
+\item \textbf{Datenbank und Benachrichtigungen}
+
+Die \texttt{FirestoreDatabase}-Klasse behandelt die Kommunikation mit der Firebase Firestore-Datenbank. Sie bietet Methoden zum Schreiben, Lesen, Aktualisieren und Löschen von CO2-Daten.
+
+\item \textbf{Bewegungserfassung durch den Bewegungssensor}
+Die erfassten Bewegungsdaten werden in Echtzeit abgefragt und auf eine Bewegungsdauer von 30 Minuten überprüft. Daraufhin wird eine entsprechende Notification einmalig ausgelöst.
+
+\item \textbf{Notification}
+Die Benachrichtigung erfolgt durch die Abfrage des Bewegungssensors und wird erst nach 30 Minuten ausgelöst, wenn der Benutzer stehen bleibt. In diesem Fall startet die dreißigminütige Zählung von Neuem.  Die \texttt{NotificationHelper}-Klasse vereinfacht das Erstellen und Anzeigen von Benachrichtigungen, um Benutzer zur Verwendung der App zu motivieren.\\\textcolor{red}{ToDos}: Code?
+
+\item \textbf{Observer}
+Die Absorber befinden sich im MainViewModel. Sie erfassen sämtliche Veränderungen in der Liste der CO2-Werte und informieren entsprechenden Views.
+Hier die ensprechende Codestelle mit dem StateFlow:
+\begin{lstlisting}
+  private val _co2DataList = MutableStateFlow(ConsumptionDataList(mutableListOf()))
+    val co2DataList: StateFlow<ConsumptionDataList> get() = _co2DataList
+\end{lstlisting}
+
+\item \textbf{Nebenläufigkeit}
+Die Funktionalitäten für das auslesen des Bewegungssensors und das senden der Notification als push Nachricht sind als background Operation angelegt und werden nur beim beenden der App beendet. Die Nebenläufigkeit ist umgesetzt worden durch die Verwendung der Service Klasse:\\\textcolor{red}{ToDos}: Code?
 
 \end{itemize}
 
@@ -180,37 +200,6 @@ Im LoginScreen können Benutzer ihre Anmeldeinformationen eingeben, um auf den M
 \item \textbf{ViewModel}
 \textcolor{red}{ToDo} Die anderen ViewModels?\\
 Die ViewModel-Klassen \texttt{MainViewModel} und \texttt{CO2CalculationViewModel} sind für die Funktionalität der App verantwortlich. Sie verarbeiten die Auswahl von Verkehrsmitteln und Dauer, führen die CO2-Berechnung durch und aktualisieren die CO2-Datenliste.
-\end{itemize}
-
-\begin{itemize}
-
-\item \textbf{Datenbank und Benachrichtigungen}
-
-Die \texttt{FirestoreDatabase}-Klasse behandelt die Kommunikation mit der Firebase Firestore-Datenbank. Sie bietet Methoden zum Schreiben, Lesen, Aktualisieren und Löschen von CO2-Daten.
-
-\item \textbf{Bewegungserfassung durch den Bewegungssensor}
-
-Die erfassten Bewegungsdaten werden in Echtzeit abgefragt und auf eine Bewegungsdauer von 30 Minuten überprüft. Daraufhin wird eine entsprechende Notification einmalig ausgelöst.
-
-\item \textbf{Notification}
-Die Benachrichtigung erfolgt durch die Abfrage des Bewegungssensors und wird erst nach 30 Minuten ausgelöst, wenn der Benutzer stehen bleibt. In diesem Fall startet die dreißigminütige Zählung von Neuem.  Die \texttt{NotificationHelper}-Klasse vereinfacht das Erstellen und Anzeigen von Benachrichtigungen, um Benutzer zur Verwendung der App zu motivieren.\\\textcolor{red}{ToDos}: Code?
-
-
-\item \textbf{Observer}
-Die Absorber befinden sich im MainViewModel. Sie erfassen sämtliche Veränderungen in der Liste der CO2-Werte und informieren entsprechenden Views.
-Hier die ensprechende Codestelle mit dem StateFlow:
-\begin{lstlisting}
-  private val _co2DataList = MutableStateFlow(ConsumptionDataList(mutableListOf()))
-    val co2DataList: StateFlow<ConsumptionDataList> get() = _co2DataList
-\end{lstlisting}
-\end{itemize}
-\section{Erweiterung der Funktionen}
-
-\textcolor{red}{ToDos}:
-
-\begin{itemize}
-	\item Coroutines / ASYNCHRONISM / Permission
-    \item Weitere Einzelheiten zur Implementierung der CO2-Berechnung und -Verfolgung.: 
 \end{itemize}
 
 
