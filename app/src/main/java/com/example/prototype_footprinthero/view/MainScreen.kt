@@ -1,11 +1,10 @@
-package com.example.prototype_footprinthero.view
-
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,8 +20,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
+import com.example.prototype_footprinthero.view.DayView
+import com.example.prototype_footprinthero.view.MonthlyOverview
+import com.example.prototype_footprinthero.view.TransportationButtonsView
+import com.example.prototype_footprinthero.view.TransportationDurationView
+import com.example.prototype_footprinthero.view.WeekdayOverview
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
-
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
@@ -30,29 +33,33 @@ fun MainScreen(viewModel: MainViewModel) {
         topBar = {
             TopAppBar(
                 title = {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Footprint Hero",
-                            style = MaterialTheme.typography.h5,
-                            color = Color.White
-                        )
-                    }
+                    Text(
+                        text = "Footprint Hero",
+                        style = MaterialTheme.typography.h5,
+                        color = Color.White,
+                        modifier = Modifier.padding(16.dp)
+                    )
                 },
                 backgroundColor = Color(0xFF214001),
                 elevation = 0.dp
             )
-        },
+        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .background(Color.White) // Set background color to white
+                .background(Color.White)
         ) {
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "Berechne deinen CO2-Fußabdruck",
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier.padding(16.dp)
+            )
+
             TransportationButtonsView(
                 vehicles = viewModel.vehicles,
                 selectedVehicle = viewModel.selectedVehicle.value,
@@ -75,28 +82,34 @@ fun MainScreen(viewModel: MainViewModel) {
                     onClick = { viewModel.calculateCO2() },
                     modifier = Modifier
                         .padding(start = 8.dp)
-                        .background(Color(0xFF00FF00)) // Set button background color
+                        .background(Color(0xFF00FF00))
                 ) {
-                    Text(text = "Berechnen", color = Color.White) // Set button text color
+                    Text(text = "Berechnen", color = Color.White)
                 }
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "Überblick",
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier.padding(16.dp)
+            )
+
             DayView(viewModel)
             WeekdayOverview(viewModel)
+            MonthlyOverview()
+
         }
     }
 }
 
-
-
-@SuppressLint("SuspiciousIndentation")
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainScreen() {
     val viewModel = MainViewModel()
 
-        Prototype_FootPrintHeroTheme {
+    Prototype_FootPrintHeroTheme {
         MainScreen(viewModel = viewModel)
     }
 }
-
