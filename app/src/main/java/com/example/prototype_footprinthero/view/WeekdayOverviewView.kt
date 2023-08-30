@@ -57,13 +57,13 @@ fun WeekdayOverview(viewModel: MainViewModel) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(height.dp)
-                                .background(Color.White)
+                                .background(Color.Black)
                         )
                     }
                     Text(
                         text = data.co2.toString(),
                         style = MaterialTheme.typography.body1,
-                        color = Color.White, // Set text color to white
+                        color = Color.Black, // Set text color to white
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }

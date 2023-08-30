@@ -25,6 +25,7 @@ import com.example.prototype_footprinthero.view.MonthlyOverview
 import com.example.prototype_footprinthero.view.TransportationButtonsView
 import com.example.prototype_footprinthero.view.TransportationDurationView
 import com.example.prototype_footprinthero.view.WeekdayOverview
+import com.example.prototype_footprinthero.view.WeeklyOverview
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 @Composable
@@ -66,22 +67,22 @@ fun MainScreen(viewModel: MainViewModel) {
                 onVehicleSelected = viewModel::onVehicleSelected
             )
 
-            Row(
-                Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.Start
             ) {
-                Box(modifier = Modifier.weight(1f)) {
-                    TransportationDurationView(
-                        durationInMinutes = viewModel.duration,
-                        onDurationChanged = { duration ->
-                            viewModel.onDurationChanged(duration)
-                        }
-                    )
-                }
+                TransportationDurationView(
+                    durationInMinutes = viewModel.duration,
+                    onDurationChanged = { duration ->
+                        viewModel.onDurationChanged(duration)
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
                     onClick = { viewModel.calculateCO2() },
                     modifier = Modifier
-                        .padding(start = 8.dp)
                         .background(Color(0xFF00FF00))
                 ) {
                     Text(text = "Berechnen", color = Color.White)
@@ -98,8 +99,8 @@ fun MainScreen(viewModel: MainViewModel) {
 
             DayView(viewModel)
             WeekdayOverview(viewModel)
-            MonthlyOverview()
-
+            WeeklyOverview(viewModel)
+            MonthlyOverview(viewModel)
         }
     }
 }

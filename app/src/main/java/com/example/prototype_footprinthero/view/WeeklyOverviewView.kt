@@ -10,6 +10,7 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,9 +19,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.viewmodel.MainViewModel
+import com.example.prototype_footprinthero.model.ConsumptionDataList
 
 @Composable
-fun WeeklyOverview() {
+fun WeeklyOverview(viewModel: MainViewModel) {
+    val co2DataList by viewModel.co2DataList.collectAsState()
+    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
+    val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
+
     val weeks = (1..52).toList()
     var selectedWeek by remember { mutableStateOf(0) }
 
@@ -39,7 +46,7 @@ fun WeeklyOverview() {
             ) {
                 weeks.forEach { week ->
                     DropdownMenuItem(onClick = { selectedWeek = week }) {
-                        Text(text = "KW $week", color = Color.Black) // Set text color to black
+                        Text(text = "KW $week", color = Color.Black)
                     }
                 }
             }
@@ -47,7 +54,7 @@ fun WeeklyOverview() {
                 Text(
                     text = "KW $selectedWeek",
                     style = MaterialTheme.typography.body1.merge(),
-                    color = Color.Black, // Set text color to black
+                    color = Color.Black,
                     modifier = Modifier
                         .padding(16.dp)
                         .align(Alignment.CenterStart)
