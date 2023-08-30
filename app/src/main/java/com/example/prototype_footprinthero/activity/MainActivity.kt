@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var motionDetectionService: MotionDetectionService
 
-   /* override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         motionDetectionService = MotionDetectionService()
@@ -25,17 +25,19 @@ class MainActivity : ComponentActivity() {
 
                 val isLoggedIn = viewModel.isLoggedIn
 
-
                 if (isLoggedIn) {
                     MainScreen(viewModel = viewModel)
                 } else {
-                    LoginScreen(onLoginClicked = { username, password ->
+                    LoginScreen(viewModel = viewModel, onLoginClicked = { username, password ->
+                        val isValid = viewModel.performLogin(username, password)
+                        if (isValid) {
+                            // Variable isLoggedIn wird automatisch im ViewModel aktualisiert
+                        }
                     })
                 }
             }
         }
-    }*/
-
+    }
     override fun onResume() {
         super.onResume()
         startMotionDetectionService()

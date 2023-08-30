@@ -20,11 +20,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
+import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 @Composable
-fun LoginScreen(onLoginClicked: (String, String) -> Unit) {
-    val usernameState = remember { mutableStateOf("123") }
-    val passwordState = remember { mutableStateOf("123") }
+fun LoginScreen(viewModel: MainViewModel, onLoginClicked: (String, String) -> Unit) {
+    val usernameState = remember { mutableStateOf("") }
+    val passwordState = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -59,7 +60,14 @@ fun LoginScreen(onLoginClicked: (String, String) -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { onLoginClicked(usernameState.value, passwordState.value) },
+            onClick = {
+                val username = usernameState.value
+                val password = passwordState.value
+                val isValid = viewModel.performLogin(username, password)
+                if (isValid) {
+                    onLoginClicked(username, password)
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Login")
@@ -71,6 +79,8 @@ fun LoginScreen(onLoginClicked: (String, String) -> Unit) {
 @Composable
 fun LoginScreenPreview() {
     Prototype_FootPrintHeroTheme {
-        LoginScreen(onLoginClicked = { _, _ -> })
+        val viewModel = MainViewModel()
+
+        LoginScreen(viewModel = viewModel, onLoginClicked = { _, _ -> })
     }
 }

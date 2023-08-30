@@ -25,7 +25,7 @@ fun WeeklyOverview() {
     var selectedWeek by remember { mutableStateOf(0) }
 
     Column(Modifier.padding(16.dp)) {
-        Text(text = "Wochenübersicht", style = MaterialTheme.typography.h6)
+        Text(text = "Wochenübersicht", style = MaterialTheme.typography.h6, color = Color.White)
 
         Box(
             modifier = Modifier
@@ -33,13 +33,13 @@ fun WeeklyOverview() {
                 .background(Color(0xFFD4D93D))
         ) {
             DropdownMenu(
-                expanded = false, onDismissRequest = {}, modifier = Modifier.fillMaxWidth()
+                expanded = false,
+                onDismissRequest = {},
+                modifier = Modifier.fillMaxWidth()
             ) {
                 weeks.forEach { week ->
-                    DropdownMenuItem(onClick = {
-                        selectedWeek = week
-                    }) {
-                        Text(text = "KW $week")
+                    DropdownMenuItem(onClick = { selectedWeek = week }) {
+                        Text(text = "KW $week", color = Color.Black) // Set text color to black
                     }
                 }
             }
@@ -47,6 +47,7 @@ fun WeeklyOverview() {
                 Text(
                     text = "KW $selectedWeek",
                     style = MaterialTheme.typography.body1.merge(),
+                    color = Color.Black, // Set text color to black
                     modifier = Modifier
                         .padding(16.dp)
                         .align(Alignment.CenterStart)

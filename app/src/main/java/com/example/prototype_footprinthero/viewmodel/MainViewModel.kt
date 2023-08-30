@@ -1,7 +1,9 @@
 package com.example.prototype_footprinthero.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.prototype_footprinthero.model.ConsumptionData
 import com.example.prototype_footprinthero.model.ConsumptionDataList
@@ -15,6 +17,30 @@ import java.util.Locale
 
 class MainViewModel : ViewModel() {
     private val firestoreDatabase = FirestoreDatabase()
+
+    var isLoggedIn: Boolean by mutableStateOf(false)
+        private set
+
+    fun performLogin(username: String, password: String): Boolean {
+        Log.d("MainViewModel.performLogin", "performLogin called with Username: $username, Password: $password")
+        val isValidCredentials = checkCredentials(username, password)
+        isLoggedIn = isValidCredentials
+        return isValidCredentials
+    }
+
+
+    private fun checkCredentials(username: String, password: String): Boolean {
+        // Hier implementierst du die tatsächliche Anmeldeüberprüfungslogik.
+        // Vergleiche die eingegebenen Anmeldeinformationen mit gespeicherten Benutzerdaten
+        // und gib true zurück, wenn die Überprüfung erfolgreich ist, andernfalls false.
+
+        // Zum Beispiel:
+        val validUsername = "abc"
+        val validPassword = "def"
+
+        return username == validUsername && password == validPassword
+    }
+
 
     val vehicles = listOf("Auto","Bahn","Bus",
         //"Fahrrad","zu Fuß",

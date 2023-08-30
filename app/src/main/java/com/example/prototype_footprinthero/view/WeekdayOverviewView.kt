@@ -33,6 +33,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
         Text(
             text = "Wochentagsübersicht (Tonne/Tag)",
             style = MaterialTheme.typography.h6,
+            color = Color.White, // Set text color to white
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
@@ -44,7 +45,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
                         .padding(4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = data.dayOfWeek)
+                    Text(text = data.dayOfWeek, color = Color.White) // Set text color to white
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -62,6 +63,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
                     Text(
                         text = data.co2.toString(),
                         style = MaterialTheme.typography.body1,
+                        color = Color.White, // Set text color to white
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
