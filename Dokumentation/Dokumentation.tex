@@ -179,8 +179,36 @@ Hier die ensprechende Codestelle mit dem StateFlow:
 \end{lstlisting}
 
 \item \textbf{Nebenläufigkeit}:
-Die Funktionalitäten für das auslesen des Bewegungssensors und das senden der Notification als push Nachricht sind als background Operation angelegt und werden nur beim beenden der App beendet. Die Nebenläufigkeit ist umgesetzt worden durch die Verwendung der Service Klasse:\\\textcolor{red}{ToDos}: Code?
+Die Funktionalitäten für das auslesen des Bewegungssensors und das senden der Notification als push Nachricht sind als background Operation angelegt und werden nur beim beenden der App beendet. Die Nebenläufigkeit ist umgesetzt worden durch die Verwendung der Service Klasse:
+ \begin{lstlisting}
+class MyForegroundService : Service() {
 
+    companion object {
+        private const val SERVICE_NOTIFICATION_ID = 1
+    }
+
+    private var notification: Notification? = null
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent != null) {
+            notification = intent.getParcelableExtra("notification")
+            if (notification != null) {
+                startForeground(SERVICE_NOTIFICATION_ID, notification)
+            }
+        }
+        return START_NOT_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopForeground(true)
+    }
+}
+\end{lstlisting}
 \end{itemize}
 
 
