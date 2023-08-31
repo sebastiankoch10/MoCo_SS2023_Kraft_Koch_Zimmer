@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  31 AUG 2023 15:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  31 AUG 2023 15:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -315,80 +315,114 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 43.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 43.
- [1
+
+Overfull \hbox (15.16725pt too wide) in paragraph at lines 64--65
+[]\OT1/cmr/m/n/10 Die App berech-net au-toma-tisch den CO2-Aussto^^Y basierend 
+auf der gew^^?ahlten
+ []
+
+[1
 
 {C:/Users/phili/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 76.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 76.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 76.
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-92.
+Overfull \hbox (6.94495pt too wide) in paragraph at lines 76--77
+[]\OT1/cmr/m/n/10 Die App sendet dem Be-nutzer Be-nachrich-ti-gun-gen, wenn er 
+sich 30 Minuten-
+ []
 
+
+Overfull \hbox (4.11171pt too wide) in paragraph at lines 76--77
+\OT1/cmr/m/n/10 fort-be-wegt hat, um ihn daran zu erin-nern, seine Fort-be-we-g
+un-gen einzugebe-
+ []
+
+
+Overfull \hbox (65.4716pt too wide) in paragraph at lines 87--88
+\OT1/cmr/m/n/10 wird die aus-gew^^?ahlte Op-tion des Be-nutzers er-fasst und an
+ das \OT1/cmtt/m/n/10 CO2CalculationViewModel
+ []
+
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 90.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 90.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 90.
+
+Overfull \hbox (17.44493pt too wide) in paragraph at lines 98--99
+[]\OT1/cmr/m/n/10 Die App ver-wen-det vordefinierte Emis-sion-swerte f^^?ur ver
+-schiedene Verkehrsmit-
+ []
+
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
+107.
 (C:\Program Files\MiKTeX\tex/latex/base\ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
-<uba_emissionstabelle_personenverkehr_2021_0.jpg, id=54, 1006.35976pt x 578.762
+) [2]
+<uba_emissionstabelle_personenverkehr_2021_0.jpg, id=72, 1006.35976pt x 578.762
 25pt>
 File: uba_emissionstabelle_personenverkehr_2021_0.jpg Graphic file (type jpg)
 <use uba_emissionstabelle_personenverkehr_2021_0.jpg>
 Package pdftex.def Info: uba_emissionstabelle_personenverkehr_2021_0.jpg  used 
-on input line 99.
+on input line 114.
 (pdftex.def)             Requested size: 345.0pt x 198.41032pt.
- [2]
-Overfull \hbox (7.84645pt too wide) in paragraph at lines 116--118
-[]\OT1/cmr/bx/n/10 Datenverfolgung\OT1/cmr/m/n/10 : Die berech-neten CO2-Daten 
-wer-den im \OT1/cmtt/m/n/10 MainViewModel
- []
-
-[3 <./uba_emissionstabelle_personenverkehr_2021_0.jpg>]
-Overfull \hbox (50.75401pt too wide) in paragraph at lines 133--135
-\OT1/cmr/m/n/10 Beschle-u-ni-gungssen-sors des Ger^^?ats. Dies er-folgt durch d
-en \OT1/cmtt/m/n/10 MotionDetectionService\OT1/cmr/m/n/10 .
+ [3 <./uba_emissionstabelle_personenverkehr_2021_0.jpg>]
+Overfull \hbox (20.7414pt too wide) in paragraph at lines 174--175
+\OT1/cmr/m/n/10 Be-we-gungs-dauer von 30 Minuten ^^?uberpr^^?uft. Da-raufhin wi
+rd eine entsprechende
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 155--158
+Overfull \hbox (54.01822pt too wide) in paragraph at lines 178--180
+\OT1/cmr/m/n/10 diesem Fall startet die drei^^Yig-min^^?utige Z^^?ahlung von Ne
+uem. Die \OT1/cmtt/m/n/10 NotificationHelper\OT1/cmr/m/n/10 -
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--180
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 166--167
+Underfull \hbox (badness 10000) in paragraph at lines 188--189
 
  []
 
 
-Overfull \hbox (8.0278pt too wide) in paragraph at lines 181--183
-[]\OT1/cmr/bx/n/10 Nebenl^^?aufigkeit\OT1/cmr/m/n/10 : Die Funk-tion-alit^^?ate
-n f^^?ur das ausle-sen des Be-we-gungssen-
+Overfull \hbox (3.52834pt too wide) in paragraph at lines 206--207
+[]\OT1/cmr/m/n/10 Die Funk-tion-alit^^?aten f^^?ur das ausle-sen des Be-we-gung
+ssen-sors und das senden
+ []
+
+
+Overfull \hbox (1.24132pt too wide) in paragraph at lines 206--207
+\OT1/cmr/m/n/10 gelegt und wer-den nur beim been-den der App been-det. Die Nebe
+nl^^?aufigkeit
  []
 
 [5]
-Overfull \hbox (5.61168pt too wide) in paragraph at lines 221--222
+Overfull \hbox (5.61168pt too wide) in paragraph at lines 245--246
 []\OT1/cmr/m/n/10 Im Mod-ell-bere-ich wer-den die Daten-struk-turen definiert, 
 die zur Spe-icherung
  []
 
 [6]
-Overfull \hbox (26.13951pt too wide) in paragraph at lines 260--261
+Overfull \hbox (26.13951pt too wide) in paragraph at lines 301--302
 []\OT1/cmr/m/n/10 Anpassungsm^^?oglichkeiten f^^?ur den Be-nutzer, wie die M^^?
 oglichkeit, be-nutzerdefinierte
  []
 
-[7]
-Overfull \hbox (30.36176pt too wide) in paragraph at lines 349--350
+[7] [8]
+Overfull \hbox (30.36176pt too wide) in paragraph at lines 393--394
 \OT1/cmr/m/n/10 undliche Be-nutze-r-oberfl^^?ache, die ein-fache CO2-Berechnung
  und -Verfolgung erm^^?oglicht.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 353--355
+Underfull \hbox (badness 10000) in paragraph at lines 397--399
 
  []
 
-[8] [9] (Dokumentation.aux)
+[9] (Dokumentation.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-06-30>
@@ -399,11 +433,11 @@ Package rerunfilecheck Info: File `Dokumentation.out' has not changed.
 Here is how much of TeX's memory you used:
  11664 strings out of 475551
  179727 string characters out of 5772370
- 2072238 words of memory out of 5000000
+ 2055238 words of memory out of 5000000
  32672 multiletter control sequences out of 15000+600000
  563124 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,7n,93p,612b,2048s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,7n,93p,612b,2044s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt
 1000.pk> <C:\Users\phili\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
 0\tcrm1000.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pf
@@ -413,7 +447,7 @@ eX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Dokumentation.pdf (9 pages, 501654 bytes).
+Output written on Dokumentation.pdf (9 pages, 501898 bytes).
 PDF statistics:
  238 PDF objects out of 1000 (max. 8388607)
  101 named destinations out of 1000 (max. 500000)

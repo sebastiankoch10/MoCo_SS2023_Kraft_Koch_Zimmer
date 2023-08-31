@@ -48,18 +48,31 @@ Die \textbf{Footprint Hero} App ist eine mobile Anwendung, die Benutzern hilft, 
 \section{Beschreibung der Funktionalität}
 \begin{itemize}
 	\item \textbf{Registrierung und Login}:
+	
 	Der Benutzer kann sich registrieren und ein Konto erstellen oder sich mit einem bestehenden Konto anmelden.
+	
 	\item  \textbf{Fortbewegungsmittel}:
+	
 	Der Benutzer kann durch Buttons von Fortbewegungsmitteln auswählen, wie er sich fortbewegt hat, einschließlich Auto, Fahrrad, Flugzeug usw.
+	
 	\item \textbf{Eingabe der Fortbewegungsdauer}:
+	
 	Der Benutzer kann die Dauer der Fortbewegung eingeben, indem er einen Radknopf dreht, um die ensprechende Dauer in Minuten-Schritten nach oben oder unten einzustellen.
+	
 	\item \textbf{CO2-Berechnung}:
+	
 	Die App berechnet automatisch den CO2-Ausstoß basierend auf der gewählten Fortbewegungsmethode und der eingegebenen Dauer.
+	
 	\item \textbf{Wochentagsübersicht}:
+	
 	Zeigt den Co2 Ausstoß tagesweise für die aktuelle Woche an, um ihm zu zeigen, ob er seinen CO2-Ausstoÿ verringert hat oder nicht.
+	
 	\item \textbf{Wochenübersicht}:
+	
 	Die App zeigt dem Benutzer eine Wochenübersicht seines CO2-Ausstoßes an und vergleicht diese mit der Vorwoche, um ihm zu zeigen, ob er seinen CO2-Aussto\ verringert hat oder nicht.
+	
 	\item \textbf{Benachrichtigungen}:
+	
 	Die App sendet dem Benutzer Benachrichtigungen, wenn er sich 30 Minutenfortbewegt hat, um ihn daran zu erinnern, seine Fortbewegungen einzugebenund um ihm eine Wochenstatistik zu senden. Diese Funktionalität wird auch zu Verfügung gestellt, wenn die App im Hintergrund läuft.
 	\end{itemize}
 
@@ -70,6 +83,7 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
 
 \begin{itemize}
     \item \textbf{Verkehrsmittel- und Dauerwahl}:
+    
     Benutzer können aus einer Liste von Verkehrsmitteln auswählen, darunter Auto, Bahn, Bus, Fahrrad, Taxi und Flugzeug. Diese Auswahl erfolgt über den MainScreen, der durch das \texttt{MainViewModel} gesteuert wird. Hierbei wird die ausgewählte Option des Benutzers erfasst und an das \texttt{CO2CalculationViewModel} weitergegeben. Beispielhaft dazu der Codeauszug:
     
     \begin{lstlisting}
@@ -80,6 +94,7 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
     \end{lstlisting}
 
     \item \textbf{CO2-Berechnung}:
+    
     Die App verwendet vordefinierte Emissionswerte für verschiedene Verkehrsmittel, die im \texttt{CO2CalculationViewModel} definiert sind. Nach der Auswahl eines Verkehrsmittels und der Eingabe der Dauer berechnet die App die geschätzten CO2-Emissionen. Diese Berechnung erfolgt durch die Methode \texttt{calculateCO2} im \texttt{CO2CalculationViewModel}. Hier ist ein Beispiel, wie die CO2-Berechnung implementiert ist:
     
     \begin{lstlisting}
@@ -101,7 +116,9 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
 \end{figure}
 
     
-            \item \textbf{Login}: Der LoginScreen ist der Startpunkt der App. Hier können Benutzer ihre Anmeldeinformationen eingeben, um Zugriff auf die Funktionalitäten der App zu erhalten. Der Login-Bildschirm stellt sicher, dass die persönlichen Daten und CO2-Berechnungen eines Benutzers privat und sicher bleiben.
+            \item \textbf{Login}:
+            
+             Der LoginScreen ist der Startpunkt der App. Hier können Benutzer ihre Anmeldeinformationen eingeben, um Zugriff auf die Funktionalitäten der App zu erhalten. Der Login-Bildschirm stellt sicher, dass die persönlichen Daten und CO2-Berechnungen eines Benutzers privat und sicher bleiben.
 
     xxxx:
     
@@ -114,6 +131,7 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
     
     
         \item \textbf{Datenverfolgung}:
+        
     Die berechneten CO2-Daten werden im \texttt{MainViewModel} gespeichert und verwaltet. Die Methode \texttt{merchList} aktualisiert die Liste der CO2-Daten und speichert sie in der Firebase-Datenbank. Diese Daten können dann auf dem MainScreen angezeigt werden, um den Benutzern einen Überblick über ihre CO2-Emissionen im Laufe der Zeit zu geben. Hier ist ein Beispiel für die Aktualisierung der CO2-Datenliste:
     
     \begin{lstlisting}
@@ -131,6 +149,7 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
     \end{lstlisting}
 
     \item \textbf{Bewegungserkennung}:
+    
     Die App erfasst Bewegungsdaten mithilfe des Beschleunigungssensors des Geräts. Dies erfolgt durch den \texttt{MotionDetectionService}. Wenn eine Bewegungsdauer von 30 Minuten erreicht wird, zeigt die App eine Benachrichtigung an, die den Benutzer dazu auffordert, die App zu verwenden. Hier ist die Methode zur Berechnung der Bewegungsdauer:
     
     \begin{lstlisting}
@@ -147,12 +166,15 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
 
 
 \item \textbf{Datenbank}:
+
 Die \texttt{FirestoreDatabase}-Klasse behandelt die Kommunikation mit der Firebase Firestore-Datenbank. Sie bietet Methoden zum Schreiben, Lesen, Aktualisieren und Löschen von CO2-Daten.
 
 \item \textbf{Bewegungserfassung durch den Bewegungssensor}:
+
 Die erfassten Bewegungsdaten werden in Echtzeit abgefragt und auf eine Bewegungsdauer von 30 Minuten überprüft. Daraufhin wird eine entsprechende Notification einmalig ausgelöst.
 
 \item \textbf{Notification}:
+
 Die Benachrichtigung erfolgt durch die Abfrage des Bewegungssensors und wird erst nach 30 Minuten ausgelöst, wenn der Benutzer stehen bleibt. In diesem Fall startet die dreißigminütige Zählung von Neuem.  Die \texttt{NotificationHelper}-Klasse vereinfacht das Erstellen und Anzeigen von Benachrichtigungen, um Benutzer zur Verwendung der App zu motivieren.\\
 Erzeugung:\\
     \begin{lstlisting}
@@ -171,6 +193,7 @@ Erzeugung:\\
       \end{lstlisting}
 
 \item \textbf{Observer}:
+
 Die Absorber befinden sich im MainViewModel. Sie erfassen sämtliche Veränderungen in der Liste der CO2-Werte und informieren entsprechenden Views.
 Hier die ensprechende Codestelle mit dem StateFlow:
 \begin{lstlisting}
@@ -179,6 +202,7 @@ Hier die ensprechende Codestelle mit dem StateFlow:
 \end{lstlisting}
 
 \item \textbf{Nebenläufigkeit}:
+
 Die Funktionalitäten für das auslesen des Bewegungssensors und das senden der Notification als push Nachricht sind als background Operation angelegt und werden nur beim beenden der App beendet. Die Nebenläufigkeit ist umgesetzt worden durch die Verwendung der Service Klasse:
  \begin{lstlisting}
 class MyForegroundService : Service() {
@@ -216,15 +240,15 @@ class MyForegroundService : Service() {
 
 Die Footprint Hero App folgt dem MVVM-Architekturmuster, das eine klare Trennung von Daten, Benutzeroberfläche und Geschäftslogik ermöglicht.
 \begin{itemize}
-\item \textbf{(Model)}
+\item \textbf{(Model)}:
 
-Im Modellbereich werden die Datenstrukturen definiert, die zur Speicherung von Informationen verwendet werden. Die \texttt{ConsumptionData}-Klasse speichert CO2-Daten wie den Wochentag, die CO2-Emissionen und die Kalenderwoche. Die \texttt{User}-Klasse enthält Informationen \textcolor{red}{ToDo}.
+Im Modellbereich werden die Datenstrukturen definiert, die zur Speicherung von Informationen verwendet werden. Die \texttt{ConsumptionData}-Klasse speichert CO2-Daten wie den Wochentag, die CO2-Emissionen und die Kalenderwoche.
 
-\item \textbf{Sicht (View)}
+\item \textbf{Sicht (View)}:
 
 Die Benutzeroberflächenelemente und die Logik zur Anzeige von Daten werden im View-Bereich erstellt. Die Benutzerinteraktion erfolgt hier, indem sie Verkehrsmittel und Dauer auswählen. Die berechneten CO2-Daten werden angezeigt.
 
-\item \textbf{MainScreen}
+\item \textbf{MainScreen}:
 
 Hier können Benutzer ihre Auswahl des Verkehrsmittels und der Dauer treffen, um die CO2-Berechnungen durchzuführen. Zusätzlich bietet der MainScreen eine Übersicht über die bisherigen CO2-Emissionen für den ausgewählten Zeitraum. Die Benutzer können auch auf die Einstellungen zugreifen, um benutzerdefinierte CO2-Emissionswerte hinzuzufügen.
 
@@ -235,7 +259,7 @@ Hier können Benutzer ihre Auswahl des Verkehrsmittels und der Dauer treffen, um
     %\label{fig:main-screen}
 %\end{figure}
 
-\item \textbf{LoginScreen}
+\item \textbf{LoginScreen}:
 
 Im LoginScreen können Benutzer ihre Anmeldeinformationen eingeben, um auf den MainScreen weitergeleitet zu werden. Der LoginScreen stellt sicher, dass die persönlichen Daten< eines Benutzers privat und sicher bleiben.
 
@@ -246,9 +270,26 @@ Im LoginScreen können Benutzer ihre Anmeldeinformationen eingeben, um auf den M
     %\label{fig:login-screen}
 %\end{figure}
 
-\item \textbf{ViewModel}
-\textcolor{red}{ToDo} Die anderen ViewModels?\\
-Die ViewModel-Klassen \texttt{MainViewModel} und \texttt{CO2CalculationViewModel} sind für die Funktionalität der App verantwortlich. Sie verarbeiten die Auswahl von Verkehrsmitteln und Dauer, führen die CO2-Berechnung durch und aktualisieren die CO2-Datenliste.
+\item \textbf{Main(ViewModel)}:
+
+Die \texttt{MainViewModel} Klasse stellt die Haupt ViewModel Klasse da und leitet Prozesse der User Eingabe durch die Views an entsprechende Neben ViewModel weiter und verarbeitet ensprechende Rückgaben dieser Neben Klassen.
+
+\item \textbf{CO2CalculationViewModel}:
+
+ Die  \texttt{CO2CalculationViewModel} ist für die Hauptfunktionalität der App verantwortlich. Sie verarbeiten die Auswahl von Verkehrsmitteln und Dauer, führen die CO2-Berechnung durch. 
+ 
+ \item \textbf{MotionDetection}:
+ 
+ Die \texttt{MotionDetection} Klasse verarbeitet die Sensorlogik.
+ 
+ \item \textbf{MyForeground}:
+ 
+ Die \texttt{MyForeground} Klasse verantwortet die Nebenläufigkeit. 
+ 
+ \item \textbf{NotificationHelfer}:
+ 
+ Die \texttt{NotificationHelfer} Klasse erstellt und sendet die Notification der Anwendung.
+ 
 \end{itemize}
 
 
@@ -260,13 +301,16 @@ Die ViewModel-Klassen \texttt{MainViewModel} und \texttt{CO2CalculationViewModel
     Anpassungsmöglichkeiten für den Benutzer, wie die Möglichkeit, benutzerdefinierte CO2-Emissionswerte hinzuzufügen.:
     
     \begin{itemize}
-    \item \textbf{Anpassen von co2 Werten}
+    \item \textbf{Anpassen von co2 Werten}:
+    
     Die vorhandenen CO2-Werte sollten über die GUI verändert oder gelöscht werden können. Dadurch würden die entsprechenden Daten sowohl lokal als auch in der Datenbank aktualisiert werden. Aufgrund von zeitlichen Einschränkungen konnte dies bisher jedoch noch nicht implementiert werden.
     
-    \item \textbf{Gamification Elemente}
+    \item \textbf{Gamification Elemente}:
+    
     Die Integration von Gamification-Elementen entspringt einer frühen Phase der Ideenfindung und soll entsprechende Anreize zur Nutzung des Systems bieten. Es ist jedoch möglich, dass aufgrund des Umfangs dieses Konzepts bisher noch nicht in das Projekt einbezogen wurde.
     
-    \item \textbf{Community Elemente}
+    \item \textbf{Community Elemente}:
+    
     Die Integration von Community-Elementen war zwar bereits in den frühen Planungsphasen der Ideenfindung vorhanden, wurde jedoch aufgrund des Umfangs bisher nicht in das Projekt aufgenommen. Diese Elemente sollten ebenfalls dazu dienen, die Nutzung des Systems durch die Benutzer zu fördern.
     \end{itemize}
     
