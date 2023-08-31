@@ -95,21 +95,16 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
 
     \item \textbf{CO2-Berechnung}:
     
-    Die App verwendet vordefinierte Emissionswerte für verschiedene Verkehrsmittel, die im \texttt{CO2CalculationViewModel} definiert sind. Nach der Auswahl eines Verkehrsmittels und der Eingabe der Dauer berechnet die App die geschätzten CO2-Emissionen. Diese Berechnung erfolgt durch die Methode \texttt{calculateCO2} im \texttt{CO2CalculationViewModel}. Hier ist ein Beispiel, wie die CO2-Berechnung implementiert ist:
+    Die App verwendet vordefinierte Emissionswerte für verschiedene Verkehrsmittel, die im \texttt{CO2CalculationViewModel} definiert sind. Nach der Auswahl eines Verkehrsmittels und der Eingabe der Dauer berechnet die App die geschätzten CO2-Emissionen. Diese Berechnung erfolgt durch die Methode \texttt{calculateCO2} im \texttt{CO2CalculationViewModel}. Hier ist ein Beispiel, wie die CO2-Berechnung implementiert ist und  Quellen zu den Werten:
     
     \begin{lstlisting}
     fun calculateCO2() {
         val co2Emission = model.transportationCO2[model.selectedTransportation] ?: 0f
         val calculatedCo2 = (co2Emission * model.duration) / 60f
         if (!calculatedCo2.isNaN()) {
-            model.co2 = calculatedCo2
-        }
-        Log.d("CO2CalculationModel", "Calculated CO2: $calculatedCo2")
-    }
+            model.co2 = calculatedCo2}}
     \end{lstlisting}
-    Quellen zu den Werten:
    
-    
 \begin{figure}
    \includegraphics[width=1.00\textwidth]{uba_emissionstabelle_personenverkehr_2021_0}
    \caption{CO2 Ausstoß}
