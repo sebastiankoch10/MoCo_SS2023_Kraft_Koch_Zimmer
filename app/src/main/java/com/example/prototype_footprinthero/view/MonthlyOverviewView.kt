@@ -32,7 +32,7 @@ fun MonthlyOverview(viewModel: MainViewModel) {
 
     Column(Modifier.padding(16.dp)) {
         Text(
-            text = "Monatsübersicht (Tonne/Monat)",
+            text = "Gesamtübersicht (Tonne/Monat)",
             style = MaterialTheme.typography.h6,
             color = Color.Black,
             modifier = Modifier.padding(bottom = 8.dp)

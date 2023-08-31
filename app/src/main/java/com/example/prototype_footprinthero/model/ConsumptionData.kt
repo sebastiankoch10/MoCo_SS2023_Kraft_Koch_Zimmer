@@ -62,7 +62,6 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
         val calendar = Calendar.getInstance()
         val currentWeek = calendar.get(Calendar.WEEK_OF_YEAR)
 
-        // Calculate the weeks to include (current week - 3, current week - 2, current week - 1)
         val weeksToInclude = listOf(currentWeek - 3, currentWeek - 2, currentWeek - 1, currentWeek)
 
         weeksToInclude.forEach { week ->
@@ -78,22 +77,27 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     }
 
 
+
     fun aggregateMonthOfHalfYear(viewModel: MainViewModel): ConsumptionDataList {
         val aggregatedList = ConsumptionDataList(mutableListOf())
 
-        co2Data.groupBy { it.monthNumber }.forEach { (_, dataList) ->
-            val firstData = dataList.firstOrNull { it.monthNumber == viewModel.selectedMonth }
-            if (firstData != null) {
-                val totalValue = dataList.sumOf { it.co2.toDouble() }.toFloat()
+        val calendar = Calendar.getInstance()
+        val currentMonth = calendar.get(Calendar.MONTH)
 
-                val aggregatedData = ConsumptionData("Monat ${firstData.monthNumber}", totalValue, firstData.monthNumber)
+        val monthToInclude = listOf(currentMonth - 5, currentMonth - 4, currentMonth - 3, currentMonth - 2, currentMonth - 1, currentMonth)
 
+        monthToInclude.forEach { month ->
+            val weekData = co2Data.filter { it.calendarWeek == month }
+            if (weekData.isNotEmpty()) {
+                val totalValue = weekData.sumOf { it.co2.toDouble() }.toFloat()
+                val aggregatedData = ConsumptionData("Monat $month", totalValue, month)
                 aggregatedList.addConsumption(aggregatedData)
             }
         }
 
         return aggregatedList
     }
+
 
 
 

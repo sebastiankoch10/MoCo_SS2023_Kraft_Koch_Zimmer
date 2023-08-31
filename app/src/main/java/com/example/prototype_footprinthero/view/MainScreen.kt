@@ -120,7 +120,7 @@ fun MainScreen(viewModel: MainViewModel) {
                         onClick = { isWeekdayOverviewExpanded = !isWeekdayOverviewExpanded }
                     ) {
                         Text(
-                            text = if (isWeekdayOverviewExpanded) "Wochentagsübersicht ausblenden" else "Wochentagsübersicht anzeigen"
+                            text = if (isWeekdayOverviewExpanded) "Wochenübersicht ausblenden" else "Wochenübersicht anzeigen"
                         )
                     }
 
@@ -142,7 +142,7 @@ fun MainScreen(viewModel: MainViewModel) {
                         onClick = { isWeeklyOverviewExpanded = !isWeeklyOverviewExpanded }
                     ) {
                         Text(
-                            text = if (isWeeklyOverviewExpanded) "Wochenübersicht ausblenden" else "Wochenübersicht anzeigen"
+                            text = if (isWeeklyOverviewExpanded) "Monatsübersicht ausblenden" else "WMonatsübersicht anzeigen"
                         )
                     }
 
@@ -152,7 +152,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 }
             }
 
-            Card(
+           /* Card(
                 modifier = Modifier.fillMaxWidth(),
                 elevation = 4.dp
             ) {
@@ -172,7 +172,7 @@ fun MainScreen(viewModel: MainViewModel) {
                         MonthlyOverview(viewModel)
                     }
                 }
-            }
+            }*/
         }
     }
 }

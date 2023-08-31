@@ -32,7 +32,7 @@ fun WeeklyOverview(viewModel: MainViewModel) {
 
     Column(Modifier.padding(16.dp)) {
         Text(
-            text = "Wochenübersicht (Tonne/Woche)",
+            text = "Monatsübersicht (Tonne/Woche)",
             style = MaterialTheme.typography.h6,
             color = Color.Black,
             modifier = Modifier.padding(bottom = 8.dp)

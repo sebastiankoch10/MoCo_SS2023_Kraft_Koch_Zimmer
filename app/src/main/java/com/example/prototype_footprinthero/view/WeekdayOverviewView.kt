@@ -31,7 +31,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
 
     Column(Modifier.padding(16.dp)) {
         Text(
-            text = "Wochentagsübersicht (Tonne/Tag)",
+            text = "Wochenübersicht (Tonne/Tag)",
             style = MaterialTheme.typography.h6,
             color = Color.Black,
             modifier = Modifier.padding(bottom = 8.dp)
