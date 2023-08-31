@@ -1,102 +1,190 @@
-package com.example.prototype_footprinthero.view
-
-import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.R
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
+import com.example.prototype_footprinthero.view.DayView
+import com.example.prototype_footprinthero.view.MonthlyOverview
+import com.example.prototype_footprinthero.view.TransportationButtonsView
+import com.example.prototype_footprinthero.view.TransportationDurationView
+import com.example.prototype_footprinthero.view.WeekdayOverview
+import com.example.prototype_footprinthero.view.WeeklyOverview
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
+
 
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
+    var isWeekdayOverviewExpanded by remember { mutableStateOf(true) }
+    var isWeeklyOverviewExpanded by remember { mutableStateOf(true) }
+    var isMonthlyOverviewExpanded by remember { mutableStateOf(true) }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Footprint Hero",
-                            style = MaterialTheme.typography.h5,
-                            color = Color.White
-                        )
-                    }
-                },
-                backgroundColor = Color(0xFF214001),
-                elevation = 0.dp
-            )
-        },
+                backgroundColor = Color.White,
+                elevation = 4.dp
+            ) {
+                /*Image(
+                    painter = painterResource(id = R.drawable.ic_logo), // Hier das Bild für das Logo einfügen
+                    contentDescription = "App Logo",
+                    modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
+                )*/
+                Text(
+                    text = "Footprint Hero",
+                    modifier = Modifier.padding(start = 8.dp),
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            }
+        }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
-                .background(Color.White) // Set background color to white
+                .background(Color.White)
         ) {
+            Spacer(modifier = Modifier.height(16.dp))
+
             TransportationButtonsView(
                 vehicles = viewModel.vehicles,
                 selectedVehicle = viewModel.selectedVehicle.value,
                 onVehicleSelected = viewModel::onVehicleSelected
             )
 
-            Row(
-                Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.Start
             ) {
-                Box(modifier = Modifier.weight(1f)) {
-                    TransportationDurationView(
-                        durationInMinutes = viewModel.duration,
-                        onDurationChanged = { duration ->
-                            viewModel.onDurationChanged(duration)
-                        }
-                    )
-                }
+                TransportationDurationView(
+                    durationInMinutes = viewModel.duration,
+                    onDurationChanged = { duration ->
+                        viewModel.onDurationChanged(duration)
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
                     onClick = { viewModel.calculateCO2() },
                     modifier = Modifier
-                        .padding(start = 8.dp)
-                        .background(Color(0xFF00FF00)) // Set button background color
+                        .background(Color(0xFF00FF00))
                 ) {
-                    Text(text = "Berechnen", color = Color.White) // Set button text color
+                    Text(text = "Berechnen", color = Color.White)
                 }
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             DayView(viewModel)
-            WeekdayOverview(viewModel)
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = 4.dp
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Button(
+                        onClick = { isWeekdayOverviewExpanded = !isWeekdayOverviewExpanded }
+                    ) {
+                        Text(
+                            text = if (isWeekdayOverviewExpanded) "Wochenübersicht ausblenden" else "Wochenübersicht anzeigen"
+                        )
+                    }
+
+                    if (isWeekdayOverviewExpanded) {
+                        WeekdayOverview(viewModel)
+                    }
+                }
+            }
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = 4.dp
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Button(
+                        onClick = { isWeeklyOverviewExpanded = !isWeeklyOverviewExpanded }
+                    ) {
+                        Text(
+                            text = if (isWeeklyOverviewExpanded) "Monatsübersicht ausblenden" else "WMonatsübersicht anzeigen"
+                        )
+                    }
+
+                    if (isWeeklyOverviewExpanded) {
+                        WeeklyOverview(viewModel)
+                    }
+                }
+            }
+
+           /* Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = 4.dp
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Button(
+                        onClick = { isMonthlyOverviewExpanded = !isMonthlyOverviewExpanded }
+                    ) {
+                        Text(
+                            text = if (isMonthlyOverviewExpanded) "Monatsübersicht ausblenden" else "Monatsübersicht anzeigen"
+                        )
+                    }
+
+                    if (isMonthlyOverviewExpanded) {
+                        MonthlyOverview(viewModel)
+                    }
+                }
+            }*/
         }
     }
 }
 
 
 
-@SuppressLint("SuspiciousIndentation")
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainScreen() {
     val viewModel = MainViewModel()
 
-        Prototype_FootPrintHeroTheme {
+    Prototype_FootPrintHeroTheme {
         MainScreen(viewModel = viewModel)
     }
 }
-

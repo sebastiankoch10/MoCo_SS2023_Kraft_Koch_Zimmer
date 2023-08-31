@@ -1,5 +1,6 @@
 package com.example.prototype_footprinthero.activity
 
+import MainScreen
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 import com.example.prototype_footprinthero.view.LoginScreen
-import com.example.prototype_footprinthero.view.MainScreen
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 import com.example.prototype_footprinthero.viewmodel.MotionDetectionService
 
@@ -31,7 +31,6 @@ class MainActivity : ComponentActivity() {
                     LoginScreen(viewModel = viewModel, onLoginClicked = { username, password ->
                         val isValid = viewModel.performLogin(username, password)
                         if (isValid) {
-                            // Variable isLoggedIn wird automatisch im ViewModel aktualisiert
                         }
                     })
                 }

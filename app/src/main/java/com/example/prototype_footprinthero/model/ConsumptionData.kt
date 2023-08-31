@@ -2,10 +2,13 @@ package com.example.prototype_footprinthero.model
 
 import android.util.Log
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
+import java.util.Calendar
 import kotlin.random.Random
 
 
 data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
+
+
 
 
     fun createTestData(): ConsumptionDataList {
@@ -53,6 +56,55 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
     }
 
+    fun aggregateWeeksOfMonths(viewModel: MainViewModel): ConsumptionDataList {
+        val aggregatedList = ConsumptionDataList(mutableListOf())
+
+        val calendar = Calendar.getInstance()
+        val currentWeek = calendar.get(Calendar.WEEK_OF_YEAR)
+
+        val weeksToInclude = listOf(currentWeek - 3, currentWeek - 2, currentWeek - 1, currentWeek)
+
+        weeksToInclude.forEach { week ->
+            val weekData = co2Data.filter { it.calendarWeek == week }
+            if (weekData.isNotEmpty()) {
+                val totalValue = weekData.sumOf { it.co2.toDouble() }.toFloat()
+                val aggregatedData = ConsumptionData("Woche $week", totalValue, week)
+                aggregatedList.addConsumption(aggregatedData)
+            }
+        }
+
+        return aggregatedList
+    }
+
+
+
+    fun aggregateMonthOfHalfYear(viewModel: MainViewModel): ConsumptionDataList {
+        val aggregatedList = ConsumptionDataList(mutableListOf())
+
+        val calendar = Calendar.getInstance()
+        val currentMonth = calendar.get(Calendar.MONTH)
+
+        val monthToInclude = listOf(currentMonth - 5, currentMonth - 4, currentMonth - 3, currentMonth - 2, currentMonth - 1, currentMonth)
+
+        monthToInclude.forEach { month ->
+            val weekData = co2Data.filter { it.calendarWeek == month }
+            if (weekData.isNotEmpty()) {
+                val totalValue = weekData.sumOf { it.co2.toDouble() }.toFloat()
+                val aggregatedData = ConsumptionData("Monat $month", totalValue, month)
+                aggregatedList.addConsumption(aggregatedData)
+            }
+        }
+
+        return aggregatedList
+    }
+
+
+
+
+
+
+
+
     fun map(): List<Map<String, Any>> {
         return co2Data.map { barData ->
             mapOf(
@@ -75,4 +127,16 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
     }
 }
 
-data class ConsumptionData(val dayOfWeek: String, val co2: Float, val calendarWeek: Int)
+data class ConsumptionData(
+    val dayOfWeek: String,
+    val co2: Float,
+    val calendarWeek: Int,
+    val monthNumber: Int,
+    val weekNumber: Int
+) {
+    constructor(
+        dayOfWeek: String,
+        co2: Float,
+        calendarWeek: Int
+    ) : this(dayOfWeek, co2, calendarWeek, 0, 0)
+}
