@@ -45,7 +45,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
                         .padding(4.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = data.dayOfWeek, color = Color.White) // Set text color to white
+                    Text(text = data.dayOfWeek, color = Color.Black)
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()

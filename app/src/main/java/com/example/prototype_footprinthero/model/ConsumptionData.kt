@@ -2,6 +2,7 @@ package com.example.prototype_footprinthero.model
 
 import android.util.Log
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
+import java.util.Calendar
 import kotlin.random.Random
 
 
@@ -55,16 +56,20 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
 
     }
 
-    fun aggregateToWeeks(viewModel: MainViewModel): ConsumptionDataList {
+    fun aggregateWeeksOfMonths(viewModel: MainViewModel): ConsumptionDataList {
         val aggregatedList = ConsumptionDataList(mutableListOf())
 
-        co2Data.groupBy { it.calendarWeek }.forEach { (_, dataList) ->
-            val firstData = dataList.firstOrNull { it.calendarWeek == viewModel.calendarWeek }
-            if (firstData != null) {
-                val totalValue = dataList.sumOf { it.co2.toDouble() }.toFloat()
+        val calendar = Calendar.getInstance()
+        val currentWeek = calendar.get(Calendar.WEEK_OF_YEAR)
 
-                val aggregatedData = ConsumptionData("Woche ${firstData.calendarWeek}", totalValue, firstData.calendarWeek)
+        // Calculate the weeks to include (current week - 3, current week - 2, current week - 1)
+        val weeksToInclude = listOf(currentWeek - 3, currentWeek - 2, currentWeek - 1, currentWeek)
 
+        weeksToInclude.forEach { week ->
+            val weekData = co2Data.filter { it.calendarWeek == week }
+            if (weekData.isNotEmpty()) {
+                val totalValue = weekData.sumOf { it.co2.toDouble() }.toFloat()
+                val aggregatedData = ConsumptionData("Woche $week", totalValue, week)
                 aggregatedList.addConsumption(aggregatedData)
             }
         }
@@ -72,7 +77,8 @@ data class ConsumptionDataList(val co2Data: MutableList<ConsumptionData>) {
         return aggregatedList
     }
 
-    fun aggregateToMonths(viewModel: MainViewModel): ConsumptionDataList {
+
+    fun aggregateMonthOfHalfYear(viewModel: MainViewModel): ConsumptionDataList {
         val aggregatedList = ConsumptionDataList(mutableListOf())
 
         co2Data.groupBy { it.monthNumber }.forEach { (_, dataList) ->

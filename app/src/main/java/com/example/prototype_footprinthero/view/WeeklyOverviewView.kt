@@ -5,19 +5,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,7 +27,7 @@ fun WeeklyOverview(viewModel: MainViewModel) {
     Log.i("WeeklyOverview", "WeeklyOverview start")
 
     val co2DataList by viewModel.co2DataList.collectAsState(ConsumptionDataList(mutableListOf()))
-    val aggregatedDataList = co2DataList.aggregateToWeeks(viewModel)
+    val aggregatedDataList = co2DataList.aggregateWeeksOfMonths(viewModel)
     val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
 
     Column(Modifier.padding(16.dp)) {
@@ -42,7 +39,7 @@ fun WeeklyOverview(viewModel: MainViewModel) {
         )
 
         Row(Modifier.fillMaxWidth()) {
-            aggregatedDataList.co2Data.forEach { data ->
+            aggregatedDataList.co2Data.forEachIndexed { index, data ->
                 Column(
                     modifier = Modifier
                         .weight(1f)
@@ -70,6 +67,10 @@ fun WeeklyOverview(viewModel: MainViewModel) {
                         color = Color.Black,
                         modifier = Modifier.padding(top = 4.dp)
                     )
+                }
+                // Add a separator between bars
+                if (index < aggregatedDataList.co2Data.size - 1) {
+                    Spacer(modifier = Modifier.width(4.dp))
                 }
             }
         }

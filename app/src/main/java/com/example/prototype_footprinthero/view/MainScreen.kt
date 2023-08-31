@@ -1,3 +1,4 @@
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,8 +24,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.R
 import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 import com.example.prototype_footprinthero.view.DayView
 import com.example.prototype_footprinthero.view.MonthlyOverview
@@ -34,6 +38,8 @@ import com.example.prototype_footprinthero.view.WeekdayOverview
 import com.example.prototype_footprinthero.view.WeeklyOverview
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
+
+
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
     var isWeekdayOverviewExpanded by remember { mutableStateOf(true) }
@@ -42,7 +48,23 @@ fun MainScreen(viewModel: MainViewModel) {
 
     Scaffold(
         topBar = {
-            // Leer lassen, um die TopAppBar zu entfernen
+            TopAppBar(
+                backgroundColor = Color.White,
+                elevation = 4.dp
+            ) {
+                /*Image(
+                    painter = painterResource(id = R.drawable.ic_logo), // Hier das Bild für das Logo einfügen
+                    contentDescription = "App Logo",
+                    modifier = Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
+                )*/
+                Text(
+                    text = "Footprint Hero",
+                    modifier = Modifier.padding(start = 8.dp),
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            }
         }
     ) { innerPadding ->
         Column(
