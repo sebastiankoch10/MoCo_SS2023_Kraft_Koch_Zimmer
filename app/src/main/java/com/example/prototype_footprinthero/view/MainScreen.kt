@@ -1,5 +1,7 @@
 package com.example.prototype_footprinthero.view
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,32 +18,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.prototype_footprinthero.ui.theme.Prototype_FootPrintHeroTheme
 import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
+
 @Composable
-fun MainScreen(viewModel: MainViewModel) { //TODO name der App und ganze obere schwarze Balken anpassen
+fun MainScreen(viewModel: MainViewModel) {
     Scaffold(
-       /* topBar = {
+        topBar = {
             TopAppBar(
                 title = {
                     Box(
-                        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Footprint Hero", style = MaterialTheme.typography.h5
+                            text = "Footprint Hero",
+                            style = MaterialTheme.typography.h5,
+                            color = Color.White
                         )
                     }
-                }, backgroundColor = Color(0xFF214001), elevation = 0.dp
+                },
+                backgroundColor = Color(0xFF214001),
+                elevation = 0.dp
             )
         },
-        */
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
                 .fillMaxSize()
+                .background(Color.White) // Set background color to white
         ) {
             TransportationButtonsView(
                 vehicles = viewModel.vehicles,
@@ -53,23 +63,40 @@ fun MainScreen(viewModel: MainViewModel) { //TODO name der App und ganze obere s
                 Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(modifier = Modifier.weight(1f)) {
-                    TransportationDurationView(durationInMinutes = viewModel.duration,
+                    TransportationDurationView(
+                        durationInMinutes = viewModel.duration,
                         onDurationChanged = { duration ->
                             viewModel.onDurationChanged(duration)
-                        })
+                        }
+                    )
                 }
 
                 Button(
                     onClick = { viewModel.calculateCO2() },
-                    modifier = Modifier.padding(start = 8.dp)
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .background(Color(0xFF00FF00)) // Set button background color
                 ) {
-                    Text(text = "Berechnen")
+                    Text(text = "Berechnen", color = Color.White) // Set button text color
                 }
             }
 
             DayView(viewModel)
             WeekdayOverview(viewModel)
         }
+    }
+}
+
+
+
+@SuppressLint("SuspiciousIndentation")
+@Preview(showBackground = true)
+@Composable
+fun PreviewMainScreen() {
+    val viewModel = MainViewModel()
+
+        Prototype_FootPrintHeroTheme {
+        MainScreen(viewModel = viewModel)
     }
 }
 
