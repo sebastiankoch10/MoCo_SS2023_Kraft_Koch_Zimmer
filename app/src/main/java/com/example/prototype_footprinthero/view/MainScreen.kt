@@ -4,16 +4,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,20 +36,13 @@ import com.example.prototype_footprinthero.viewmodel.MainViewModel
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
+    var isWeekdayOverviewExpanded by remember { mutableStateOf(true) }
+    var isWeeklyOverviewExpanded by remember { mutableStateOf(true) }
+    var isMonthlyOverviewExpanded by remember { mutableStateOf(true) }
+
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Footprint Hero",
-                        style = MaterialTheme.typography.h5,
-                        color = Color.White,
-                        modifier = Modifier.padding(16.dp)
-                    )
-                },
-                backgroundColor = Color(0xFF214001),
-                elevation = 0.dp
-            )
+            // Leer lassen, um die TopAppBar zu entfernen
         }
     ) { innerPadding ->
         Column(
@@ -54,12 +53,6 @@ fun MainScreen(viewModel: MainViewModel) {
                 .background(Color.White)
         ) {
             Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "Berechne deinen CO2-Fußabdruck",
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier.padding(16.dp)
-            )
 
             TransportationButtonsView(
                 vehicles = viewModel.vehicles,
@@ -91,19 +84,78 @@ fun MainScreen(viewModel: MainViewModel) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = "Überblick",
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier.padding(16.dp)
-            )
-
             DayView(viewModel)
-            WeekdayOverview(viewModel)
-            WeeklyOverview(viewModel)
-            MonthlyOverview(viewModel)
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = 4.dp
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Button(
+                        onClick = { isWeekdayOverviewExpanded = !isWeekdayOverviewExpanded }
+                    ) {
+                        Text(
+                            text = if (isWeekdayOverviewExpanded) "Wochentagsübersicht ausblenden" else "Wochentagsübersicht anzeigen"
+                        )
+                    }
+
+                    if (isWeekdayOverviewExpanded) {
+                        WeekdayOverview(viewModel)
+                    }
+                }
+            }
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = 4.dp
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Button(
+                        onClick = { isWeeklyOverviewExpanded = !isWeeklyOverviewExpanded }
+                    ) {
+                        Text(
+                            text = if (isWeeklyOverviewExpanded) "Wochenübersicht ausblenden" else "Wochenübersicht anzeigen"
+                        )
+                    }
+
+                    if (isWeeklyOverviewExpanded) {
+                        WeeklyOverview(viewModel)
+                    }
+                }
+            }
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = 4.dp
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Button(
+                        onClick = { isMonthlyOverviewExpanded = !isMonthlyOverviewExpanded }
+                    ) {
+                        Text(
+                            text = if (isMonthlyOverviewExpanded) "Monatsübersicht ausblenden" else "Monatsübersicht anzeigen"
+                        )
+                    }
+
+                    if (isMonthlyOverviewExpanded) {
+                        MonthlyOverview(viewModel)
+                    }
+                }
+            }
         }
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable

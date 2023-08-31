@@ -1,9 +1,12 @@
 package com.example.prototype_footprinthero.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -24,45 +27,50 @@ import com.example.prototype_footprinthero.model.ConsumptionDataList
 
 @Composable
 fun MonthlyOverview(viewModel: MainViewModel) {
-    val co2DataList by viewModel.co2DataList.collectAsState()
-    val aggregatedDataList = co2DataList.aggregateToDaysOfThisWeek(viewModel)
+    Log.i("MonthlyOverview", "MonthlyOverview start")
+
+    val co2DataList by viewModel.co2DataList.collectAsState(ConsumptionDataList(mutableListOf()))
+    val aggregatedDataList = co2DataList.aggregateToMonths(viewModel)
     val maxValue = aggregatedDataList.maxByOrNull { it.co2 }?.co2 ?: 0f
 
-    val months = listOf(
-        "Januar", "Februar", "März", "April",
-        "Mai", "Juni", "Juli", "August",
-        "September", "Oktober", "November", "Dezember"
-    )
-    var selectedMonth by remember { mutableStateOf(0) }
-
     Column(Modifier.padding(16.dp)) {
-        Text(text = "Monatsübersicht", style = MaterialTheme.typography.h6, color = Color.White)
+        Text(
+            text = "Monatsübersicht (Tonne/Monat)",
+            style = MaterialTheme.typography.h6,
+            color = Color.Black,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFD4D93D))
-        ) {
-            DropdownMenu(
-                expanded = false,
-                onDismissRequest = {},
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                months.forEachIndexed { index, month ->
-                    DropdownMenuItem(onClick = { selectedMonth = index }) {
-                        Text(text = month, color = Color.Black)
-                    }
-                }
-            }
-            if (selectedMonth != 0) {
-                Text(
-                    text = months[selectedMonth],
-                    style = MaterialTheme.typography.body1.merge(),
-                    color = Color.Black,
+        Row(Modifier.fillMaxWidth()) {
+            aggregatedDataList.co2Data.forEach { data ->
+                Column(
                     modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.CenterStart)
-                )
+                        .weight(1f)
+                        .padding(4.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Monat ${data.monthNumber}", color = Color.White)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .background(Color(0xFF467302))
+                    ) {
+                        val height = (maxValue - data.co2) / maxValue * 200
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(height.dp)
+                                .background(Color.Black)
+                        )
+                    }
+                    Text(
+                        text = data.co2.toString(),
+                        style = MaterialTheme.typography.body1,
+                        color = Color.Black,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
             }
         }
     }

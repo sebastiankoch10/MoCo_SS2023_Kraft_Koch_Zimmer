@@ -18,6 +18,7 @@ import java.util.Locale
 class MainViewModel : ViewModel() {
     private val firestoreDatabase = FirestoreDatabase()
 
+    var selectedMonth: Int by mutableStateOf(0)
     var isLoggedIn: Boolean by mutableStateOf(false)
         private set
 
@@ -30,11 +31,7 @@ class MainViewModel : ViewModel() {
 
 
     private fun checkCredentials(username: String, password: String): Boolean {
-        // Hier implementierst du die tatsächliche Anmeldeüberprüfungslogik.
-        // Vergleiche die eingegebenen Anmeldeinformationen mit gespeicherten Benutzerdaten
-        // und gib true zurück, wenn die Überprüfung erfolgreich ist, andernfalls false.
 
-        // Zum Beispiel:
         val validUsername = "abc"
         val validPassword = "def"
 

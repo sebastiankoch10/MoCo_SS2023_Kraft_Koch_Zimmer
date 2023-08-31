@@ -31,7 +31,6 @@ class MainActivity : ComponentActivity() {
                     LoginScreen(viewModel = viewModel, onLoginClicked = { username, password ->
                         val isValid = viewModel.performLogin(username, password)
                         if (isValid) {
-                            // Variable isLoggedIn wird automatisch im ViewModel aktualisiert
                         }
                     })
                 }

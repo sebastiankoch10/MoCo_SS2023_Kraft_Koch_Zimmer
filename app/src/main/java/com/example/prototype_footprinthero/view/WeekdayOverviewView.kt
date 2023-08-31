@@ -33,7 +33,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
         Text(
             text = "Wochentagsübersicht (Tonne/Tag)",
             style = MaterialTheme.typography.h6,
-            color = Color.White, // Set text color to white
+            color = Color.Black,
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
@@ -63,7 +63,7 @@ fun WeekdayOverview(viewModel: MainViewModel) {
                     Text(
                         text = data.co2.toString(),
                         style = MaterialTheme.typography.body1,
-                        color = Color.Black, // Set text color to white
+                        color = Color.Black,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
