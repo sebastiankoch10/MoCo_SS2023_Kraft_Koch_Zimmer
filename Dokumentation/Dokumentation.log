@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  31 AUG 2023 19:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.7)  31 AUG 2023 19:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -406,36 +406,18 @@ die zur Spe-icherung
  []
 
 [6] [7]
-Overfull \hbox (8.32458pt too wide) in paragraph at lines 337--338
-[]\OT1/cmr/m/n/10 Urspr^^?unglich war un-sere App-Idee wesentlich um-fan-gre-ic
-her ge-plant. Allerd-
+Overfull \hbox (1.46347pt too wide) in paragraph at lines 338--339
+\OT1/cmr/m/n/10 getestet oder er-stellt wer-den kon-nten. Teil-weise wur-den Au
+f-gaben von Einzelper-
  []
 
 [8]
-Overfull \hbox (2.99124pt too wide) in paragraph at lines 341--342
-\OT1/cmr/m/n/10 mu-nika-tion-sprob-leme noch zus^^?atzlich er-schw-ert wurde. L
-ei-der wurde dieses
- []
-
-
-Overfull \hbox (0.91718pt too wide) in paragraph at lines 345--346
-\OT1/cmr/m/n/10 der entsprechen-den Kom-po-nen-ten durch einen An-pas-sung der 
-entsprechen-
- []
-
-
-Overfull \hbox (4.9451pt too wide) in paragraph at lines 345--346
-\OT1/cmr/m/n/10 bei der Reak-tion auf die No-ti-fi-ca-tions vo-raus gelegt But-
-tonauswahl anzeigen 
- []
-
-[9]
-Overfull \hbox (30.36176pt too wide) in paragraph at lines 402--403
+Overfull \hbox (30.36176pt too wide) in paragraph at lines 379--380
 \OT1/cmr/m/n/10 undliche Be-nutze-r-oberfl^^?ache, die ein-fache CO2-Berechnung
  und -Verfolgung erm^^?oglicht.
  []
 
-[10] (Dokumentation.aux)
+[9] [10] (Dokumentation.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-06-30>
@@ -460,7 +442,7 @@ eX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Dokumentation.pdf (10 pages, 505681 bytes).
+Output written on Dokumentation.pdf (10 pages, 504764 bytes).
 PDF statistics:
  252 PDF objects out of 1000 (max. 8388607)
  112 named destinations out of 1000 (max. 500000)
