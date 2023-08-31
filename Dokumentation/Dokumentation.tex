@@ -120,10 +120,23 @@ Die \textbf{Footprint Hero} App bietet eine Reihe von Funktionen, die den Benutz
             
              Der LoginScreen ist der Startpunkt der App. Hier können Benutzer ihre Anmeldeinformationen eingeben, um Zugriff auf die Funktionalitäten der App zu erhalten. Der Login-Bildschirm stellt sicher, dass die persönlichen Daten und CO2-Berechnungen eines Benutzers privat und sicher bleiben.
 
-    xxxx:
     
     \begin{lstlisting}
-   \textcolor{red}{ToDo}
+  fun performLogin(username: String, password: String): Boolean {
+        Log.d("MainViewModel.performLogin", "performLogin called with Username: $username, Password: $password")
+        val isValidCredentials = checkCredentials(username, password)
+        isLoggedIn = isValidCredentials
+        return isValidCredentials
+    }
+
+
+    private fun checkCredentials(username: String, password: String): Boolean {
+
+        val validUsername = "abc"
+        val validPassword = "def"
+
+        return username == validUsername && password == validPassword
+    }
    
    
     \end{lstlisting}
